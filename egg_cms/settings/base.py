@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'home',
     'search',
+    'events',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -46,7 +47,9 @@ INSTALLED_APPS = [
     'wagtail.wagtailsearch',
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
+    'wagtail.api.v2',
 
+    'rest_framework',  # For Dev
     'modelcluster',
     'taggit',
 
