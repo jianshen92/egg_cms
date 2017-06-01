@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'home',
     'search',
     'events',
+    'branding',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
