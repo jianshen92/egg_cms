@@ -25,9 +25,12 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 SECRET_KEY = '49klnoe_%z+#vs=5wp37qp8=sv93i#a_u9k0#ut6$%r4-)+4mx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = []
+if DEBUG:
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -35,6 +38,7 @@ INSTALLED_APPS = [
     'home',
     'search',
     'events',
+    'branding',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -101,10 +105,21 @@ WSGI_APPLICATION = 'egg_cms.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'egg_cms',
+        'USER': 'root',
+        'PASSWORD': 'DD1010sph',
+        'HOST': '',
+        'PORT': '3306',
     }
 }
 
