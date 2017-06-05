@@ -20,13 +20,23 @@ class EventIndexPage(Page):
     content_panels = Page.content_panels
 
 class EventPage(Page):
-    description = models.CharField(max_length=1000)
+    description = models.CharField(
+        max_length=1000,
+        help_text='Description for the event. Maximum 1000 words'
+    )
     start_date = models.DateField("Start Date")
     end_date = models.DateField("End Date")
     banner = models.ForeignKey(
         'wagtailimages.Image' ,blank=True, null=True, on_delete=models.SET_NULL, related_name='banner'
     )
     web_url = models.URLField(max_length=200)
+    programme_id = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        help_text='Programme ID for Astro TV broadcast.'
+
+    )
 
     def base_url(self):
         return socket.gethostbyname(socket.gethostname())
@@ -40,6 +50,7 @@ class EventPage(Page):
         # Adds a URL to a rendered thumbnail of the image to the API
         APIField('banner_url', serializer=ImageRenditionField('original', source='banner')),
         APIField('web_url'),
+        APIField('programme_id'),
         APIField('base_url'),
 
     ]
@@ -55,6 +66,7 @@ class EventPage(Page):
             heading="Event Dates",
         ),
         FieldPanel('web_url'),
+        FieldPanel('programme_id'),
         ImageChooserPanel('banner'),
     ]
 
