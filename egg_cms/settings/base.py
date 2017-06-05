@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'rest_framework',  # For Dev
     'modelcluster',
     'taggit',
+    'corsheaders',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -67,6 +68,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -74,6 +78,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
@@ -164,4 +169,8 @@ WAGTAIL_SITE_NAME = "egg_cms"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
 LOGIN_REDIRECT_URL = 'wagtailadmin_home'
+
+# CORS setting
+CORS_ORIGIN_ALLOW_ALL = True
