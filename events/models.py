@@ -20,9 +20,15 @@ class EventIndexPage(Page):
     content_panels = Page.content_panels
 
 class EventPage(Page):
+    short_description = models.CharField(
+        blank=True,
+        null=True,
+        max_length=200,
+        help_text='Short Description to be display at the banner. Maximum 200 words'
+    )
     description = models.CharField(
-        max_length=1000,
-        help_text='Description for the event. Maximum 1000 words'
+        max_length=5000,
+        help_text='Description for the event. Maximum 5000 words'
     )
     start_date = models.DateField("Start Date")
     end_date = models.DateField("End Date")
@@ -57,6 +63,7 @@ class EventPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('description',classname='full',widget=forms.Textarea),
+        FieldPanel('short_description'),
 
         MultiFieldPanel(
             [
