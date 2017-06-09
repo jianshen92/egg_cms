@@ -8,6 +8,8 @@ from wagtail.wagtailimages.models import Image
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.api.fields import ImageRenditionField
+from wagtail.wagtailcore.fields import RichTextField
+from django.shortcuts import HttpResponseRedirect
 
 from wagtail.api import APIField
 from django.conf import settings
@@ -26,8 +28,7 @@ class EventPage(Page):
         max_length=200,
         help_text='Short Description to be display at the banner. Maximum 200 words'
     )
-    description = models.CharField(
-        max_length=5000,
+    description = RichTextField(
         help_text='Description for the event. Maximum 5000 words'
     )
     start_date = models.DateField("Start Date")
@@ -41,7 +42,6 @@ class EventPage(Page):
         blank=True,
         null=True,
         help_text='Programme ID for Astro TV broadcast.'
-
     )
 
     def base_url(self):
@@ -62,7 +62,7 @@ class EventPage(Page):
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('description',classname='full',widget=forms.Textarea),
+        FieldPanel('description',classname='full'),
         FieldPanel('short_description'),
 
         MultiFieldPanel(
