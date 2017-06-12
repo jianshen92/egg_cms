@@ -36,6 +36,7 @@ else:
 
 INSTALLED_APPS = [
     'home',
+    'base',
     'search',
     'events',
     'branding',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'wagtail.wagtailsearch',
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
+    'wagtail.contrib.modeladmin',
     'wagtail.api.v2',
 
     'rest_framework',  # For Dev

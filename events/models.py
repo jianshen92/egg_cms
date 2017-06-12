@@ -3,9 +3,12 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django import forms
-from wagtail.wagtailcore.models import Page
+
+from modelcluster.fields import ParentalKey
+
+from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailimages.models import Image
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.api.fields import ImageRenditionField
 from wagtail.wagtailcore.fields import RichTextField
@@ -16,12 +19,40 @@ from django.conf import settings
 import socket
 
 # Create your models here.
+class EventTwitchRelationship(Orderable, models.Model):
+    """
+    This defines the relationship between the `People` within the `base`
+    app and the BlogPage below. This allows People to be added to a BlogPage.
+
+    We have created a two way relationship between BlogPage and People using
+    the ParentalKey and ForeignKey
+    """
+    page = ParentalKey(
+        'EventPage', related_name='event_twitch_relationship'
+    )
+
+    twitch = models.ForeignKey(
+        'base.TwitchChannel', related_name='twitch_event_relationship'
+    )
+
+
+    # panels = [
+    #     SnippetChooserPanel('people')
+    # ]
+
 class EventIndexPage(Page):
     subpage_types = ['EventPage']
 
     content_panels = Page.content_panels
 
 class EventPage(Page):
+
+    def serve(self, request):
+        # return HttpResponseRedirect('http://staging.egg.network/events/' + self.slug)
+        # return HttpResponseRedirect('http://egg.network/events/' + self.slug)
+        return HttpResponseRedirect('http://localhost:1337/events/' + self.slug)
+
+
     short_description = models.CharField(
         blank=True,
         null=True,
@@ -47,6 +78,20 @@ class EventPage(Page):
     def base_url(self):
         return socket.gethostbyname(socket.gethostname())
 
+    def twitch_channels(self):
+        """
+        Returns the BlogPage's related People. Again note that we are using
+        the ParentalKey's related_name from the BlogPeopleRelationship model
+        to access these objects. This allows us to access the People objects
+        with a loop on the template. If we tried to access the blog_person_
+        relationship directly we'd print `blog.BlogPeopleRelationship.None`
+        """
+        twitch_channels = [
+            { 'title' : n.twitch.channel_title, 'name': n.twitch.channel_name} for n in self.event_twitch_relationship.all()
+        ]
+
+        return twitch_channels
+
     # Export fields over the API
     api_fields = [
         APIField('description'),
@@ -58,6 +103,7 @@ class EventPage(Page):
         APIField('web_url'),
         APIField('programme_id'),
         APIField('base_url'),
+        APIField('twitch_channels'),
 
     ]
 
@@ -74,6 +120,9 @@ class EventPage(Page):
         ),
         FieldPanel('web_url'),
         FieldPanel('programme_id'),
+        InlinePanel(
+            'event_twitch_relationship', label="Twitch Channel(s)",
+            panels=None, min_num=0),
         ImageChooserPanel('banner'),
     ]
 
