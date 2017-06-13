@@ -5,7 +5,8 @@ import os
 import sys
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "egg_cms.settings.dev")
+    # Use VirtualEnv instead
+    # os.environ.setdefault("DJANGO_SETTINGS_MODULE", "egg_cms.settings.dev")
 
     from django.core.management import execute_from_command_line
 
