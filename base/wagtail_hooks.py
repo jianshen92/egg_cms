@@ -1,6 +1,9 @@
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, modeladmin_register)
 
+from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
+
 from models import TwitchChannel
 
 class TwitchChannelAdmin(ModelAdmin):
@@ -10,3 +13,10 @@ class TwitchChannelAdmin(ModelAdmin):
     list_display = ('channel_title', 'channel_name')
 
 modeladmin_register(TwitchChannelAdmin)
+
+@hooks.register('construct_whitelister_element_rules')
+def whitelister_element_rules():
+    return {
+        'blockquote': allow_without_attributes,
+        # 'a': attribute_rule({'href': check_url, 'target': True}),
+    }

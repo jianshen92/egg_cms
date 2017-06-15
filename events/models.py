@@ -11,7 +11,7 @@ from wagtail.wagtailimages.models import Image
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.api.fields import ImageRenditionField
-from wagtail.wagtailcore.fields import RichTextField
+from wagtail.wagtailcore.fields import RichTextField, StreamField
 from django.shortcuts import HttpResponseRedirect
 
 from wagtail.api import APIField

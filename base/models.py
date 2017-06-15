@@ -14,6 +14,8 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.api import APIField
 
+from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
+
 # Create your models here.
 @register_snippet
 class TwitchChannel(ClusterableModel):
@@ -50,3 +52,30 @@ class TwitchChannel(ClusterableModel):
     class Meta:
         verbose_name = 'Twitch Channel'
         verbose_name_plural = 'Twitch Channels'
+
+class CustomImage(AbstractImage):
+    # Add any extra fields to image here
+
+    admin_form_fields = Image.admin_form_fields + (
+        # Then add the field names here to make them appear in the form:
+        # 'caption',
+    )
+
+    api_fields = [
+        APIField('file')
+    ]
+
+class CustomRendition(AbstractRendition):
+    image = models.ForeignKey(CustomImage, related_name='renditions')
+
+    class Meta:
+        unique_together = (
+            ('image', 'filter_spec', 'focal_point_key'),
+        )
+
+
+
+
+
+
+
