@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django import forms
+from django.shortcuts import HttpResponseRedirect
 
 from modelcluster.fields import ParentalKey
 
@@ -10,13 +11,18 @@ from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailimages.api.fields import ImageRenditionField
 from wagtail.wagtailcore.fields import RichTextField, StreamField
-from django.shortcuts import HttpResponseRedirect
+
 
 from wagtail.api import APIField
 from django.conf import settings
+
+from base.models import CustomImage
+
 import socket
+from bs4 import BeautifulSoup
 
 # Create your models here.
 class EventTwitchRelationship(Orderable, models.Model):
@@ -36,9 +42,9 @@ class EventTwitchRelationship(Orderable, models.Model):
     )
 
 
-    # panels = [
-    #     SnippetChooserPanel('people')
-    # ]
+    panels = [
+        SnippetChooserPanel('twitch')
+    ]
 
 class EventIndexPage(Page):
     subpage_types = ['EventPage']
@@ -79,22 +85,35 @@ class EventPage(Page):
         return socket.gethostbyname(socket.gethostname())
 
     def twitch_channels(self):
-        """
-        Returns the BlogPage's related People. Again note that we are using
-        the ParentalKey's related_name from the BlogPeopleRelationship model
-        to access these objects. This allows us to access the People objects
-        with a loop on the template. If we tried to access the blog_person_
-        relationship directly we'd print `blog.BlogPeopleRelationship.None`
-        """
         twitch_channels = [
             { 'title' : n.twitch.channel_title, 'name': n.twitch.channel_name} for n in self.event_twitch_relationship.all()
         ]
 
         return twitch_channels
 
+    def description_replace_embed(self):
+        """
+        Function to replace embed tag in richtext to image tag. Also add image source to it.
+
+        """
+        bs = BeautifulSoup(self.description, "html.parser")
+        while True:
+            embed = bs.find("embed")
+            if not embed:
+                break
+
+            id = embed['id']
+            image_object = CustomImage.objects.get(pk=id)
+            embed['src'] = '%s%s' % (settings.SITE_URL,image_object.file.url)
+
+            embed.name = 'img'
+
+        return str(bs)
+
     # Export fields over the API
     api_fields = [
         APIField('description'),
+        APIField('description_replace_embed'),
         APIField('start_date'),
         APIField('end_date'),
         APIField('banner'),
