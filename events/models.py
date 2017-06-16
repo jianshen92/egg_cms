@@ -104,21 +104,30 @@ class EventPage(Page):
 
             id = embed['id']
             image_object = CustomImage.objects.get(pk=id)
-            embed['src'] = '%s%s' % (settings.SITE_URL,image_object.file.url)
+            embed['src'] = image_object.file.url
 
             embed.name = 'img'
 
         return str(bs)
 
+    def banner_url(self):
+        if(self.banner):
+            id = self.banner.id
+            image_object = CustomImage.objects.get(pk=id)
+
+            return image_object.file.url
+
     # Export fields over the API
     api_fields = [
         APIField('description'),
-        APIField('description_replace_embed'),
+        # APIField('description_replace_embed'),
         APIField('start_date'),
         APIField('end_date'),
         APIField('banner'),
+        APIField('banner_url'),
         # Adds a URL to a rendered thumbnail of the image to the API
-        APIField('banner_url', serializer=ImageRenditionField('original', source='banner')),
+        # APIField('banner_url', serializer=ImageRenditionField('original', source='banner')),
+
         APIField('web_url'),
         APIField('programme_id'),
         APIField('base_url'),
