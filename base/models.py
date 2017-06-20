@@ -13,6 +13,10 @@ from wagtail.wagtailcore.models import Collection, Page
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.api import APIField
+from django.conf import settings
+
+
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
 
@@ -53,29 +57,67 @@ class TwitchChannel(ClusterableModel):
         verbose_name = 'Twitch Channel'
         verbose_name_plural = 'Twitch Channels'
 
-class CustomImage(AbstractImage):
-    # Add any extra fields to image here
+@register_snippet
+class Author(ClusterableModel):
 
-    admin_form_fields = Image.admin_form_fields + (
-        # Then add the field names here to make them appear in the form:
-        # 'caption',
+    first_name = models.CharField("First name", max_length=254)
+    last_name = models.CharField("Last name", max_length=254)
+    nick_name = models.CharField("Nickname", max_length=254)
+
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
     )
 
-    api_fields = [
-        APIField('file')
+    panels = [
+        FieldPanel('first_name', classname="col6"),
+        FieldPanel('last_name', classname="col6"),
+        FieldPanel('nick_name'),
+        ImageChooserPanel('image')
     ]
 
-class CustomRendition(AbstractRendition):
-    image = models.ForeignKey(CustomImage, related_name='renditions')
+    search_fields = Page.search_fields + [
+        index.SearchField('nick_name'),
+        index.SearchField('first_name'),
+        index.SearchField('last_name'),
+    ]
+
+    def __str__(self):
+        return '{}'.format(self.nick_name)
+
+    @property
+    def profile_image_url(self):
+        if(self.image):
+            id = self.image.id
+            image_object = Image.objects.get(pk=id)
+
+            return '%s%s' % (settings.SITE_URL, image_object.file.url)
 
     class Meta:
-        unique_together = (
-            ('image', 'filter_spec', 'focal_point_key'),
-        )
+        verbose_name = 'Author'
+        verbose_name_plural = 'Authors'
 
 
-
-
-
-
+# class CustomImage(AbstractImage):
+#     # Add any extra fields to image here
+#
+#     admin_form_fields = Image.admin_form_fields + (
+#         # Then add the field names here to make them appear in the form:
+#         # 'caption',
+#     )
+#
+#     api_fields = [
+#         APIField('file')
+#     ]
+#
+# class CustomRendition(AbstractRendition):
+#     image = models.ForeignKey(CustomImage, related_name='renditions')
+#
+#     class Meta:
+#         unique_together = (
+#             ('image', 'filter_spec', 'focal_point_key'),
+#         )
 

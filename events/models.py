@@ -19,7 +19,8 @@ from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.api import APIField
 from django.conf import settings
 
-from base.models import CustomImage
+# from base.models import CustomImage
+from base.utils import html_replace_embed
 
 import socket
 from bs4 import BeautifulSoup
@@ -81,8 +82,12 @@ class EventPage(Page):
         help_text='Programme ID for Astro TV broadcast.'
     )
 
-    def base_url(self):
-        return socket.gethostbyname(socket.gethostname())
+    def description_replace_embed(self):
+        text = html_replace_embed(self.description)
+        return text
+
+    # def base_url(self):
+    #     return socket.gethostbyname(socket.gethostname())
 
     def twitch_channels(self):
         twitch_channels = [
@@ -91,46 +96,48 @@ class EventPage(Page):
 
         return twitch_channels
 
-    def description_replace_embed(self):
-        """
-        Function to replace embed tag in richtext to image tag. Also add image source to it.
-
-        """
-        bs = BeautifulSoup(self.description, "html.parser")
-        while True:
-            embed = bs.find("embed")
-            if not embed:
-                break
-
-            id = embed['id']
-            image_object = CustomImage.objects.get(pk=id)
-            embed['src'] = image_object.file.url
-
-            embed.name = 'img'
-
-        return str(bs)
+    # def description_replace_embed(self):
+    #     """
+    #     Function to replace embed tag in richtext to image tag. Also add image source to it.
+    #
+    #     """
+    #     bs = BeautifulSoup(self.description, "html.parser")
+    #     while True:
+    #         embed = bs.find("embed")
+    #         if not embed:
+    #             break
+    #
+    #         id = embed['id']
+    #         image_object = CustomImage.objects.get(pk=id)
+    #         embed['src'] = '%s%s' % (settings.SITE_URL,image_object.file.url)
+    #
+    #         embed.name = 'img'
+    #
+    #     text_bs = str(bs).decode("utf8")
+    #
+    #     return text_bs
 
     def banner_url(self):
         if(self.banner):
             id = self.banner.id
-            image_object = CustomImage.objects.get(pk=id)
+            image_object = Image.objects.get(pk=id)
 
-            return image_object.file.url
+            return '%s%s' % (settings.SITE_URL, image_object.file.url)
 
     # Export fields over the API
     api_fields = [
         APIField('description'),
-        # APIField('description_replace_embed'),
+        APIField('description_replace_embed'),
         APIField('start_date'),
         APIField('end_date'),
         APIField('banner'),
         APIField('banner_url'),
         # Adds a URL to a rendered thumbnail of the image to the API
-        # APIField('banner_url', serializer=ImageRenditionField('original', source='banner')),
+        # APIField('banner_url', serializer=ImageRenditionField('fill-100x100', source='banner')),
 
         APIField('web_url'),
         APIField('programme_id'),
-        APIField('base_url'),
+        # APIField('base_url'),
         APIField('twitch_channels'),
 
     ]
