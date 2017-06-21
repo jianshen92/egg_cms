@@ -54,7 +54,11 @@ class ArticlePage(Page):
     def serve(self, request):
         # return HttpResponseRedirect('http://staging.egg.network/events/' + self.slug)
         # return HttpResponseRedirect('http://egg.network/events/' + self.slug)
-        return HttpResponseRedirect('http://localhost:1337/articles/' + self.slug)
+        # return HttpResponseRedirect('http://localhost:1337/articles/' + self.slug)
+        if self.article_type == 'N':
+            return HttpResponseRedirect('http://egg.network/news/' + self.slug)
+        elif self.article_type == 'P':
+            return HttpResponseRedirect('http://egg.network/press/' + self.slug)
 
     ARTICLE_TYPE = (
         ('N', 'News'),

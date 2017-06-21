@@ -56,8 +56,8 @@ class EventPage(Page):
 
     def serve(self, request):
         # return HttpResponseRedirect('http://staging.egg.network/events/' + self.slug)
-        # return HttpResponseRedirect('http://egg.network/events/' + self.slug)
-        return HttpResponseRedirect('http://localhost:1337/events/' + self.slug)
+        return HttpResponseRedirect('http://egg.network/events/' + self.slug)
+        # return HttpResponseRedirect('http://localhost:1337/events/' + self.slug)
 
 
     short_description = models.CharField(
