@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
 
     url(r'^search/$', search_views.search, name='search'),
+    url(r'^api/base/', include('base.urls')),
     url(r'^api/', api_router.urls),
 
     # For anything not caught by a more specific rule above, hand over to

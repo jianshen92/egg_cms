@@ -7,6 +7,7 @@ from django.shortcuts import HttpResponseRedirect
 
 from modelcluster.fields import ParentalKey
 
+from wagtail.wagtailsearch import index
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
@@ -27,13 +28,6 @@ from bs4 import BeautifulSoup
 
 # Create your models here.
 class EventTwitchRelationship(Orderable, models.Model):
-    """
-    This defines the relationship between the `People` within the `base`
-    app and the BlogPage below. This allows People to be added to a BlogPage.
-
-    We have created a two way relationship between BlogPage and People using
-    the ParentalKey and ForeignKey
-    """
     page = ParentalKey(
         'EventPage', related_name='event_twitch_relationship'
     )
@@ -42,9 +36,21 @@ class EventTwitchRelationship(Orderable, models.Model):
         'base.TwitchChannel', related_name='twitch_event_relationship'
     )
 
-
     panels = [
         SnippetChooserPanel('twitch')
+    ]
+
+class EventYoutubeRelationship(Orderable, models.Model):
+    page = ParentalKey(
+        'EventPage', related_name='event_youtube_relationship'
+    )
+
+    youtube = models.ForeignKey(
+        'base.YoutubeChannel', related_name='youtube_event_relationship'
+    )
+
+    panels = [
+        SnippetChooserPanel('youtube')
     ]
 
 class EventIndexPage(Page):
@@ -91,10 +97,24 @@ class EventPage(Page):
 
     def twitch_channels(self):
         twitch_channels = [
-            { 'title' : n.twitch.channel_title, 'name': n.twitch.channel_name} for n in self.event_twitch_relationship.all()
+            { 'title' : n.twitch.channel_title,
+              'name': n.twitch.channel_name,
+              'subscribe' : n.twitch.subscribe
+              } for n in
+            self.event_twitch_relationship.all()
         ]
 
         return twitch_channels
+
+    def youtube_channels(self):
+        youtube_channels = [
+            {'title': n.youtube.channel_title,
+             'id': n.youtube.channel_id,
+             'subscribe' : n.youtube.subscribe
+             } for n in
+            self.event_youtube_relationship.all()
+        ]
+        return youtube_channels
 
     # def description_replace_embed(self):
     #     """
@@ -139,7 +159,7 @@ class EventPage(Page):
         APIField('programme_id'),
         # APIField('base_url'),
         APIField('twitch_channels'),
-
+        APIField('youtube_channels'),
     ]
 
     content_panels = Page.content_panels + [
@@ -158,7 +178,15 @@ class EventPage(Page):
         InlinePanel(
             'event_twitch_relationship', label="Twitch Channel(s)",
             panels=None, min_num=0),
+        InlinePanel(
+            'event_youtube_relationship', label="Youtube Channel(s)",
+            panels=None, min_num=0),
         ImageChooserPanel('banner'),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField('description'),
+        index.FilterField('start_date'),
     ]
 
     subpage_types = []

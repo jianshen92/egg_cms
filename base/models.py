@@ -23,9 +23,8 @@ from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
 # Create your models here.
 @register_snippet
 class TwitchChannel(ClusterableModel):
-
     channel_title = models.CharField(
-        help_text='Verbose of the Channel',
+        help_text='Verbose Name of the Channel',
         max_length=254
     )
     channel_name = models.CharField(
@@ -33,9 +32,12 @@ class TwitchChannel(ClusterableModel):
         max_length=100
     )
 
+    subscribe = models.BooleanField(default=False)
+
     panels = [
         FieldPanel('channel_title'),
         FieldPanel('channel_name'),
+        FieldPanel('subscribe'),
     ]
 
     search_fields = Page.search_fields + [
@@ -45,7 +47,8 @@ class TwitchChannel(ClusterableModel):
 
     api_fields =[
         APIField('channel_title'),
-        APIField('channel_name')
+        APIField('channel_name'),
+        APIField('subscribe')
     ]
 
 
@@ -56,6 +59,45 @@ class TwitchChannel(ClusterableModel):
     class Meta:
         verbose_name = 'Twitch Channel'
         verbose_name_plural = 'Twitch Channels'
+
+@register_snippet
+class YoutubeChannel(ClusterableModel):
+    channel_title = models.CharField(
+        help_text='Verbose Name of the Channel',
+        max_length=254
+    )
+    channel_id = models.CharField(
+        help_text='Channel id',
+        max_length=100
+    )
+
+    subscribe = models.BooleanField(default=False)
+
+    panels = [
+        FieldPanel('channel_title'),
+        FieldPanel('channel_id'),
+        FieldPanel('subscribe'),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField('first_name'),
+        index.SearchField('last_name'),
+    ]
+
+    api_fields =[
+        APIField('channel_title'),
+        APIField('channel_id'),
+        APIField('subscribe'),
+    ]
+
+
+    # As the key for this object
+    def __str__(self):
+        return '{}'.format(self.channel_title)
+
+    class Meta:
+        verbose_name = 'Youtube Channel'
+        verbose_name_plural = 'Youtube Channels'
 
 @register_snippet
 class Author(ClusterableModel):
