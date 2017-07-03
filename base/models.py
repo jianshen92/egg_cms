@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 from modelcluster.models import ClusterableModel
+from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel,
@@ -32,12 +33,15 @@ class TwitchChannel(ClusterableModel):
         max_length=100
     )
 
+    genre = ParentalKey('GameGenre', related_name='twitch_channel', blank=True, null=True)
+
     subscribe = models.BooleanField(default=False)
 
     panels = [
         FieldPanel('channel_title'),
         FieldPanel('channel_name'),
         FieldPanel('subscribe'),
+        FieldPanel('genre'),
     ]
 
     search_fields = Page.search_fields + [
@@ -48,7 +52,8 @@ class TwitchChannel(ClusterableModel):
     api_fields =[
         APIField('channel_title'),
         APIField('channel_name'),
-        APIField('subscribe')
+        APIField('subscribe'),
+        APIField('genre'),
     ]
 
 
@@ -71,12 +76,15 @@ class YoutubeChannel(ClusterableModel):
         max_length=100
     )
 
+    genre = ParentalKey('GameGenre', related_name='youtube_channel', blank=True, null=True)
+
     subscribe = models.BooleanField(default=False)
 
     panels = [
         FieldPanel('channel_title'),
         FieldPanel('channel_id'),
         FieldPanel('subscribe'),
+        FieldPanel('genre'),
     ]
 
     search_fields = Page.search_fields + [
@@ -88,6 +96,7 @@ class YoutubeChannel(ClusterableModel):
         APIField('channel_title'),
         APIField('channel_id'),
         APIField('subscribe'),
+        APIField('genre')
     ]
 
 
@@ -98,6 +107,33 @@ class YoutubeChannel(ClusterableModel):
     class Meta:
         verbose_name = 'Youtube Channel'
         verbose_name_plural = 'Youtube Channels'
+
+@register_snippet
+class GameGenre(ClusterableModel):
+    genre = models.CharField(
+        help_text='Game Genre',
+        max_length=254
+    )
+
+    api_fields = [
+        APIField('genre'),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField('genre'),
+    ]
+
+    panels = [
+        FieldPanel('genre'),
+    ]
+
+    # As the key for this object
+    def __str__(self):
+        return '{}'.format(self.genre)
+
+    class Meta:
+        verbose_name = 'Game Genre'
+        verbose_name_plural = 'Game Genres'
 
 @register_snippet
 class Author(ClusterableModel):

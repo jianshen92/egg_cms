@@ -4,7 +4,7 @@ from wagtail.contrib.modeladmin.options import (
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
 
-from models import TwitchChannel, YoutubeChannel, Author
+from models import TwitchChannel, YoutubeChannel, Author, GameGenre
 
 class TwitchChannelAdmin(ModelAdmin):
     model = TwitchChannel
@@ -22,11 +22,16 @@ class YoutubeChannelAdmin(ModelAdmin):
 
 # modeladmin_register(YoutubeChannelAdmin)
 
+class GameGenreAdmin(ModelAdmin):
+    model = GameGenre
+    menu_icon = 'fa-gamepad'
+    # list_display = 'genre'
+
 class ChannelAdminGroup(ModelAdminGroup):
     menu_label = 'Live Stream'
     menu_icon = 'media'  # change as required
     menu_order = 200
-    items = (TwitchChannelAdmin, YoutubeChannelAdmin)
+    items = (TwitchChannelAdmin, YoutubeChannelAdmin, GameGenreAdmin)
 
 modeladmin_register(ChannelAdminGroup)
 
