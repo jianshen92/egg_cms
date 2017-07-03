@@ -9,6 +9,8 @@ from django.shortcuts import HttpResponseRedirect
 
 from wagtail.api import APIField
 
+from base.models import YoutubeChannel
+
 class HomePage(Page):
     def serve(self, request):
         return HttpResponseRedirect('/admin')
@@ -19,11 +21,16 @@ class HomePage(Page):
         return super(HomePage, cls).can_create_at(parent) \
                and not cls.objects.exists()
 
-    live_youtube_id = models.CharField(
-        help_text='Channel ID of youtube channel',
-        max_length=100,
-        blank=True,
-        null=True
+    @property
+    def live_id(self):
+        if(self.live_youtube_channel):
+            id = self.live_youtube_channel.id
+            channel_obj = YoutubeChannel.objects.get(pk=id)
+
+            return channel_obj.channel_id
+
+    live_youtube_channel = models.ForeignKey(
+        'base.YoutubeChannel' ,blank=True, null=True, on_delete=models.SET_NULL, related_name='home_live_youtube'
     )
 
     live_title = models.CharField(
@@ -39,13 +46,13 @@ class HomePage(Page):
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel('live_youtube_id'),
+        FieldPanel('live_youtube_channel'),
         FieldPanel('live_title'),
         FieldPanel('embed'),
     ]
 
     api_fields = [
-        APIField('live_youtube_id'),
+        APIField('live_id'),
         APIField('live_title'),
         APIField('embed'),
     ]
