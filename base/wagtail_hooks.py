@@ -10,7 +10,8 @@ class TwitchChannelAdmin(ModelAdmin):
     model = TwitchChannel
     # menu_label = 'People'  # ditch this to use verbose_name_plural from model
     menu_icon = 'fa-twitch'  # change as required
-    list_display = ('subscribe','channel_title')
+    list_display = ('subscribe','channel_title', 'genre')
+    search_fields = ('channel_title', 'genre__genre', )
 
 # modeladmin_register(TwitchChannelAdmin)
 
@@ -18,7 +19,8 @@ class YoutubeChannelAdmin(ModelAdmin):
     model = YoutubeChannel
     # menu_label = 'People'  # ditch this to use verbose_name_plural from model
     menu_icon = 'fa-youtube-play'  # change as required
-    list_display = ('subscribe','channel_title')
+    list_display = ('subscribe','channel_title', 'genre')
+    search_fields = ('channel_title', 'genre__genre', )
 
 # modeladmin_register(YoutubeChannelAdmin)
 
