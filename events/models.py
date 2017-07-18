@@ -137,7 +137,7 @@ class EventPage(Page):
     #
     #     return text_bs
 
-    def banner_url(self):
+    def thumbnail_url(self):
         if(self.banner):
             id = self.banner.id
             image_object = Image.objects.get(pk=id)
@@ -151,7 +151,7 @@ class EventPage(Page):
         APIField('start_date'),
         APIField('end_date'),
         APIField('banner'),
-        APIField('banner_url'),
+        APIField('thumbnail_url'),
         # Adds a URL to a rendered thumbnail of the image to the API
         # APIField('banner_url', serializer=ImageRenditionField('fill-100x100', source='banner')),
 
