@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'events',
     'branding',
     'articles',
+    'programme',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
