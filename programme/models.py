@@ -15,12 +15,14 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailimages.api.fields import ImageRenditionField
 from wagtail.wagtailcore.fields import RichTextField, StreamField
+from django.conf import settings
 
 from wagtail.wagtailcore.models import Orderable, Page
 from modelcluster.fields import ParentalKey
 
 from wagtail.api import APIField
 
+from base.utils import html_replace_embed, get_wagtail_image_url
 
 # The abstract model for related links, complete with panels
 class YoutubeEpisodes(models.Model):
@@ -73,11 +75,30 @@ class ProgrammePage(Page):
         'wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='programme_banner'
     )
 
+    thumbnail = models.ForeignKey(
+        'wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='programme_thumbnail'
+    )
+
     # Get Youtube Episodes
     def episodes(self):
         episodes = [n.episode_ID for n in self.youtube_episode.all() ]
 
         return episodes
+
+    # Get Thumbnail Url from FK
+    def thumbnail_url(self):
+        if(self.thumbnail):
+            return get_wagtail_image_url(self.thumbnail)
+
+    # Get Banner Url from FK
+    def banner_url(self):
+        if(self.banner):
+            return get_wagtail_image_url(self.banner)
+
+    # Replace Embedded Tag on Rich Text
+    def description_replace_embed(self):
+        text = html_replace_embed(self.description)
+        return text
 
     content_panels = Page.content_panels + [
 
@@ -92,14 +113,17 @@ class ProgrammePage(Page):
         ),
         InlinePanel('youtube_episode', label="Youtube Episodes"),
         ImageChooserPanel('banner'),
+        ImageChooserPanel('thumbnail'),
     ]
 
     api_fields = [
         APIField('description'),
+        APIField('description_replace_embed'),
         APIField('genre'),
         APIField('air_time'),
         APIField('episodes'),
-        APIField('banner'),
+        APIField('banner_url'),
+        APIField('thumbnail_url'),
     ]
 
 

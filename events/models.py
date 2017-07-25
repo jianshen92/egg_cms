@@ -21,7 +21,7 @@ from wagtail.api import APIField
 from django.conf import settings
 
 # from base.models import CustomImage
-from base.utils import html_replace_embed
+from base.utils import html_replace_embed, get_wagtail_image_url
 
 import socket
 from bs4 import BeautifulSoup
@@ -139,10 +139,7 @@ class EventPage(Page):
 
     def thumbnail_url(self):
         if(self.banner):
-            id = self.banner.id
-            image_object = Image.objects.get(pk=id)
-
-            return '%s%s' % (settings.SITE_URL, image_object.file.url)
+            return get_wagtail_image_url(self.banner)
 
     # Export fields over the API
     api_fields = [

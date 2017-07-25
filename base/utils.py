@@ -6,7 +6,7 @@ import urlparse
 
 def html_replace_embed(obj):
     """
-    Function to replace embed tag in richtext to image tag. Also add image source to it.
+    Function to replace embed tag in richtext to image tag or embeded youtube video. Also add image source to it.
 
     """
     bs = BeautifulSoup(obj, "html.parser")
@@ -58,3 +58,10 @@ def html_replace_embed(obj):
     text_bs = str(bs).decode("utf8")
 
     return text_bs
+
+
+def get_wagtail_image_url(image_obj):
+    id = image_obj.id
+    image_object = Image.objects.get(pk=id)
+
+    return '%s%s' % (settings.SITE_URL, image_object.file.url)

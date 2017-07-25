@@ -22,7 +22,7 @@ from django.conf import settings
 
 from datetime import datetime
 
-from base.utils import html_replace_embed
+from base.utils import html_replace_embed, get_wagtail_image_url
 
 # Create your models here.
 class ArticlePeopleRelationship(Orderable, models.Model):
@@ -112,17 +112,11 @@ class ArticlePage(Page):
 
     def thumbnail_url(self):
         if(self.thumbnail_banner):
-            id = self.thumbnail_banner.id
-            image_object = Image.objects.get(pk=id)
-
-            return '%s%s' % (settings.SITE_URL, image_object.file.url)
+            return get_wagtail_image_url(self.thumbnail_banner)
 
     def banner_url(self):
         if(self.banner):
-            id = self.banner.id
-            image_object = Image.objects.get(pk=id)
-
-            return '%s%s' % (settings.SITE_URL, image_object.file.url)
+            return get_wagtail_image_url(self.banner)
 
     def body_replace_embed(self):
         text = html_replace_embed(self.body)
