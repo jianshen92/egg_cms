@@ -48,6 +48,13 @@ class ProgrammeIndexPage(Page):
 
 class ProgrammePage(Page):
 
+    short_description = models.CharField(
+        blank=True,
+        null=True,
+        max_length=1000,
+        help_text="Short Description to be displayed at the top of the page"
+    )
+
     description = RichTextField(
         help_text='Detailed Description for the programme.'
     )
@@ -68,7 +75,14 @@ class ProgrammePage(Page):
         blank=True,
         null=True,
         max_length=200,
-        help_text='Duration Each Episode',
+        help_text='Duration of Each Episode',
+    )
+
+    tv_rating = models.CharField(
+        blank=True,
+        null=True,
+        max_length=50,
+        help_text='Malaysian Standard: U, P13, 18',
     )
 
     banner = models.ForeignKey(
@@ -102,12 +116,14 @@ class ProgrammePage(Page):
 
     content_panels = Page.content_panels + [
 
+        FieldPanel('short_description'),
         FieldPanel('description'),
         MultiFieldPanel(
             [
                 FieldPanel('genre'),
                 FieldPanel('host'),
                 FieldPanel('air_time'),
+                FieldPanel('tv_rating')
             ],
             heading="Programme Info",
         ),
@@ -117,10 +133,12 @@ class ProgrammePage(Page):
     ]
 
     api_fields = [
+        APIField('short_description'),
         APIField('description'),
         APIField('description_replace_embed'),
         APIField('genre'),
         APIField('air_time'),
+        APIField('tv_rating'),
         APIField('episodes'),
         APIField('banner_url'),
         APIField('thumbnail_url'),

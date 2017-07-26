@@ -9,6 +9,7 @@ def whitelister_element_rules():
     return {
         'a': attribute_rule({'href': check_url, 'target': True}),
         'blockquote': attribute_rule({'class': True}),
+        'del' : attribute_rule({'class': True}),
     }
 
 
@@ -27,7 +28,8 @@ def editor_js():
         """
         <script>
             registerHalloPlugin('blockquotebutton');
-      registerHalloPlugin('blockquotebuttonwithclass');
+            registerHalloPlugin('blockquotebuttonwithclass');
+            registerHalloPlugin('hallonewformat');
         </script>
         """
     )
