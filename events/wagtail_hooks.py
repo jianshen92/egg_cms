@@ -9,7 +9,7 @@ def whitelister_element_rules():
     return {
         'a': attribute_rule({'href': check_url, 'target': True}),
         'blockquote': attribute_rule({'class': True}),
-        'del' : attribute_rule({'class': True}),
+        'strike' : attribute_rule({'class': True}),
     }
 
 
