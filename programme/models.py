@@ -137,6 +137,7 @@ class ProgrammePage(Page):
         APIField('description'),
         APIField('description_replace_embed'),
         APIField('genre'),
+        APIField('host'),
         APIField('air_time'),
         APIField('tv_rating'),
         APIField('episodes'),
