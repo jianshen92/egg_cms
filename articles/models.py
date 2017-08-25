@@ -6,6 +6,10 @@ from django.shortcuts import HttpResponseRedirect
 
 from modelcluster.fields import ParentalKey
 
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
+
+
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailimages.models import Image
@@ -43,6 +47,10 @@ class ArticlePeopleRelationship(Orderable, models.Model):
     panels = [
         SnippetChooserPanel('author')
     ]
+
+class ArticleTag(TaggedItemBase):
+    content_object = ParentalKey('articles.ArticlePage', related_name='tagged_items')
+
 
 class ArticleIndexPage(Page):
     subpage_types = ['ArticlePage']
@@ -87,6 +95,7 @@ class ArticlePage(Page):
         max_length=200,
     )
 
+    tags = ClusterTaggableManager(through=ArticleTag, blank=True)
 
     thumbnail_banner = models.ForeignKey(
         'wagtailimages.Image' ,blank=True, null=True, on_delete=models.SET_NULL, related_name='article_thumbnail_banner'
@@ -95,6 +104,8 @@ class ArticlePage(Page):
     banner = models.ForeignKey(
         'wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='article_banner'
     )
+
+
 
     def author_details(self):
 
@@ -129,6 +140,7 @@ class ArticlePage(Page):
         FieldPanel('body', classname='full'),
         FieldPanel('publish_date'),
         FieldPanel('genre'),
+        FieldPanel('tags'),
         InlinePanel(
             'article_author_relationship', label="Author",
             panels=None, min_num=0, max_num=1),
@@ -154,5 +166,6 @@ class ArticlePage(Page):
         APIField('genre'),
         APIField('author_details'),
         APIField('thumbnail_url'),
-        APIField('banner_url')
+        APIField('banner_url'),
+        APIField('tags')
     ]
