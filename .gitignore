@@ -2,3 +2,7 @@
 media
 db.sqlite3
 *.pyc
+
+# Sass Cache Files, map files
+.sass-cache
+*.css.map
