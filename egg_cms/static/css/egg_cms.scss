@@ -19,23 +19,41 @@
     }
     fieldset {
       width: 100%;
-      .fields {
-        &>li {
-          padding: 0;
-          &>div {
-            &>label {
-              padding-top: 0.5em;
-              padding-bottom: 0.5em;
-              width: 25%;
-            }
-            .field-content {
-              width: 75%;
-              .input {
-                &>input {
-                  padding: 0.25em 0.5em;
-                }
+      .episode-title,
+      .episode-id {
+        padding: 0;
+        &>div {
+          &>label {
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            width: 25%;
+          }
+          .field-content {
+            width: 75%;
+            .input {
+              &>input {
+                padding: 0.25em 0.5em;
               }
             }
+          }
+        }
+      }
+      .episode-title-value {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        position: relative;
+        padding-left: 16px;
+        i {
+          position: absolute;
+          left: 0;
+          color: #07d407;
+        }
+        &.episode-error {
+          color: red;
+          font-weight: bold;
+          i {
+            color: red;
           }
         }
       }

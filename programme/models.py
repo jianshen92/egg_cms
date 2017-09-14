@@ -2,34 +2,64 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django import forms
-from django.shortcuts import HttpResponseRedirect
+from django.utils.html import format_html
+from django.utils.translation import ugettext_lazy as _
 
-from modelcluster.fields import ParentalKey
-
-from wagtail.wagtailsearch import index
 from wagtail.wagtailcore.models import Page, Orderable
-from wagtail.wagtailimages.models import Image
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, EditHandler
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-from wagtail.wagtailimages.api.fields import ImageRenditionField
-from wagtail.wagtailcore.fields import RichTextField, StreamField
-from django.conf import settings
-
-from wagtail.wagtailcore.models import Orderable, Page
-from modelcluster.fields import ParentalKey
-
+from wagtail.wagtailcore.fields import RichTextField
 from wagtail.api import APIField
 
+from modelcluster.fields import ParentalKey
+
 from base.utils import html_replace_embed, get_wagtail_image_url
+
+
+class BaseReadOnlyPanel(EditHandler):
+    def render(self):
+        episode_id = getattr(self.instance, self.episode_id)
+        classes = 'class=' + self.classname + '-value'
+
+        return format_html('<div {}>{}</div>', classes, episode_id)
+
+    def render_as_object(self):
+        return format_html(
+            '<fieldset><legend>{}</legend>'
+            '<ul class="fields"><li><div class="field">{}</div></li></ul>'
+            '</fieldset>',
+            self.heading, self.render())
+
+    def render_as_field(self):
+        return format_html(
+            '<div class="field">'
+            '<label>{}</label>'
+            '<div class="field-content">{}</div>'
+            '</div>',
+            self.heading, self.render())
+
+
+class ReadOnlyPanel:
+    def __init__(self, episode_id, heading=None, classname=''):
+        self.episode_id = episode_id
+        self.heading = '' if heading is None else heading
+        self.classname = classname
+
+    def bind_to_model(self, model):
+        return type(str(_('ReadOnlyPanel')), (BaseReadOnlyPanel,),
+                    {'model': model,
+                     'episode_id': self.episode_id,
+                     'heading': self.heading,
+                     'classname': self.classname})
+
 
 # The abstract model for related links, complete with panels
 class YoutubeEpisodes(models.Model):
     episode_ID = models.CharField(max_length=255)
 
     panels = [
-        FieldPanel('episode_ID'),
+        ReadOnlyPanel('episode_ID', classname="episode-title"),
+        FieldPanel('episode_ID', classname="episode-id"),
     ]
 
     class Meta:
@@ -38,13 +68,18 @@ class YoutubeEpisodes(models.Model):
 # The real model which combines the abstract model, an
 # Orderable helper class, and what amounts to a ForeignKey link
 # to the model we want to add related links to (BookPage)
+
+
 class ProgrammePageYoutubeEpisode(Orderable, YoutubeEpisodes):
-    page = ParentalKey('programme.ProgrammePage', related_name='youtube_episode')
+    page = ParentalKey('programme.ProgrammePage',
+                       related_name='youtube_episode')
+
 
 class ProgrammeIndexPage(Page):
     subpage_types = ['ProgrammePage']
 
     content_panels = Page.content_panels
+
 
 class ProgrammePage(Page):
 
@@ -86,16 +121,22 @@ class ProgrammePage(Page):
     )
 
     banner = models.ForeignKey(
-        'wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='programme_banner'
+        'wagtailimages.Image',
+        blank=True, null=True,
+        on_delete=models.SET_NULL,
+        related_name='programme_banner'
     )
 
     thumbnail = models.ForeignKey(
-        'wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='programme_thumbnail'
+        'wagtailimages.Image',
+        blank=True, null=True,
+        on_delete=models.SET_NULL,
+        related_name='programme_thumbnail'
     )
 
     # Get Youtube Episodes
     def episodes(self):
-        episodes = [n.episode_ID for n in self.youtube_episode.all() ]
+        episodes = [n.episode_ID for n in self.youtube_episode.all()]
 
         return episodes
 
@@ -144,7 +185,6 @@ class ProgrammePage(Page):
         APIField('banner_url'),
         APIField('thumbnail_url'),
     ]
-
 
     subpage_types = []
     parent_page_types = ['ProgrammeIndexPage']
