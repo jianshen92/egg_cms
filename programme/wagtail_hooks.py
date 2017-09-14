@@ -10,6 +10,6 @@ def editor_js():
     return '<script src="{0}"></script>'.format(static('verify-youtube-episodes.js'))
 
 
-@hooks.register('insert_editor_css')
-def editor_css():
-    return '<link rel="stylesheet" href="{0}">'.format(static('condensedinlinepanel/dist/condensedinlinepanel.css'))
+# @hooks.register('insert_editor_css')
+# def editor_css():
+#     return '<link rel="stylesheet" href="{0}">'.format(static('condensedinlinepanel/dist/condensedinlinepanel.css'))

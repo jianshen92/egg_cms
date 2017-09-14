@@ -1,24 +1,24 @@
 $(function() {
   /* Attempt to fetch titles for each Episode ID from existing values */
   $(".episode-id").each(function(index, item) {
-    let title = $(this).prev().find(".episode-title-value");
-    let episode_id = $(this).find("input").val();
-
-    fetchEpisodeDetails(episode_id)
-      .then(details => updateEpisodeStatus(title, details.title))
-      .catch(error => updateEpisodeStatus(title, episode_id, true));
+    generateDetails($(this));
   });
-
   /* Retry to fetch Episode ID if focus was lost */
   $(".episode-id").on("focusout", function(event) {
-    let title = $(this).prev().find(".episode-title-value");
-    let episode_id = $(this).find("input").val();
-
-    fetchEpisodeDetails(episode_id)
-      .then(details => updateEpisodeStatus(title, details.title))
-      .catch(error => updateEpisodeStatus(title, episode_id, true));
+    generateDetails($(this));
   });
 });
+
+function generateDetails(item) {
+  let title = $(item).prev().find(".episode-title-value");
+  let input = $(item).find("input");
+  let episode_id = extractYoutubeVideoID(input.val());
+
+  fetchEpisodeDetails(episode_id)
+    .then(details => updateEpisodeStatus(title, details.title))
+    .then(() => overrideInputValue(input, episode_id))
+    .catch(error => updateEpisodeStatus(title, episode_id, true));
+}
 
 /* Take the variable {episode_id} which should be a Youtube
    video id - and tries to fetch data from YT API. */
@@ -55,5 +55,24 @@ function updateEpisodeStatus(element, value, error = false) {
     element.text(title);
     element.append(`<i class="${symbol}" aria-hidden="true" />`);
     element.toggleClass("episode-error", error);
+
+    resolve(true);
+  });
+}
+
+/* This regex only works if it's using a full Youtube URL 
+   If user inputs the raw ID, the regex can't determine it's a 
+   Youtube video - so just parses it raw. */
+function extractYoutubeVideoID(url) {
+  var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+  return url.match(p) ? RegExp.$1 : url;
+}
+
+/* Just putting this as a separate Promise so it's a bit
+   tidier. This is kinda redundant tbh. */
+function overrideInputValue(input, newValue) {
+  return new Promise((resolve, reject) => {
+    input.val(newValue);
+    resolve(true);
   });
 }
