@@ -30,6 +30,7 @@
           }
           .field-content {
             width: 75%;
+            display: inline-grid;
             .input {
               &>input {
                 padding: 0.25em 0.5em;
@@ -44,12 +45,22 @@
         overflow: hidden;
         position: relative;
         padding-left: 16px;
+        a {
+          display: inline-block;
+        }
         i {
+          display: inline-flex;
           position: absolute;
+          top: 0;
           left: 0;
           color: #07d407;
+          line-height: inherit;
+          &:before {
+            vertical-align: middle;
+            line-height: inherit;
+          }
         }
-        &.episode-error {
+        .error {
           color: red;
           font-weight: bold;
           i {
@@ -58,5 +69,28 @@
         }
       }
     }
+  }
+}
+
+.loader {
+  display: inline-block;
+  box-sizing: border-box;
+  border: 4px solid #f3f3f3;
+  /* Light grey */
+  border-top: 4px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  font-size: inherit;
+  width: 1em;
+  height: 1em;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

@@ -24,7 +24,8 @@
         width: 25%; }
       #id_youtube_episode-FORMS > li fieldset .episode-title > div .field-content,
       #id_youtube_episode-FORMS > li fieldset .episode-id > div .field-content {
-        width: 75%; }
+        width: 75%;
+        display: inline-grid; }
         #id_youtube_episode-FORMS > li fieldset .episode-title > div .field-content .input > input,
         #id_youtube_episode-FORMS > li fieldset .episode-id > div .field-content .input > input {
           padding: 0.25em 0.5em; }
@@ -34,14 +35,41 @@
       overflow: hidden;
       position: relative;
       padding-left: 16px; }
+      #id_youtube_episode-FORMS > li fieldset .episode-title-value a {
+        display: inline-block; }
       #id_youtube_episode-FORMS > li fieldset .episode-title-value i {
+        display: inline-flex;
         position: absolute;
+        top: 0;
         left: 0;
-        color: #07d407; }
-      #id_youtube_episode-FORMS > li fieldset .episode-title-value.episode-error {
+        color: #07d407;
+        line-height: inherit; }
+        #id_youtube_episode-FORMS > li fieldset .episode-title-value i:before {
+          vertical-align: middle;
+          line-height: inherit; }
+      #id_youtube_episode-FORMS > li fieldset .episode-title-value .error {
         color: red;
         font-weight: bold; }
-        #id_youtube_episode-FORMS > li fieldset .episode-title-value.episode-error i {
+        #id_youtube_episode-FORMS > li fieldset .episode-title-value .error i {
           color: red; }
+
+.loader {
+  display: inline-block;
+  box-sizing: border-box;
+  border: 4px solid #f3f3f3;
+  /* Light grey */
+  border-top: 4px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  font-size: inherit;
+  width: 1em;
+  height: 1em;
+  animation: spin 2s linear infinite; }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
 
 /*# sourceMappingURL=egg_cms.css.map */

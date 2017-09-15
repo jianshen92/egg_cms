@@ -14,10 +14,14 @@ function generateDetails(item) {
   let input = $(item).find("input");
   let episode_id = extractYoutubeVideoID(input.val());
 
+  /* Display loading wheel */
+  title.text("");
+  title.append('<div class="loader"></div>');
+
   fetchEpisodeDetails(episode_id)
-    .then(details => updateEpisodeStatus(title, details.title))
+    .then(details => updateEpisodeStatus(title, details))
     .then(() => overrideInputValue(input, episode_id))
-    .catch(error => updateEpisodeStatus(title, episode_id, true));
+    .catch(error => updateEpisodeStatus(title, { id: episode_id }));
 }
 
 /* Take the variable {episode_id} which should be a Youtube
@@ -36,7 +40,7 @@ function fetchEpisodeDetails(episode_id) {
           const title = episode.snippet.title;
           const image = episode.snippet.thumbnails.medium;
 
-          resolve({ title: title, image: image });
+          resolve({ id: episode_id, title: title, image: image });
         } else {
           throw Error("Error loading Youtube details. Is your url correct?");
         }
@@ -47,14 +51,22 @@ function fetchEpisodeDetails(episode_id) {
   });
 }
 
-function updateEpisodeStatus(element, value, error = false) {
+function updateEpisodeStatus(element, details) {
   return new Promise((resolve, reject) => {
-    const title = error ? `Error loading video: ${value}` : value;
-    const symbol = error ? `fa fa-times` : `fa fa-check`;
+    const { id, title, image } = details;
 
-    element.text(title);
-    element.append(`<i class="${symbol}" aria-hidden="true" />`);
-    element.toggleClass("episode-error", error);
+    // If this function was called via a catched error,
+    // it won't be 'valid' as no title value was passed in.
+    const valid = title !== undefined;
+
+    const text = valid
+      ? `<a target="_blank" href="https://www.youtube.com/watch?v=${id}">${title}</a>`
+      : `<span class="error">Error loading video: ${id}</span>`;
+    const symbol = `<i class="fa ${valid ? "fa-check" : "fa-times error"} aria-hidden="true" />`;
+
+    element.text(""); // Reset previous content
+    element.append(text);
+    element.append(symbol);
 
     resolve(true);
   });
