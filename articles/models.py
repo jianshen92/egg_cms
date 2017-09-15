@@ -29,6 +29,8 @@ from datetime import datetime
 from base.utils import html_replace_embed, get_wagtail_image_url
 
 # Create your models here.
+
+
 class ArticlePeopleRelationship(Orderable, models.Model):
     """
     This defines the relationship between the `People` within the `base`
@@ -48,8 +50,10 @@ class ArticlePeopleRelationship(Orderable, models.Model):
         SnippetChooserPanel('author')
     ]
 
+
 class ArticleTag(TaggedItemBase):
-    content_object = ParentalKey('articles.ArticlePage', related_name='tagged_items')
+    content_object = ParentalKey(
+        'articles.ArticlePage', related_name='tagged_items')
 
 
 class ArticleIndexPage(Page):
@@ -57,24 +61,16 @@ class ArticleIndexPage(Page):
 
     content_panels = Page.content_panels
 
-class ArticlePage(Page):
 
-    def serve(self, request):
-        # return HttpResponseRedirect('http://staging.egg.network/events/' + self.slug)
-        # return HttpResponseRedirect('http://egg.network/events/' + self.slug)
-        # return HttpResponseRedirect('http://localhost:1337/articles/' + self.slug)
-        if self.article_type == 'N':
-            return HttpResponseRedirect('http://egg.network/news/' + self.slug)
-        elif self.article_type == 'P':
-            return HttpResponseRedirect('http://egg.network/press/' + self.slug)
+class ArticlePage(Page):
 
     ARTICLE_TYPE = (
         ('N', 'News'),
         ('P', 'Press'),
     )
 
-    article_type = models.CharField(max_length=1, choices=ARTICLE_TYPE, default='N')
-
+    article_type = models.CharField(
+        max_length=1, choices=ARTICLE_TYPE, default='N')
 
     subtitle = models.CharField(
         blank=True,
@@ -87,7 +83,8 @@ class ArticlePage(Page):
         help_text='Main body for the article'
     )
 
-    publish_date = models.DateField("Date Article Published", default=datetime.today)
+    publish_date = models.DateField(
+        "Date Article Published", default=datetime.today)
 
     genre = models.CharField(
         blank=True,
@@ -98,22 +95,20 @@ class ArticlePage(Page):
     tags = ClusterTaggableManager(through=ArticleTag, blank=True)
 
     thumbnail_banner = models.ForeignKey(
-        'wagtailimages.Image' ,blank=True, null=True, on_delete=models.SET_NULL, related_name='article_thumbnail_banner'
+        'wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='article_thumbnail_banner'
     )
 
     banner = models.ForeignKey(
         'wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='article_banner'
     )
 
-
-
     def author_details(self):
 
         author_details = []
         n = self.article_author_relationship.first()
-        if n :
+        if n:
             author_details = {
-                'first_name' : n.author.first_name,
+                'first_name': n.author.first_name,
                 'last_name': n.author.last_name,
                 'nick_name': n.author.nick_name,
                 'profile_image_url': n.author.profile_image_url
@@ -132,7 +127,6 @@ class ArticlePage(Page):
     def body_replace_embed(self):
         text = html_replace_embed(self.body)
         return text
-
 
     content_panels = Page.content_panels + [
         FieldPanel('article_type'),
@@ -169,3 +163,25 @@ class ArticlePage(Page):
         APIField('banner_url'),
         APIField('tags')
     ]
+
+    def get_context(self, request):
+        context = super(ArticlePage, self).get_context(request)
+
+        # Default api fields
+        # http://docs.wagtail.io/en/v1.9/reference/contrib/api/configuration.html
+        context['title'] = self.title
+        context['id'] = self.id
+
+        # Article api fields
+        context['article_type'] = self.article_type
+        context['subtitle'] = self.subtitle
+        context['body'] = self.body
+        context['body_replace_embed'] = self.body_replace_embed
+        context['publish_date'] = self.publish_date
+        context['genre'] = self.genre
+        context['author_details'] = self.author_details
+        context['thumbnail_url'] = self.thumbnail_url
+        context['banner_url'] = self.banner_url
+        # context['tags'] = self.tags
+
+        return context

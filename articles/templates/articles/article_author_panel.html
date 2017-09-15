@@ -1,0 +1,23 @@
+{% block article_author_panel %}
+
+  <div class="egg-panel news-author margin-bot-32">
+      <h3>Written by</h3>
+      <div class="author-pic">
+        <img class="author-pic" src={{author_details.profile_image_url}} />
+      </div>
+
+      <div class="author-name">
+        <i>{{author_details.first_name}} 
+          {% if author_details.nick_name %} 
+          "{{ author_details.nick_name }}" 
+          {% endif %} 
+          {{author_details.last_name}}</i>
+      </div>
+
+      <div class="author-date">
+        Published 12 August 2012
+      </div>
+
+    </div>
+
+{% endblock %}

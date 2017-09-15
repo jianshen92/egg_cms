@@ -1,0 +1,82 @@
+{% comment %}
+These variables are available, as passed in from models.py ArticlePage get_context parameter:
+title
+id
+subtitle
+body
+body_replace_embed
+publish_date
+genre
+author_details
+thumbnail_url
+banner_url
+tags (problematic at the moment)
+
+{% endcomment %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Preview | {{ title }}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+
+  <link rel='stylesheet' href="{% static "articles/css/common.css" %}" type="text/css" />
+  <link rel='stylesheet' href="{% static "articles/css/globals.css" %}" type="text/css" />
+  <link rel='stylesheet' href="{% static "articles/css/ArticleRoute.css" %}" type="text/css" />
+  <link rel='stylesheet' href="{% static "articles/css/ShareButtonsPanel.css" %}" type="text/css" />
+  <link rel='stylesheet' href="{% static "articles/css/RelatedArticlesPanel.css" %}" type="text/css" />
+  <link rel='stylesheet' href="{% static "articles/css/ArticleAuthorPanel.css" %}" type="text/css" />
+
+  <script src="https://use.fontawesome.com/90c4ba3613.js"></script>
+</head>
+
+<body>
+    <div class="news-page">
+
+      <div class="news-header margin-bot-16" style="background-image: url({{banner_url}})">
+        <div class="news-overlay">
+          <h2>{{genre}}</h2>
+          <h1>{{title}}</h1>
+        </div>
+      </div>
+
+      <div class="news-nav container">
+        <p>
+          <a href="#">< All news</a>
+          <span> / </span>
+          <span class="here">{{ title }}</span>
+        </p>
+      </div>
+
+      <div class="news-body container no-padding">
+
+        <div class="news-content col-sm-8 margin-bot-16">
+          {% autoescape off %}
+            {{ body_replace_embed }}
+          {% endautoescape %}
+        </div>
+
+        <div class="news-sidebar col-sm-4 margin-bot-16">
+
+          {% include "./article_author_panel.html" %}
+
+          {% include "./share_buttons_panel.html" %}
+
+          {% include "./related_articles_panel.html" %}
+
+        </div>
+      </div>
+
+      <div class="margin-bot-32 text-center">
+        <a href="#" class="cool-btn">
+          BACK TO ALL NEWS
+        </a>
+      </div>
+    </div>
+</body>
+</html>

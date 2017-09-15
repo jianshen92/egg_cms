@@ -1,0 +1,16 @@
+.news-author .author-name {
+  font-style: italic;
+  font-weight: bold;
+  padding-left: 46px; }
+.news-author .author-date {
+  font-style: italic;
+  padding-left: 46px; }
+.news-author .author-pic {
+  position: absolute;
+  border-radius: 50%;
+  max-width: 40px; }
+.news-author .author-details p {
+  margin: 0;
+  font-style: italic; }
+
+/*# sourceMappingURL=ArticleAuthorPanel.css.map */
