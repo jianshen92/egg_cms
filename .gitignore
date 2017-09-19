@@ -6,3 +6,6 @@ db.sqlite3
 # Sass Cache Files, map files
 .sass-cache
 *.css.map
+
+# Dependency directory
+node_modules
