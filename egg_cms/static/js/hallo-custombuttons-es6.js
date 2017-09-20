@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Created by jsyap on 15/06/2017.
  */
@@ -7,14 +5,14 @@
 //*************//
 // BLOCK QUOTE //
 //*************//
-(function () {
-  (function ($) {
+(function() {
+  (function($) {
     return $.widget("IKS.blockquotebutton", {
       options: {
         uuid: "",
         editable: null
       },
-      populateToolbar: function populateToolbar(toolbar) {
+      populateToolbar: function(toolbar) {
         var button, widget;
 
         widget = this;
@@ -30,25 +28,25 @@
 
         toolbar.append(button);
 
-        return button.on("click", function (event) {
+        return button.on("click", event => {
           return widget.options.editable.execute("formatBlock", "blockquote");
         });
       }
     });
   })(jQuery);
-}).call(undefined);
+}.call(this));
 
 //*************//
 // BLOCK QUOTE //
 //*************//
-(function () {
-  (function ($) {
+(function() {
+  (function($) {
     return $.widget("IKS.blockquotebuttonwithclass", {
       options: {
         uuid: "",
         editable: null
       },
-      populateToolbar: function populateToolbar(toolbar) {
+      populateToolbar: function(toolbar) {
         var button, widget;
 
         widget = this;
@@ -64,7 +62,7 @@
 
         toolbar.append(button);
 
-        return button.on("click", function (event) {
+        return button.on("click", event => {
           var insertionPoint, lastSelection;
 
           lastSelection = widget.options.editable.getSelection();
@@ -82,13 +80,13 @@
       }
     });
   })(jQuery);
-}).call(undefined);
+}.call(this));
 
 //****************//
 // STRIKE THROUGH //
 //****************//
-(function () {
-  (function (jQuery) {
+(function() {
+  (function(jQuery) {
     return jQuery.widget("IKS.hallonewformat", {
       options: {
         editable: null,
@@ -98,20 +96,14 @@
         },
         buttonCssClass: null
       },
-      populateToolbar: function populateToolbar(toolbar) {
-        var buttonize,
-            buttonset,
-            enabled,
-            format,
-            widget,
-            _ref,
-            _this = this;
+      populateToolbar: function(toolbar) {
+        var buttonize, buttonset, enabled, format, widget, _ref, _this = this;
 
         widget = this;
 
         buttonset = jQuery('<span class="' + widget.widgetName + '"></span>');
 
-        buttonize = function buttonize(format) {
+        buttonize = function(format) {
           var buttonHolder;
           buttonHolder = jQuery("<span></span>");
           buttonHolder.hallobutton({
@@ -140,4 +132,4 @@
       }
     });
   })(jQuery);
-}).call(undefined);
+}.call(this));

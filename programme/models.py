@@ -6,9 +6,15 @@ from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore.models import Page, Orderable
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, EditHandler
+from wagtail.wagtailcore.fields import RichTextField, StreamField
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, EditHandler, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailcore.fields import RichTextField
+
+from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.blocks import RawHTMLBlock, BlockQuoteBlock, PageChooserBlock
+from wagtail.wagtailembeds.blocks import EmbedBlock
+from wagtail.wagtailimages.blocks import ImageChooserBlock
+
 from wagtail.api import APIField
 
 from modelcluster.fields import ParentalKey
@@ -94,6 +100,19 @@ class ProgrammePage(Page):
         help_text='Detailed Description for the programme.'
     )
 
+    body = StreamField(
+        [
+            ('heading', blocks.CharBlock(className="full title")),
+            ('paragraph', blocks.RichTextBlock()),
+            ('image', ImageChooserBlock()),
+            ('embed', EmbedBlock()),
+            ('blockquote', BlockQuoteBlock()),
+            ('rawhtml', BlockQuoteBlock()),
+            ('pagechooser', PageChooserBlock()),
+        ],
+        null=True
+    )
+
     host = models.CharField(
         blank=True,
         null=True,
@@ -169,12 +188,14 @@ class ProgrammePage(Page):
             heading="Programme Info",
         ),
         InlinePanel('youtube_episode', label="Youtube Episodes"),
+        StreamFieldPanel('body'),
         ImageChooserPanel('banner'),
         ImageChooserPanel('thumbnail'),
     ]
 
     api_fields = [
         APIField('short_description'),
+        APIField('body'),
         APIField('description'),
         APIField('description_replace_embed'),
         APIField('genre'),

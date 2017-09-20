@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from datetime import datetime
+
 from django.db import models
-from django.shortcuts import HttpResponseRedirect
 
 from modelcluster.fields import ParentalKey
 
@@ -12,21 +13,18 @@ from taggit.models import TaggedItemBase
 
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Page, Orderable
-from wagtail.wagtailimages.models import Image
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailcore.blocks import RichTextBlock, CharBlock, RawHTMLBlock, BlockQuoteBlock
 
 from wagtail.api import APIField
-from django.conf import settings
 
-from datetime import datetime
+from base.blocks import CaptionedImageBlock
+from base.utils import html_replace_embed, html_replace_img, get_wagtail_image_url
 
-from base.utils import html_replace_embed, get_wagtail_image_url
 
 # Create your models here.
 
@@ -61,6 +59,8 @@ class ArticleIndexPage(Page):
 
     content_panels = Page.content_panels
 
+#######################################################
+
 
 class ArticlePage(Page):
 
@@ -80,6 +80,18 @@ class ArticlePage(Page):
     )
 
     body = RichTextField(
+        help_text='Main body for the article'
+    )
+
+    stream = StreamField(
+        [
+            ('heading', CharBlock(className="full title")),
+            ('paragraph', RichTextBlock()),
+            ('captioned_image', CaptionedImageBlock(label="Image")),
+            ('block_quote', BlockQuoteBlock(label="Block Quote")),
+            ('raw_html', RawHTMLBlock(label="Raw HTML"))
+        ],
+        null=True,
         help_text='Main body for the article'
     )
 
@@ -128,10 +140,20 @@ class ArticlePage(Page):
         text = html_replace_embed(self.body)
         return text
 
+    def stream_replace_embed(self):
+        text = self.stream.render_as_block()
+        text = html_replace_img(text)
+        if (text != ""):
+            return text
+        else:
+            return None
+
+    # Content panels - What shows up on the CMS dashboard
     content_panels = Page.content_panels + [
         FieldPanel('article_type'),
         FieldPanel('subtitle'),
         FieldPanel('body', classname='full'),
+        StreamFieldPanel('stream'),
         FieldPanel('publish_date'),
         FieldPanel('genre'),
         FieldPanel('tags'),
@@ -151,11 +173,13 @@ class ArticlePage(Page):
     subpage_types = []
     parent_page_types = ['ArticleIndexPage']
 
+    # API fields - What will be returned from API call
     api_fields = [
         APIField('article_type'),
         APIField('subtitle'),
         APIField('body'),
         APIField('body_replace_embed'),
+        APIField('stream_replace_embed'),
         APIField('publish_date'),
         APIField('genre'),
         APIField('author_details'),
@@ -164,6 +188,7 @@ class ArticlePage(Page):
         APIField('tags')
     ]
 
+    # Context - used for 'Preview' template rendering
     def get_context(self, request):
         context = super(ArticlePage, self).get_context(request)
 
@@ -177,6 +202,7 @@ class ArticlePage(Page):
         context['subtitle'] = self.subtitle
         context['body'] = self.body
         context['body_replace_embed'] = self.body_replace_embed
+        context['stream_replace_embed'] = self.stream_replace_embed
         context['publish_date'] = self.publish_date
         context['genre'] = self.genre
         context['author_details'] = self.author_details

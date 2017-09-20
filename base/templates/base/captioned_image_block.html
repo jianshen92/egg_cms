@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+
+<div class="{{value.alignment}}">
+  {% image value.image original %}
+    
+  <div class="caption">
+    <p>{{ value.caption }}</p>
+  </div>
+</div>
