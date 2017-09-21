@@ -79,20 +79,14 @@ class ArticlePage(Page):
         help_text='Subtitle to be display at the banner. Maximum 200 words'
     )
 
-    body = RichTextField(
-        help_text='Main body for the article'
-    )
-
-    stream = StreamField(
+    body = StreamField(
         [
-            ('heading', CharBlock(className="full title")),
             ('paragraph', RichTextBlock()),
             ('captioned_image', CaptionedImageBlock(label="Image")),
             ('block_quote', BlockQuoteBlock(label="Block Quote")),
             ('raw_html', RawHTMLBlock(label="Raw HTML"))
         ],
         null=True,
-        help_text='Main body for the article'
     )
 
     publish_date = models.DateField(
@@ -136,24 +130,16 @@ class ArticlePage(Page):
         if(self.banner):
             return get_wagtail_image_url(self.banner)
 
-    def body_replace_embed(self):
-        text = html_replace_embed(self.body)
-        return text
-
-    def stream_replace_embed(self):
-        text = self.stream.render_as_block()
+    def body_rendered(self):
+        text = self.body.render_as_block()
         text = html_replace_img(text)
-        if (text != ""):
-            return text
-        else:
-            return None
+        return text
 
     # Content panels - What shows up on the CMS dashboard
     content_panels = Page.content_panels + [
         FieldPanel('article_type'),
         FieldPanel('subtitle'),
-        FieldPanel('body', classname='full'),
-        StreamFieldPanel('stream'),
+        StreamFieldPanel('body'),
         FieldPanel('publish_date'),
         FieldPanel('genre'),
         FieldPanel('tags'),
@@ -177,9 +163,7 @@ class ArticlePage(Page):
     api_fields = [
         APIField('article_type'),
         APIField('subtitle'),
-        APIField('body'),
-        APIField('body_replace_embed'),
-        APIField('stream_replace_embed'),
+        APIField('body_rendered'),
         APIField('publish_date'),
         APIField('genre'),
         APIField('author_details'),
@@ -201,8 +185,7 @@ class ArticlePage(Page):
         context['article_type'] = self.article_type
         context['subtitle'] = self.subtitle
         context['body'] = self.body
-        context['body_replace_embed'] = self.body_replace_embed
-        context['stream_replace_embed'] = self.stream_replace_embed
+        context['body_rendered'] = self.body_rendered
         context['publish_date'] = self.publish_date
         context['genre'] = self.genre
         context['author_details'] = self.author_details
