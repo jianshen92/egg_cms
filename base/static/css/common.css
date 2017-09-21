@@ -1,0 +1,52 @@
+.egg-panel {
+  margin: 12px 3px;
+  padding: 5px;
+  background-color: #101010;
+  border-bottom: 3px solid rgba(234, 173, 24, 0.67); }
+  .egg-panel h3 {
+    color: #faae18;
+    margin: 0;
+    font-size: 20px; }
+  .egg-panel .panel-text {
+    white-space: pre-line;
+    font-size: 14px; }
+
+/* Responsive iframes */
+.intrinsic-container {
+  position: relative;
+  height: 0;
+  overflow: hidden; }
+
+/* 16x9 Aspect Ratio */
+.intrinsic-container-16x9 {
+  padding-bottom: 56.25%; }
+
+/* 4x3 Aspect Ratio */
+.intrinsic-container-4x3 {
+  padding-bottom: 75%; }
+
+.intrinsic-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+/* Responsive related classes for embedded blocks
+   in API response stream_replace_embed */
+.rich-text img {
+  max-width: 100%;
+  height: auto; }
+
+.responsive-object {
+  position: relative; }
+  .responsive-object iframe,
+  .responsive-object object,
+  .responsive-object embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+
+/*# sourceMappingURL=common.css.map */
