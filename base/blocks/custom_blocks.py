@@ -26,3 +26,4 @@ class CaptionedImageBlock(StructBlock):
     class Meta:
         icon = 'image'
         template = 'base/captioned_image_block.html'
+        form_classname = 'captioned-image-block'

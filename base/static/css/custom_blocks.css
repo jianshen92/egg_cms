@@ -1,0 +1,63 @@
+/* Captioned Image Chooser Panel */
+.captioned-image-block {
+  background-color: #dddddd;
+  margin: -1.5em -4em;
+  padding: 0 1.5em; }
+  .captioned-image-block ul.fields {
+    position: relative;
+    min-height: 166px; }
+    .captioned-image-block ul.fields > li {
+      /* Image Chooser Panel */
+      /* Alignment Selection Panel */
+      /* Caption Text Panel */ }
+      .captioned-image-block ul.fields > li label {
+        padding: 6px 0; }
+      .captioned-image-block ul.fields > li:first-child {
+        width: 50%; }
+        .captioned-image-block ul.fields > li:first-child label {
+          display: none; }
+        .captioned-image-block ul.fields > li:first-child .field-content {
+          width: 100%; }
+        .captioned-image-block ul.fields > li:first-child .image-chooser {
+          /* There's an image selected */
+          /* User hasn't selected an image */ }
+          .captioned-image-block ul.fields > li:first-child .image-chooser .chosen {
+            padding-left: 0;
+            text-align: center; }
+            .captioned-image-block ul.fields > li:first-child .image-chooser .chosen .preview-image {
+              float: none;
+              margin: auto;
+              max-width: 120px; }
+              .captioned-image-block ul.fields > li:first-child .image-chooser .chosen .preview-image img {
+                max-width: 120px;
+                max-height: 120px;
+                width: 100%; }
+            .captioned-image-block ul.fields > li:first-child .image-chooser .chosen .actions li {
+              display: inline-block;
+              float: none; }
+          .captioned-image-block ul.fields > li:first-child .image-chooser .unchosen {
+            text-align: center;
+            margin-top: 5em; }
+            .captioned-image-block ul.fields > li:first-child .image-chooser .unchosen:before {
+              color: #5ab7b7; }
+      .captioned-image-block ul.fields > li:nth-child(2) {
+        top: 0; }
+        .captioned-image-block ul.fields > li:nth-child(2) select {
+          padding: 5px; }
+        .captioned-image-block ul.fields > li:nth-child(2) span:after {
+          font-size: 22px; }
+      .captioned-image-block ul.fields > li:nth-child(3) {
+        bottom: 0; }
+        .captioned-image-block ul.fields > li:nth-child(3) input {
+          padding: 5px; }
+      .captioned-image-block ul.fields > li:nth-child(2), .captioned-image-block ul.fields > li:nth-child(3) {
+        position: absolute;
+        right: 0;
+        width: 50%;
+        height: 50%; }
+        .captioned-image-block ul.fields > li:nth-child(2) label, .captioned-image-block ul.fields > li:nth-child(3) label {
+          width: 83.33%; }
+      .captioned-image-block ul.fields > li .error-message {
+        text-align: center; }
+
+/*# sourceMappingURL=custom_blocks.css.map */
