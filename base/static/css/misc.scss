@@ -1,0 +1,219 @@
+/* Slimmer rows for Live Stream > Twitch / Youtube Channels */
+
+body {
+  font-size: 12px;
+  line-height: 1em;
+  font-family: sans-serif;
+}
+
+$egg-yellow: #faae18;
+.field-subscribe {
+  position: relative;
+  padding: 0.7em;
+  ul.actions {
+    position: absolute;
+    top: 0;
+    left: 50px;
+    margin-top: 0;
+  }
+}
+
+#image-results {
+  ul {
+    li {
+      padding: 0;
+      overflow: hidden;
+    }
+  }
+}
+
+header {
+  background-color: $egg-yellow;
+}
+
+
+/* _page_title_explore.html */
+
+table.listing {
+  tr {
+    &:hover {
+      td.children {
+        background-color: #8fa6d9;
+        a {
+          color: white;
+        }
+      }
+    }
+  }
+  td {
+    padding: 0.5em;
+    &.children {
+      a {
+        color: #8fa6d9;
+      }
+    }
+  }
+}
+
+.page-preview-thumbnail {
+  display: inline-block;
+  position: absolute;
+}
+
+.page-details {
+  display: flex;
+  flex-flow: row;
+  img {
+    width: 100px;
+    height: 50px;
+    padding-right: 10px;
+    margin-left: -50px;
+    /* Move into 'orderable' column as there's nothing there */
+  }
+}
+
+
+/* A bunch of general color style changes from default 
+   Wagtail teal to eGG Yellow. */
+
+.breadcrumb {
+  background-color: #c5973c;
+  li {
+    height: 1.6em;
+    transition: all 0.2s ease;
+  }
+  li:hover {
+    background: #a07c36;
+    a,
+    span {
+      color: white;
+    }
+  }
+  li a,
+  li span {
+    color: white;
+    &:after {
+      color: white;
+    }
+  }
+  li.home a {
+    width: 5em;
+  }
+}
+
+.listing .title h2 a:hover {
+  color: #fa9d0f;
+}
+
+.page-explorer .listing .index {
+  background-color: $egg-yellow;
+}
+
+.page-explorer .listing .index .button,
+.page-explorer .listing .index .button.bicolor {
+  background: #3f3f3f;
+  &:hover {
+    background-color: #f9f5dd !important;
+    color: #222222;
+  }
+}
+
+.page-explorer .listing .index .button,
+.c-dropdown {
+  border: none;
+  border-radius: 25px;
+  .c-dropdown__menu {
+    padding: 0;
+    border-bottom: 4px solid #e09c11;
+    &:before {
+      border-width: 0.7rem;
+    }
+  }
+  .c-dropdown__item {
+    a {
+      padding: 1em 0.5em;
+      display: block;
+      &:hover {
+        background-color: #c5973c;
+        color: white;
+      }
+    }
+  }
+}
+
+
+/* Various button stylings */
+
+.button {
+  font-family: sans-serif;
+}
+
+.button-secondary,
+.listing .button-secondary {
+  color: white;
+  background-color: #e09c11;
+  border-color: white;
+  font-family: sans-serif;
+  &:hover {
+    border-color: white !important;
+    background-color: $egg-yellow !important;
+  }
+}
+
+.button.no.button-secondary,
+.button.serious.button-secondary {
+  &:hover {
+    background-color: #c60303 !important;
+  }
+}
+
+header .button {
+  background-color: #6e97f4;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: #8fa6d9;
+  }
+}
+
+.tab-nav.merged {
+  background-color: $egg-yellow;
+}
+
+.tab-nav a {
+  background-color: #777777;
+  border-color: #434242;
+}
+
+.tab-nav li.settings a:before {
+  line-height: 0;
+}
+
+.t-default .u-btn-current {
+  color: white;
+  background-color: #e09c11;
+  border-color: white;
+  font-family: sans-serif;
+  &:hover {
+    color: white;
+    background-color: $egg-yellow;
+    border-color: white;
+  }
+}
+
+.t-inverted {
+  background-color: #3f3f3f;
+  &>a {
+    color: white;
+    border: none;
+    &:hover {
+      border: none;
+      border-radius: 25px;
+      color: #222222 !important;
+      background-color: #f9f5dd !important;
+    }
+  }
+}
+
+.messages .success {
+  background-color: #74934a;
+}

@@ -71,3 +71,11 @@ def editor_css():
         '<link rel="stylesheet" href="{}">',
         static('css/custom_blocks.css')
     )
+
+
+@hooks.register('insert_global_admin_css')
+def global_admin_css():
+    return format_html(
+        '<link rel="stylesheet" href="{}">',
+        static('css/misc.css')
+    )
