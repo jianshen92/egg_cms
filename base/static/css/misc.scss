@@ -1,12 +1,19 @@
 /* Slimmer rows for Live Stream > Twitch / Youtube Channels */
 
+$egg-yellow: #faae18;
 body {
   font-size: 12px;
   line-height: 1em;
   font-family: sans-serif;
 }
 
-$egg-yellow: #faae18;
+a {
+  color: #d28900;
+  &:hover {
+    color: #FFCC6D;
+  }
+}
+
 .field-subscribe {
   position: relative;
   padding: 0.7em;
@@ -19,7 +26,7 @@ $egg-yellow: #faae18;
 }
 
 #image-results {
-  ul {
+  ul.listing {
     li {
       padding: 0;
       overflow: hidden;
@@ -29,6 +36,85 @@ $egg-yellow: #faae18;
 
 header {
   background-color: $egg-yellow;
+}
+
+
+/* results.html */
+
+
+/* results_image.html */
+
+.image-choice {
+  position: relative;
+  .details {
+    font-size: 0;
+    &>span {
+      display: inline-block;
+      padding: 1px 3px;
+      margin: 4px -1px 4px 0;
+      font-size: 10px;
+      color: #515151;
+      border: 1px solid #c9c9c9;
+      &.warning {
+        color: red;
+      }
+      &>span {
+        color: #9c9c9c;
+        vertical-align: top;
+        font-size: 8px;
+      }
+    }
+  }
+}
+
+
+/* pagination_nav.html */
+
+#image-results {
+  .pagination {
+    ul {
+      margin-top: 0;
+      li {
+        margin: 1em 0;
+      }
+      .page-num {
+        display: inline-block;
+        vertical-align: top;
+        &.active {
+          padding: 0px 5px;
+          font-weight: bold;
+        }
+        a {
+          padding: 10px 5px;
+        }
+      }
+      .prev {
+        a {
+          padding: 10px 20px 10px 10px;
+        }
+      }
+      .next {
+        a {
+          padding: 10px 10px 10px 20px;
+        }
+      }
+      .prev,
+      .next {
+        a {
+          color: white;
+          background-color: #e09c11;
+          border-bottom: 3px solid #fdb913;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          transition: 0.2s ease all;
+          &:hover {
+            color: white;
+            background-color: #5e5e5e;
+          }
+        }
+      }
+    }
+  }
 }
 
 
