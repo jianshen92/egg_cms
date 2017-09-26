@@ -22,6 +22,8 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
 
 # Create your models here.
+
+
 @register_snippet
 class TwitchChannel(ClusterableModel):
     channel_title = models.CharField(
@@ -33,7 +35,8 @@ class TwitchChannel(ClusterableModel):
         max_length=100
     )
 
-    genre = ParentalKey('GameGenre', related_name='twitch_channel', blank=True, null=True)
+    genre = ParentalKey(
+        'GameGenre', related_name='twitch_channel', blank=True, null=True)
 
     subscribe = models.BooleanField(default=False)
 
@@ -49,13 +52,12 @@ class TwitchChannel(ClusterableModel):
         index.SearchField('last_name'),
     ]
 
-    api_fields =[
+    api_fields = [
         APIField('channel_title'),
         APIField('channel_name'),
         APIField('subscribe'),
         APIField('genre'),
     ]
-
 
     # As the key for this object
     def __str__(self):
@@ -64,6 +66,7 @@ class TwitchChannel(ClusterableModel):
     class Meta:
         verbose_name = 'Twitch Channel'
         verbose_name_plural = 'Twitch Channels'
+
 
 @register_snippet
 class YoutubeChannel(ClusterableModel):
@@ -76,7 +79,8 @@ class YoutubeChannel(ClusterableModel):
         max_length=100
     )
 
-    genre = ParentalKey('GameGenre', related_name='youtube_channel', blank=True, null=True)
+    genre = ParentalKey(
+        'GameGenre', related_name='youtube_channel', blank=True, null=True)
 
     subscribe = models.BooleanField(default=False)
 
@@ -92,13 +96,12 @@ class YoutubeChannel(ClusterableModel):
         index.SearchField('last_name'),
     ]
 
-    api_fields =[
+    api_fields = [
         APIField('channel_title'),
         APIField('channel_id'),
         APIField('subscribe'),
         APIField('genre')
     ]
-
 
     # As the key for this object
     def __str__(self):
@@ -107,6 +110,7 @@ class YoutubeChannel(ClusterableModel):
     class Meta:
         verbose_name = 'Youtube Channel'
         verbose_name_plural = 'Youtube Channels'
+
 
 @register_snippet
 class GameGenre(ClusterableModel):
@@ -135,12 +139,13 @@ class GameGenre(ClusterableModel):
         verbose_name = 'Game Genre'
         verbose_name_plural = 'Game Genres'
 
+
 @register_snippet
 class Author(ClusterableModel):
 
     first_name = models.CharField("First name", max_length=254)
-    last_name = models.CharField("Last name", max_length=254)
-    nick_name = models.CharField("Nickname", max_length=254)
+    last_name = models.CharField("Last name", max_length=254, blank=True)
+    nick_name = models.CharField("Nickname", max_length=254, blank=True)
 
     image = models.ForeignKey(
         'wagtailimages.Image',
@@ -198,4 +203,3 @@ class Author(ClusterableModel):
 #         unique_together = (
 #             ('image', 'filter_spec', 'focal_point_key'),
 #         )
-
