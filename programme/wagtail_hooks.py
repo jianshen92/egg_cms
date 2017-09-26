@@ -7,7 +7,7 @@ from wagtail.wagtailcore import hooks
 
 @hooks.register('insert_editor_js')
 def editor_js():
-    return '<script src="{0}"></script>'.format(static('verify-youtube-episodes.js'))
+    return '<script src="{0}"></script>'.format(static('js/verify-youtube-episodes.js'))
 
 
 # @hooks.register('insert_editor_css')
