@@ -20,20 +20,19 @@
 
 <div class="pagination">
     <ul>
-        {% if items.has_previous %}
         <li class="prev">
-            {% if is_ajax %}
-                <a href="#" data-page="{{ items.previous_page_number }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
-            {% elif is_searching %}
-                <a href="{{ url_to_use }}?q={{ query_string|urlencode }}&amp;p={{ items.previous_page_number }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
-            {% elif not linkurl %}
-                <a href="?{% replace_page_param request.META.QUERY_STRING items.previous_page_number %}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
-            {% else %}
-                <a href="{{ url_to_use }}?p={{ items.previous_page_number }}&amp;ordering={{ ordering }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
+            {% if items.has_previous %}
+                {% if is_ajax %}
+                    <a href="#" data-page="{{ items.previous_page_number }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
+                {% elif is_searching %}
+                    <a href="{{ url_to_use }}?q={{ query_string|urlencode }}&amp;p={{ items.previous_page_number }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
+                {% elif not linkurl %}
+                    <a href="?{% replace_page_param request.META.QUERY_STRING items.previous_page_number %}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
+                {% else %}
+                    <a href="{{ url_to_use }}?p={{ items.previous_page_number }}&amp;ordering={{ ordering }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
+                {% endif %}
             {% endif %}
         </li>
-        {% endif %}
-        
         {% for page_num in items.paginator.page_range %}
             {% if page_num == items.number %}
                 <li class="page-num active">{{ page_num }}</li>
