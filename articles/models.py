@@ -3,7 +3,10 @@ from __future__ import unicode_literals
 
 from datetime import datetime
 
+import re
+
 from django.db import models
+from django.utils.safestring import mark_safe, mark_for_escaping
 
 from modelcluster.fields import ParentalKey
 
@@ -11,19 +14,19 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
 
-from wagtail.wagtailcore.fields import RichTextField, StreamField
+from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore.models import Page, Orderable
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
-from wagtail.wagtailcore.blocks import RichTextBlock, CharBlock, RawHTMLBlock, BlockQuoteBlock
+from wagtail.wagtailcore.blocks import RichTextBlock, RawHTMLBlock, BlockQuoteBlock
 
 from wagtail.api import APIField
 
 from base.blocks import CaptionedImageBlock
-from base.utils import html_replace_embed, html_replace_img, get_wagtail_image_url
+from base.utils import html_replace_img, get_wagtail_image_url
 
 
 # Create your models here.
@@ -69,8 +72,10 @@ class ArticlePage(Page):
         ('P', 'Press'),
     )
 
+    ### Model Fields ######################################
     article_type = models.CharField(
-        max_length=1, choices=ARTICLE_TYPE, default='N')
+        max_length=1, choices=ARTICLE_TYPE, default='N'
+    )
 
     subtitle = models.CharField(
         blank=True,
@@ -101,13 +106,20 @@ class ArticlePage(Page):
     tags = ClusterTaggableManager(through=ArticleTag, blank=True)
 
     thumbnail_banner = models.ForeignKey(
-        'wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='article_thumbnail_banner'
+        'wagtailimages.Image',
+        blank=True, null=True,
+        on_delete=models.SET_NULL,
+        related_name='article_thumbnail_banner'
     )
 
     banner = models.ForeignKey(
-        'wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='article_banner'
+        'wagtailimages.Image',
+        blank=True, null=True,
+        on_delete=models.SET_NULL,
+        related_name='article_banner'
     )
 
+    ### Methods ###########################################
     def author_details(self):
 
         author_details = []
@@ -131,10 +143,22 @@ class ArticlePage(Page):
             return get_wagtail_image_url(self.banner)
 
     def body_rendered(self):
+        def replace_nbsp(matchobj):
+            # This function checks for any instance where there's
+            # &nbsp followed by a space occurring MULTIPLE times.
+            # This is because the rich text editor resolves multiple
+            # continuous spaces as (  ). We return essentially the
+            # same thing, but with 1 less entry.
+            count = len(re.findall(r"(  )", matchobj.group(0)))
+            return '&nbsp;' * (count - 1)
+
         text = self.body.render_as_block()
         text = html_replace_img(text)
+        text = re.sub(r"(  ){2,}", replace_nbsp, text)
+        text = re.sub(r"( ){1}", " ", text)
         return text
 
+    ### CMS and API Exposure ##############################
     # Content panels - What shows up on the CMS dashboard
     content_panels = Page.content_panels + [
         FieldPanel('article_type'),
