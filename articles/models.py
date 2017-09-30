@@ -152,10 +152,12 @@ class ArticlePage(Page):
             count = len(re.findall(r"(  )", matchobj.group(0)))
             return '&nbsp;' * (count - 1)
 
+            # try this: ([^#\s])#{1}([^#])
+
         text = self.body.render_as_block()
         text = html_replace_img(text)
         text = re.sub(r"(  ){2,}", replace_nbsp, text)
-        text = re.sub(r"( ){1}", " ", text)
+        text = re.sub(r"([^ \s]) {1}([^ ])", " ", text)
         return text
 
     ### CMS and API Exposure ##############################
