@@ -143,7 +143,7 @@ class ArticlePage(Page):
             return get_wagtail_image_url(self.banner)
 
     def body_rendered(self):
-        def replace_nbsp(matchobj):
+        def replace_multi_nbsp_space(matchobj):
             # This function checks for any instance where there's
             # &nbsp followed by a space occurring MULTIPLE times.
             # This is because the rich text editor resolves multiple
@@ -152,12 +152,18 @@ class ArticlePage(Page):
             count = len(re.findall(r"(  )", matchobj.group(0)))
             return '&nbsp;' * (count - 1)
 
-            # try this: ([^#\s])#{1}([^#])
+        def replace_multi_space(matchobj):
+            # Turn multiple spaces into &nbsp; * (count - 1) so that
+            # we can have words like S A D B O Y S, and it won't
+            # break on new lines.
+            count = len(re.findall(r"( )", matchobj.group(0)))
+            return ('&nbsp;' * (count - 1))
 
         text = self.body.render_as_block()
         text = html_replace_img(text)
-        text = re.sub(r"(  ){2,}", replace_nbsp, text)
-        #text = re.sub(r"([^ \s]) {1}([^ ])", " ", text)
+        text = re.sub(r"(  ){2,}", replace_multi_nbsp_space, text)
+        text = re.sub(r"(?<=[^ ]) {1}(?=[^ ])", " ", text)
+        text = re.sub(r"( ){2,}", replace_multi_space, text)
         return text
 
     ### CMS and API Exposure ##############################
