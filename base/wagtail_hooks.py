@@ -68,8 +68,9 @@ def whitelister_element_rules():
 @hooks.register('insert_editor_css')
 def editor_css():
     return format_html(
-        '<link rel="stylesheet" href="{}">',
-        static('css/custom_blocks.css')
+        '<link rel="stylesheet" href="{}"><link rel="stylesheet" href="{}">',
+        static('css/custom_blocks.css'),
+        static('css/body_stream_override.css'),
     )
 
 

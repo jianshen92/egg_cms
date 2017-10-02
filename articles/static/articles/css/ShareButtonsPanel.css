@@ -1,9 +1,0 @@
-.news-share .share-buttons {
-  display: inline-flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center; }
-  .news-share .share-buttons .SocialMediaShareButton {
-    margin: 0 5px; }
-
-/*# sourceMappingURL=ShareButtonsPanel.css.map */

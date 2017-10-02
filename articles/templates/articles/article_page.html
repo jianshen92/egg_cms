@@ -26,13 +26,8 @@ tags (problematic at the moment)
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
 
-  <link rel='stylesheet' href="{% static "articles/css/common.css" %}" type="text/css" />
-  <link rel='stylesheet' href="{% static "articles/css/globals.css" %}" type="text/css" />
-  <link rel='stylesheet' href="{% static "articles/css/ArticleRoute.css" %}" type="text/css" />
-  <link rel='stylesheet' href="{% static "articles/css/ShareButtonsPanel.css" %}" type="text/css" />
-  <link rel='stylesheet' href="{% static "articles/css/RelatedArticlesPanel.css" %}" type="text/css" />
-  <link rel='stylesheet' href="{% static "articles/css/ArticleAuthorPanel.css" %}" type="text/css" />
-
+  <link rel='stylesheet' href="{% static "articles/css/style.css" %}" type="text/css" />
+  
   <script src="https://use.fontawesome.com/90c4ba3613.js"></script>
 </head>
 
@@ -78,4 +73,8 @@ tags (problematic at the moment)
       </div>
     </div>
 </body>
+  {% comment %} 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src={% static "articles/js/fetch-egg-cms.js" %}></script> 
+  {% endcomment %}
 </html>

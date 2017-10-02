@@ -11,10 +11,11 @@ class AlignmentChoiceBlock(ChoiceBlock):
     # These effectively end up as the CSS classes
     # for the given div
     choices = [
-        ('full-width', 'Full Width'),
+        ('stretched', 'Stretched (within panel margins)'),
         ('left-aligned', 'Left Aligned'),
         ('centered', 'Centered'),
-        ('right-aligned', 'Right Aligned')
+        ('right-aligned', 'Right Aligned'),
+        ('full-width', 'Full Width (covering panel margins)'),
     ]
 
 

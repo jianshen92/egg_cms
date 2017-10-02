@@ -10,14 +10,17 @@ li.title {
 /* Captioned Image Chooser Panel */
 
 .captioned-image-block {
-  background-color: #dddddd;
-  margin: -1.5em -4em;
+  background-color: #101010;
+  max-width: 650px;
+  margin: auto;
   padding: 0 1.5em;
+  box-sizing: border-box;
   ul.fields {
     position: relative;
     min-height: 166px;
     &>li {
       label {
+        color: #eeeeee;
         padding: 6px 0;
       }
       /* Image Chooser Panel */
