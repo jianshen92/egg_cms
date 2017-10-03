@@ -71,8 +71,6 @@ def html_replace_img(obj):
 
     for img in bs.find_all("img"):
         if img['src'][0] == '/':
-            print 'found an img ' + img['src'] + ' '
-
             img['src'] = '%s%s' % (settings.SITE_URL, img['src'])
 
     text_bs = str(bs).decode("utf8")

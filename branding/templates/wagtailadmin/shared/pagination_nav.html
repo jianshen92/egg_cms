@@ -36,6 +36,8 @@
         {% for page_num in items.paginator.page_range %}
             {% if page_num == items.number %}
                 <li class="page-num active">{{ page_num }}</li>
+            {% elif is_ajax %}
+                <li class="page-num"><a href="#" data-page="{{ page_num }}">{{ page_num }}</a></li>
             {% else %}
                 <li class="page-num"><a href="?p={{ page_num }}">{{ page_num }}</a></li>
             {% endif %}
