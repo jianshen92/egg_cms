@@ -6,8 +6,10 @@
   <div class="image-container">
     {% image value.image original %}
       
-    <div class="caption">
-      <p>{{ value.caption }}</p>
-    </div>
+    {% if value.caption != '' %}
+      <div class="caption">
+        <p>{{ value.caption }}</p>
+      </div>
+    {% endif %}
   </div>
 </div>

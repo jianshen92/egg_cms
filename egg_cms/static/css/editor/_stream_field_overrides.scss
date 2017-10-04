@@ -1,0 +1,192 @@
+/**************************************************
+    Stream Field (general overrides) 
+  ***************************************************/
+
+li.stream-field {
+  fieldset {
+    color: $stream-field-text-color;
+    background-color: $stream-field-background-color;
+    padding-top: 6em;
+  }
+  .field-content {
+    width: 100%;
+  }
+  .sequence-member-inner {
+    background-color: $stream-field-member-background-color;
+    padding: 0 !important;
+    max-width: $stream-field-member-max-width;
+    margin: auto;
+    transition: all 0.2s ease;
+  }
+  li.sequence-member {
+    border: none;
+    transition: all 0.2s ease !important;
+    &:hover {
+      background-color: lighten($stream-field-background-color, 5%);
+    }
+  } // Always show the (+) icons
+  // Why the fuck would I ever want to hide these?
+  // It's so fucking glitchy
+  .stream-menu {
+    background-color: $stream-field-background-color !important;
+  }
+  .stream-menu-closed {
+    background-color: $stream-field-background-color !important;
+    .toggle {
+      background-color: $stream-field-member-background-color !important;
+    }
+  }
+  .stream-menu,
+  .stream-menu-closed {
+    opacity: 1 !important;
+    visibility: visible !important;
+    .toggle {
+      position: static;
+      width: 100%;
+      max-width: $stream-field-member-max-width;
+      padding: 4px 0;
+      font-size: 16px;
+      color: $stream-field-member-text-color !important;
+      background-color: inherit;
+      text-align: center;
+      transition: all 0.2s ease 0.15s !important;
+      border-radius: 0;
+    }
+    .button {
+      color: inherit !important;
+    }
+    &:hover {
+      .toggle {
+        padding: 8px 0;
+        background-color: inherit !important;
+        color: #ce9016 !important;
+      }
+    }
+  }
+  .sequence-controls {
+    top: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    h3 {
+      display: none;
+    }
+    button {
+      background-color: #d4912f;
+      border: none;
+      padding: 2px;
+      box-sizing: content-box;
+      transition: 0.2s ease all;
+      &:hover {
+        border-top: 3px solid #eeeeee;
+      }
+    }
+  }
+  /**************************************************
+    Override rich text editor so elements look like
+    front end panels. These need to be updated if 
+    changes were made on front end. 
+  ***************************************************/
+  .richtext {
+    color: inherit;
+    font-family: sans-serif;
+    letter-spacing: 0.3px;
+    line-height: 1.5em;
+    padding: 0 15px !important;
+    border-radius: 0 !important;
+    overflow: visible;
+    p {
+      margin: 10px 0;
+    }
+    h2,
+    h3 {
+      position: relative;
+      font-size: 34px;
+      font-weight: bold;
+      line-height: 1em;
+      letter-spacing: -2px;
+    }
+    h2 {
+      color: inherit;
+      background-color: rgba(250, 174, 24, .81);
+      padding: 10px 20% 10px 24px;
+      margin: 20px -24px 15px;
+    }
+    h3 {
+      padding-right: 15%;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    h4 {
+      position: relative;
+      font-size: 26px;
+      font-weight: bold;
+      line-height: 1em;
+      letter-spacing: -1px;
+      padding-right: 15%;
+      color: #ffc755;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    h5 {
+      font-size: 12px;
+      line-height: 1.5em;
+      letter-spacing: 0.2px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    hr {
+      border-top: 3px solid hsla(0, 0%, 100%, .06);
+      border-bottom: 16px solid #191919;
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+  }
+  /**************************************************
+    Customise (Field) Blocks
+  ***************************************************/
+  .fieldname-paragraph {
+    max-width: $stream-field-member-max-width;
+    .field-content {
+      background-color: inherit;
+      overflow: visible;
+      &:before {
+        @include panel-tag('paragraph', #be6363);
+      }
+    }
+  }
+  .fieldname-raw_html {
+    .field-content {
+      background-color: inherit;
+      textarea {
+        max-width: $stream-field-member-max-width !important;
+        margin: 10px 0 !important; // Since textarea doesn't use <p> it won't have margins so we gotta add them manually here.
+        padding: 0 15px !important;
+        color: #9f9fdb !important;
+        font-family: monospace;
+      }
+      &:after {
+        content: 'Raw HTML is dangerous. Don\'t mess around if unfamiliar!';
+        float: right;
+        margin-top: -10px;
+        padding: 2px 6px;
+        font-family: monospace;
+        margin: -10px -11px 0 0;
+        border-radius: 20px;
+        color: transparent;
+        background-color: transparent;
+      }
+      &:before {
+        @include panel-tag('raw html', #4764aa);
+      }
+    }
+    &.focused {
+      .field-content {
+        &:after {
+          background-color: #c32d25;
+          color: white;
+        }
+      }
+    }
+  }
+}

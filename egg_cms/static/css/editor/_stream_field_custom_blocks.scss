@@ -1,0 +1,138 @@
+/**************************************************
+    CSS for custom blocks defined in:
+    base/blocks/custom_blocks.py 
+  ***************************************************/
+
+li.stream-field {
+  /**************************************************
+    Captioned Image 
+  ***************************************************/
+  .captioned-image-block {
+    &:before {
+      @include panel-tag('image', #aa7b47);
+    }
+    background-color: inherit;
+    max-width: 650px;
+    margin: auto;
+    padding: 0 1.5em;
+    box-sizing: border-box;
+    ul.fields {
+      position: relative;
+      min-height: 166px;
+      &>li {
+        label {
+          color: $stream-field-member-text-color;
+          padding: 6px 0;
+        }
+        /* Image Chooser Panel */
+        &:first-child {
+          width: 50%;
+          label {
+            display: none;
+          }
+          .field-content {
+            width: 100%;
+          }
+          .image-chooser {
+            /* There's an image selected */
+            .chosen {
+              padding-left: 0;
+              text-align: center;
+              .preview-image {
+                float: none;
+                margin: auto;
+                max-width: 120px;
+                img {
+                  max-width: 120px;
+                  max-height: 120px;
+                  width: 100%;
+                }
+              }
+              .actions {
+                li {
+                  display: inline-block;
+                  float: none;
+                }
+              }
+            }
+            /* User hasn't selected an image */
+            .unchosen {
+              text-align: center;
+              margin-top: 5em;
+              &:before {
+                color: #5ab7b7;
+              }
+            }
+          }
+        }
+        /* Alignment Selection Panel */
+        &:nth-child(2) {
+          top: 0;
+          select {
+            padding: 5px;
+          }
+          span:after {
+            font-size: 22px;
+          }
+        }
+        /* Caption Text Panel */
+        &:nth-child(3) {
+          bottom: 0;
+          input {
+            padding: 5px;
+          }
+        }
+        &:nth-child(2),
+        &:nth-child(3) {
+          position: absolute;
+          right: 0;
+          width: 50%;
+          height: 50%;
+          label {
+            width: 83.33%
+          }
+        }
+        .error-message {
+          text-align: center;
+        }
+      }
+    }
+  }
+  /**************************************************
+    Authored Block Quote
+  ***************************************************/
+  .authored-block-quote-block {
+    &:before {
+      @include panel-tag('quote', #29762d);
+    }
+    background-color: $stream-field-member-quote-background-color;
+    margin: 0 25% 0 0;
+    border-left: 5px solid #fdb913;
+    ul.fields {
+      &>li {
+        padding: 0;
+        label {
+          display: none;
+        }
+        /* Quote Panel */
+        &:first-child {
+          .input .richtext {
+            background-color: inherit;
+            border: none;
+          }
+        }
+        /* Author Panel */
+        &:nth-child(2) {
+          input {
+            background-color: inherit;
+            border: none;
+            border-radius: 0;
+            color: $stream-field-member-quote-text-color;
+            text-align: right;
+            font-style: italic;
+          }
+        }
+      }
+    }
+  }
+}

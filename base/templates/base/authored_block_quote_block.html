@@ -1,0 +1,9 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+<blockquote>
+  {{ value.quote }}
+  {% if value.author %}
+    <p>{{ value.author }}</p>
+  {% endif %}
+</blockquote>

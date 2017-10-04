@@ -25,7 +25,7 @@ from wagtail.wagtailcore.blocks import RichTextBlock, RawHTMLBlock, BlockQuoteBl
 
 from wagtail.api import APIField
 
-from base.blocks import CaptionedImageBlock
+from base.blocks import CaptionedImageBlock, AuthoredBlockQuoteBlock
 from base.utils import html_replace_img, get_wagtail_image_url
 
 
@@ -88,7 +88,8 @@ class ArticlePage(Page):
         [
             ('paragraph', RichTextBlock()),
             ('captioned_image', CaptionedImageBlock(label="Image")),
-            ('block_quote', BlockQuoteBlock(label="Block Quote")),
+            ('authored_block_quote', AuthoredBlockQuoteBlock(
+                label="Block Quote")),
             ('raw_html', RawHTMLBlock(label="Raw HTML"))
         ],
         null=True,

@@ -1,0 +1,358 @@
+#id_youtube_episode-FORMS > li {
+  padding: 0.5em 10em 0.5em 1em;
+  margin-bottom: 0.2em; }
+  #id_youtube_episode-FORMS > li .controls {
+    top: 0.5em; }
+  #id_youtube_episode-FORMS > li fieldset {
+    width: 100%; }
+    #id_youtube_episode-FORMS > li fieldset .episode-title,
+    #id_youtube_episode-FORMS > li fieldset .episode-id {
+      padding: 0; }
+      #id_youtube_episode-FORMS > li fieldset .episode-title > div > label,
+      #id_youtube_episode-FORMS > li fieldset .episode-id > div > label {
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        width: 25%; }
+      #id_youtube_episode-FORMS > li fieldset .episode-title > div .field-content,
+      #id_youtube_episode-FORMS > li fieldset .episode-id > div .field-content {
+        width: 75%;
+        display: inline-grid; }
+        #id_youtube_episode-FORMS > li fieldset .episode-title > div .field-content .input > input,
+        #id_youtube_episode-FORMS > li fieldset .episode-id > div .field-content .input > input {
+          padding: 0.25em 0.5em; }
+    #id_youtube_episode-FORMS > li fieldset .episode-title-value {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      position: relative;
+      padding-left: 16px; }
+      #id_youtube_episode-FORMS > li fieldset .episode-title-value a {
+        display: inline-block; }
+      #id_youtube_episode-FORMS > li fieldset .episode-title-value i {
+        display: inline-flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #07d407;
+        line-height: inherit; }
+        #id_youtube_episode-FORMS > li fieldset .episode-title-value i:before {
+          vertical-align: middle;
+          line-height: inherit; }
+      #id_youtube_episode-FORMS > li fieldset .episode-title-value .error {
+        color: red;
+        font-weight: bold; }
+        #id_youtube_episode-FORMS > li fieldset .episode-title-value .error i {
+          color: red; }
+
+.loader {
+  display: inline-block;
+  box-sizing: border-box;
+  border: 4px solid #f3f3f3;
+  /* Light grey */
+  border-top: 4px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  font-size: inherit;
+  width: 1em;
+  height: 1em;
+  animation: spin 2s linear infinite; }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+/**************************************************
+    Char Field
+  ***************************************************/
+li.char_field.title .field-content input {
+  padding: 0.5em 50px; }
+
+/**************************************************
+    Stream Field (general overrides) 
+  ***************************************************/
+li.stream-field {
+  /**************************************************
+    Override rich text editor so elements look like
+    front end panels. These need to be updated if 
+    changes were made on front end. 
+  ***************************************************/
+  /**************************************************
+    Customise (Field) Blocks
+  ***************************************************/ }
+  li.stream-field fieldset {
+    color: #EEEEEE;
+    background-color: #191919;
+    padding-top: 6em; }
+  li.stream-field .field-content {
+    width: 100%; }
+  li.stream-field .sequence-member-inner {
+    background-color: #101010;
+    padding: 0 !important;
+    max-width: 650px;
+    margin: auto;
+    transition: all 0.2s ease; }
+  li.stream-field li.sequence-member {
+    border: none;
+    transition: all 0.2s ease !important; }
+    li.stream-field li.sequence-member:hover {
+      background-color: #262626; }
+  li.stream-field .stream-menu {
+    background-color: #191919 !important; }
+  li.stream-field .stream-menu-closed {
+    background-color: #191919 !important; }
+    li.stream-field .stream-menu-closed .toggle {
+      background-color: #101010 !important; }
+  li.stream-field .stream-menu,
+  li.stream-field .stream-menu-closed {
+    opacity: 1 !important;
+    visibility: visible !important; }
+    li.stream-field .stream-menu .toggle,
+    li.stream-field .stream-menu-closed .toggle {
+      position: static;
+      width: 100%;
+      max-width: 650px;
+      padding: 4px 0;
+      font-size: 16px;
+      color: #EEEEEE !important;
+      background-color: inherit;
+      text-align: center;
+      transition: all 0.2s ease 0.15s !important;
+      border-radius: 0; }
+    li.stream-field .stream-menu .button,
+    li.stream-field .stream-menu-closed .button {
+      color: inherit !important; }
+    li.stream-field .stream-menu:hover .toggle,
+    li.stream-field .stream-menu-closed:hover .toggle {
+      padding: 8px 0;
+      background-color: inherit !important;
+      color: #ce9016 !important; }
+  li.stream-field .sequence-controls {
+    top: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent; }
+    li.stream-field .sequence-controls h3 {
+      display: none; }
+    li.stream-field .sequence-controls button {
+      background-color: #d4912f;
+      border: none;
+      padding: 2px;
+      box-sizing: content-box;
+      transition: 0.2s ease all; }
+      li.stream-field .sequence-controls button:hover {
+        border-top: 3px solid #eeeeee; }
+  li.stream-field .richtext {
+    color: inherit;
+    font-family: sans-serif;
+    letter-spacing: 0.3px;
+    line-height: 1.5em;
+    padding: 0 15px !important;
+    border-radius: 0 !important;
+    overflow: visible; }
+    li.stream-field .richtext p {
+      margin: 10px 0; }
+    li.stream-field .richtext h2,
+    li.stream-field .richtext h3 {
+      position: relative;
+      font-size: 34px;
+      font-weight: bold;
+      line-height: 1em;
+      letter-spacing: -2px; }
+    li.stream-field .richtext h2 {
+      color: inherit;
+      background-color: rgba(250, 174, 24, 0.81);
+      padding: 10px 20% 10px 24px;
+      margin: 20px -24px 15px; }
+    li.stream-field .richtext h3 {
+      padding-right: 15%;
+      margin-top: 20px;
+      margin-bottom: 10px; }
+    li.stream-field .richtext h4 {
+      position: relative;
+      font-size: 26px;
+      font-weight: bold;
+      line-height: 1em;
+      letter-spacing: -1px;
+      padding-right: 15%;
+      color: #ffc755;
+      margin-top: 10px;
+      margin-bottom: 10px; }
+    li.stream-field .richtext h5 {
+      font-size: 12px;
+      line-height: 1.5em;
+      letter-spacing: 0.2px;
+      margin-top: 10px;
+      margin-bottom: 10px; }
+    li.stream-field .richtext hr {
+      border-top: 3px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 16px solid #191919;
+      margin-left: -15px;
+      margin-right: -15px; }
+  li.stream-field .fieldname-paragraph {
+    max-width: 650px; }
+    li.stream-field .fieldname-paragraph .field-content {
+      background-color: inherit;
+      overflow: visible; }
+      li.stream-field .fieldname-paragraph .field-content:before {
+        content: "paragraph";
+        position: absolute;
+        right: 4px;
+        padding: 1px 4px;
+        background-color: #be6363;
+        color: white;
+        font-size: 10px;
+        font-style: italic;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px; }
+  li.stream-field .fieldname-raw_html .field-content {
+    background-color: inherit; }
+    li.stream-field .fieldname-raw_html .field-content textarea {
+      max-width: 650px !important;
+      margin: 10px 0 !important;
+      padding: 0 15px !important;
+      color: #9f9fdb !important;
+      font-family: monospace; }
+    li.stream-field .fieldname-raw_html .field-content:after {
+      content: 'Raw HTML is dangerous. Don\'t mess around if unfamiliar!';
+      float: right;
+      margin-top: -10px;
+      padding: 2px 6px;
+      font-family: monospace;
+      margin: -10px -11px 0 0;
+      border-radius: 20px;
+      color: transparent;
+      background-color: transparent; }
+    li.stream-field .fieldname-raw_html .field-content:before {
+      content: "raw html";
+      position: absolute;
+      right: 4px;
+      padding: 1px 4px;
+      background-color: #4764aa;
+      color: white;
+      font-size: 10px;
+      font-style: italic;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px; }
+  li.stream-field .fieldname-raw_html.focused .field-content:after {
+    background-color: #c32d25;
+    color: white; }
+
+/**************************************************
+    CSS for custom blocks defined in:
+    base/blocks/custom_blocks.py 
+  ***************************************************/
+li.stream-field {
+  /**************************************************
+    Captioned Image 
+  ***************************************************/
+  /**************************************************
+    Authored Block Quote
+  ***************************************************/ }
+  li.stream-field .captioned-image-block {
+    background-color: inherit;
+    max-width: 650px;
+    margin: auto;
+    padding: 0 1.5em;
+    box-sizing: border-box; }
+    li.stream-field .captioned-image-block:before {
+      content: "image";
+      position: absolute;
+      right: 4px;
+      padding: 1px 4px;
+      background-color: #aa7b47;
+      color: white;
+      font-size: 10px;
+      font-style: italic;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px; }
+    li.stream-field .captioned-image-block ul.fields {
+      position: relative;
+      min-height: 166px; }
+      li.stream-field .captioned-image-block ul.fields > li {
+        /* Image Chooser Panel */
+        /* Alignment Selection Panel */
+        /* Caption Text Panel */ }
+        li.stream-field .captioned-image-block ul.fields > li label {
+          color: #EEEEEE;
+          padding: 6px 0; }
+        li.stream-field .captioned-image-block ul.fields > li:first-child {
+          width: 50%; }
+          li.stream-field .captioned-image-block ul.fields > li:first-child label {
+            display: none; }
+          li.stream-field .captioned-image-block ul.fields > li:first-child .field-content {
+            width: 100%; }
+          li.stream-field .captioned-image-block ul.fields > li:first-child .image-chooser {
+            /* There's an image selected */
+            /* User hasn't selected an image */ }
+            li.stream-field .captioned-image-block ul.fields > li:first-child .image-chooser .chosen {
+              padding-left: 0;
+              text-align: center; }
+              li.stream-field .captioned-image-block ul.fields > li:first-child .image-chooser .chosen .preview-image {
+                float: none;
+                margin: auto;
+                max-width: 120px; }
+                li.stream-field .captioned-image-block ul.fields > li:first-child .image-chooser .chosen .preview-image img {
+                  max-width: 120px;
+                  max-height: 120px;
+                  width: 100%; }
+              li.stream-field .captioned-image-block ul.fields > li:first-child .image-chooser .chosen .actions li {
+                display: inline-block;
+                float: none; }
+            li.stream-field .captioned-image-block ul.fields > li:first-child .image-chooser .unchosen {
+              text-align: center;
+              margin-top: 5em; }
+              li.stream-field .captioned-image-block ul.fields > li:first-child .image-chooser .unchosen:before {
+                color: #5ab7b7; }
+        li.stream-field .captioned-image-block ul.fields > li:nth-child(2) {
+          top: 0; }
+          li.stream-field .captioned-image-block ul.fields > li:nth-child(2) select {
+            padding: 5px; }
+          li.stream-field .captioned-image-block ul.fields > li:nth-child(2) span:after {
+            font-size: 22px; }
+        li.stream-field .captioned-image-block ul.fields > li:nth-child(3) {
+          bottom: 0; }
+          li.stream-field .captioned-image-block ul.fields > li:nth-child(3) input {
+            padding: 5px; }
+        li.stream-field .captioned-image-block ul.fields > li:nth-child(2), li.stream-field .captioned-image-block ul.fields > li:nth-child(3) {
+          position: absolute;
+          right: 0;
+          width: 50%;
+          height: 50%; }
+          li.stream-field .captioned-image-block ul.fields > li:nth-child(2) label, li.stream-field .captioned-image-block ul.fields > li:nth-child(3) label {
+            width: 83.33%; }
+        li.stream-field .captioned-image-block ul.fields > li .error-message {
+          text-align: center; }
+  li.stream-field .authored-block-quote-block {
+    background-color: #000000;
+    margin: 0 25% 0 0;
+    border-left: 5px solid #fdb913; }
+    li.stream-field .authored-block-quote-block:before {
+      content: "quote";
+      position: absolute;
+      right: 4px;
+      padding: 1px 4px;
+      background-color: #29762d;
+      color: white;
+      font-size: 10px;
+      font-style: italic;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px; }
+    li.stream-field .authored-block-quote-block ul.fields > li {
+      padding: 0;
+      /* Quote Panel */
+      /* Author Panel */ }
+      li.stream-field .authored-block-quote-block ul.fields > li label {
+        display: none; }
+      li.stream-field .authored-block-quote-block ul.fields > li:first-child .input .richtext {
+        background-color: inherit;
+        border: none; }
+      li.stream-field .authored-block-quote-block ul.fields > li:nth-child(2) input {
+        background-color: inherit;
+        border: none;
+        border-radius: 0;
+        color: #ccbc96;
+        text-align: right;
+        font-style: italic; }
+
+/*# sourceMappingURL=editor.css.map */

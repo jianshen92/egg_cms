@@ -213,4 +213,10 @@ header .button {
 .messages .success {
   background-color: #74934a; }
 
-/*# sourceMappingURL=misc.css.map */
+.content-wrapper .content {
+  padding-bottom: 10em; }
+
+.hallo-toolbar.stream-field {
+  width: 400px !important; }
+
+/*# sourceMappingURL=admin.css.map */

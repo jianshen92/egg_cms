@@ -26,7 +26,7 @@ tags (problematic at the moment)
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
 
-  <link rel='stylesheet' href="{% static "articles/css/style.css" %}" type="text/css" />
+  <link rel='stylesheet' href="{% static "css/frontend_style.css" %}" type="text/css" />
   
   <script src="https://use.fontawesome.com/90c4ba3613.js"></script>
 </head>
@@ -41,21 +41,23 @@ tags (problematic at the moment)
         </div>
       </div>
 
-      <div class="news-nav container">
-        <p>
-          <a href="#">< All news</a>
-          <span> / </span>
-          <span class="here">{{ title }}</span>
-        </p>
+      <div class="news-nav container no-padding">
+        <div class="col-xs-12 col-sm-7 col-sm-offset-1 col-md-offset-2">
+          <p>
+            <a href="#">< All news</a>
+            <span> / </span>
+            <span class="here">{{ title }}</span>
+          </p>
+        </div>
       </div>
 
       <div class="news-body container no-padding">
 
-        <div class="news-content col-sm-8 margin-bot-16">
+        <div class="news-content col-xs-12 col-sm-7 col-sm-offset-1 col-md-offset-2 margin-bot-16">
           {{ body_rendered | safe }}
         </div>
 
-        <div class="news-sidebar col-sm-4 margin-bot-16">
+        <div class="news-sidebar col-xs-12 col-sm-4 col-md-3 margin-bot-16">
 
           {% include "./article_author_panel.html" %}
 
@@ -73,8 +75,5 @@ tags (problematic at the moment)
       </div>
     </div>
 </body>
-  {% comment %} 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src={% static "articles/js/fetch-egg-cms.js" %}></script> 
-  {% endcomment %}
+
 </html>
