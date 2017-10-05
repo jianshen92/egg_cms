@@ -7,7 +7,7 @@ li.stream-field {
   /**************************************************
     Captioned Image 
   ***************************************************/
-  .captioned-image-block {
+  .fieldname-captioned_image {
     &:before {
       @include panel-tag('image', #aa7b47);
     }
@@ -18,14 +18,35 @@ li.stream-field {
     box-sizing: border-box;
     ul.fields {
       position: relative;
-      min-height: 166px;
+      min-height: 174px;
       &>li {
         label {
           color: $stream-field-member-text-color;
-          padding: 6px 0;
+          width: 100%;
+          padding: 0;
+        }
+        span:after {
+          font-size: 18px;
+          border: none;
+          border-radius: 0;
+          background-color: transparent;
+        }
+        input,
+        textarea,
+        select {
+          color: $stream-field-member-text-color;
+          background-color: transparent;
+          border: none;
+          border-radius: 0;
+          border-bottom: 1px solid #717171;
+          padding: 4px;
+          option {
+            background-color: $stream-field-background-color;
+            ;
+          }
         }
         /* Image Chooser Panel */
-        &:first-child {
+        &:nth-child(1) {
           width: 50%;
           label {
             display: none;
@@ -67,29 +88,40 @@ li.stream-field {
         }
         /* Alignment Selection Panel */
         &:nth-child(2) {
-          top: 0;
-          select {
-            padding: 5px;
+          position: absolute;
+          top: 0px;
+          right: 0;
+          width: 50%;
+          .fieldname-alignment {
+            display: inline-block;
+            width: 100%;
           }
-          span:after {
-            font-size: 22px;
+          &:after {
+            @include input-line-tag('* required', #BE2828);
+          }
+        }
+        /* Dimensions Panel */
+        &:nth-child(3) {
+          position: absolute;
+          top: 55px;
+          right: 0;
+          width: 50%;
+          label {}
+          .fieldname-max_width {
+            width: 100%;
+          }
+          &:after {
+            @include input-line-tag('optional', #CFCFCF);
           }
         }
         /* Caption Text Panel */
-        &:nth-child(3) {
-          bottom: 0;
-          input {
-            padding: 5px;
-          }
-        }
-        &:nth-child(2),
-        &:nth-child(3) {
+        &:nth-child(4) {
           position: absolute;
+          top: 110px;
           right: 0;
           width: 50%;
-          height: 50%;
-          label {
-            width: 83.33%
+          &:after {
+            @include input-line-tag('optional', #CFCFCF);
           }
         }
         .error-message {
@@ -101,7 +133,7 @@ li.stream-field {
   /**************************************************
     Authored Block Quote
   ***************************************************/
-  .authored-block-quote-block {
+  .fieldname-authored_block_quote {
     &:before {
       @include panel-tag('quote', #29762d);
     }
@@ -131,6 +163,53 @@ li.stream-field {
             text-align: right;
             font-style: italic;
           }
+        }
+      }
+    }
+  }
+  /**************************************************
+    Customise (Field) Blocks
+  ***************************************************/
+  .fieldname-paragraph {
+    max-width: $stream-field-member-max-width;
+    .field-content {
+      background-color: inherit;
+      overflow: visible;
+      &:before {
+        @include panel-tag('paragraph', #be6363);
+      }
+    }
+  }
+  .fieldname-raw_html {
+    .field-content {
+      background-color: inherit;
+      textarea {
+        max-width: $stream-field-member-max-width !important;
+        margin: 10px 0 !important; // Since textarea doesn't use <p> it won't have margins so we gotta add them manually here.
+        padding: 0 15px !important;
+        color: #9f9fdb !important;
+        font-family: monospace;
+      }
+      &:after {
+        content: 'Raw HTML is dangerous. Don\'t mess around if unfamiliar!';
+        float: right;
+        margin-top: -10px;
+        padding: 2px 6px;
+        font-family: monospace;
+        margin: -10px -11px 0 0;
+        border-radius: 20px;
+        color: transparent;
+        background-color: transparent;
+      }
+      &:before {
+        @include panel-tag('raw html', #4764aa);
+      }
+    }
+    &.focused {
+      .field-content {
+        &:after {
+          background-color: #c32d25;
+          color: white;
         }
       }
     }

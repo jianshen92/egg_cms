@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailcore.blocks import ChoiceBlock, StructBlock, CharBlock, RichTextBlock
+from wagtail.wagtailcore.blocks import ChoiceBlock, StructBlock, CharBlock, RichTextBlock, TextBlock, IntegerBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 
@@ -26,12 +26,13 @@ class AlignmentChoiceBlock(ChoiceBlock):
 class CaptionedImageBlock(StructBlock):
     image = ImageChooserBlock(required=True)
     alignment = AlignmentChoiceBlock(required=True)
+    max_width = IntegerBlock(required=False)
     caption = CharBlock(required=False, max_length=200)
 
     class Meta:
         icon = 'image'
         template = 'base/captioned_image_block.html'
-        form_classname = 'captioned-image-block'
+        form_classname = 'fieldname-captioned_image'
 
 
 class AuthoredBlockQuoteBlock(StructBlock):
@@ -42,4 +43,4 @@ class AuthoredBlockQuoteBlock(StructBlock):
     class Meta:
         icon = 'image'
         template = 'base/authored_block_quote_block.html'
-        form_classname = 'authored-block-quote-block'
+        form_classname = 'fieldname-authored_block_quote'
