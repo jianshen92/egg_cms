@@ -71,6 +71,9 @@ li.char_field.title .field-content input {
 /**************************************************
     Stream Field (general overrides) 
   ***************************************************/
+#body-prependmenu {
+  opacity: 1 !important; }
+
 li.stream-field {
   /**************************************************
     Override rich text editor so elements look like
@@ -84,46 +87,59 @@ li.stream-field {
   li.stream-field .field-content {
     width: 100%; }
   li.stream-field .sequence-member-inner {
-    background-color: #101010;
     padding: 0 !important;
     max-width: 650px;
     margin: auto;
-    transition: all 0.2s ease; }
+    transition: all 0.2s ease;
+    border-top: 1px solid #262626;
+    border-bottom: 1px solid #262626;
+    margin-bottom: -1px; }
   li.stream-field li.sequence-member {
     border: none;
     transition: all 0.2s ease !important; }
     li.stream-field li.sequence-member:hover {
       background-color: #262626; }
+      li.stream-field li.sequence-member:hover .sequence-member-inner div:first-child:before {
+        opacity: 1 !important; }
   li.stream-field .stream-menu {
     background-color: #191919 !important; }
   li.stream-field .stream-menu-closed {
     background-color: #191919 !important; }
     li.stream-field .stream-menu-closed .toggle {
-      background-color: #101010 !important; }
+      background-color: #191919 !important; }
   li.stream-field .stream-menu,
   li.stream-field .stream-menu-closed {
-    opacity: 1 !important;
-    visibility: visible !important; }
+    opacity: 0;
+    visibility: visible !important;
+    transition: none; }
     li.stream-field .stream-menu .toggle,
     li.stream-field .stream-menu-closed .toggle {
-      position: static;
+      z-index: 1000;
+      position: absolute;
       width: 100%;
       max-width: 650px;
       padding: 4px 0;
       font-size: 16px;
       color: #EEEEEE !important;
-      background-color: inherit;
+      background-color: transparent !important;
       text-align: center;
-      transition: all 0.2s ease 0.15s !important;
       border-radius: 0; }
+      li.stream-field .stream-menu .toggle:before,
+      li.stream-field .stream-menu-closed .toggle:before {
+        background-color: #191919;
+        padding: 2px;
+        margin-left: -9px;
+        top: -2px;
+        border-radius: 50%; }
     li.stream-field .stream-menu .button,
     li.stream-field .stream-menu-closed .button {
       color: inherit !important; }
-    li.stream-field .stream-menu:hover .toggle,
-    li.stream-field .stream-menu-closed:hover .toggle {
-      padding: 8px 0;
-      background-color: inherit !important;
-      color: #ce9016 !important; }
+    li.stream-field .stream-menu:hover,
+    li.stream-field .stream-menu-closed:hover {
+      opacity: 1; }
+      li.stream-field .stream-menu:hover .toggle,
+      li.stream-field .stream-menu-closed:hover .toggle {
+        color: #ce9016 !important; }
   li.stream-field .sequence-controls {
     top: 0;
     padding: 0;
@@ -146,7 +162,8 @@ li.stream-field {
     line-height: 1.5em;
     padding: 0 15px !important;
     border-radius: 0 !important;
-    overflow: visible; }
+    overflow: visible;
+    min-height: 1em; }
     li.stream-field .richtext p {
       margin: 10px 0; }
     li.stream-field .richtext h2,
@@ -158,7 +175,6 @@ li.stream-field {
       letter-spacing: -2px; }
     li.stream-field .richtext h2 {
       color: inherit;
-      background-color: rgba(250, 174, 24, 0.81);
       padding: 10px 20% 10px 24px;
       margin: 20px -24px 15px; }
     li.stream-field .richtext h3 {
@@ -186,7 +202,30 @@ li.stream-field {
       border-bottom: 16px solid #191919;
       margin-left: -15px;
       margin-right: -15px; }
+    li.stream-field .richtext div {
+      margin: 10px 0; }
 
+.hallotoolbar {
+  position: fixed !important;
+  top: unset !important;
+  bottom: 50px !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: auto auto auto 230px !important;
+  width: 80% !important;
+  box-sizing: border-box;
+  padding: 2em;
+  background-color: rgba(177, 132, 55, 0.66);
+  text-align: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px; }
+
+@media screen and (max-width: 50em) {
+  .hallotoolbar {
+    margin: auto !important;
+    width: 90% !important;
+    padding: 1em !important;
+    bottom: 130px !important; } }
 /**************************************************
     CSS for custom blocks defined in:
     base/blocks/custom_blocks.py 
@@ -199,8 +238,13 @@ li.stream-field {
     Authored Block Quote
   ***************************************************/
   /**************************************************
+    Clearfix 
+  ***************************************************/
+  /**************************************************
     Customise (Field) Blocks
-  ***************************************************/ }
+  ***************************************************/
+  /* Paragraph -- Rich Text Block */
+  /* Raw HTML */ }
   li.stream-field .fieldname-captioned_image {
     background-color: inherit;
     max-width: 650px;
@@ -217,11 +261,13 @@ li.stream-field {
       font-size: 10px;
       font-style: italic;
       border-bottom-left-radius: 4px;
-      border-bottom-right-radius: 4px; }
+      border-bottom-right-radius: 4px;
+      opacity: 0; }
     li.stream-field .fieldname-captioned_image ul.fields {
       position: relative;
-      min-height: 174px; }
+      min-height: 180px; }
       li.stream-field .fieldname-captioned_image ul.fields > li {
+        transition: 0.2s ease all;
         /* Image Chooser Panel */
         /* Alignment Selection Panel */
         /* Dimensions Panel */
@@ -249,7 +295,7 @@ li.stream-field {
           li.stream-field .fieldname-captioned_image ul.fields > li select option {
             background-color: #191919; }
         li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) {
-          width: 50%; }
+          width: 100%; }
           li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) label {
             display: none; }
           li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) .field-content {
@@ -263,20 +309,26 @@ li.stream-field {
               li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) .image-chooser .chosen .preview-image {
                 float: none;
                 margin: auto;
-                max-width: 120px; }
+                height: 144px;
+                max-width: none;
+                margin-bottom: -30px;
+                transition: 0.2s ease all; }
                 li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) .image-chooser .chosen .preview-image img {
-                  max-width: 120px;
-                  max-height: 120px;
-                  width: 100%; }
-              li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) .image-chooser .chosen .actions li {
-                display: inline-block;
-                float: none; }
+                  max-width: 100%;
+                  max-height: none;
+                  height: 100%; }
+              li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) .image-chooser .chosen .actions {
+                opacity: 0; }
+                li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) .image-chooser .chosen .actions li {
+                  display: inline-block;
+                  float: none; }
             li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) .image-chooser .unchosen {
               text-align: center;
               margin-top: 5em; }
               li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) .image-chooser .unchosen:before {
                 color: #5ab7b7; }
         li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(2) {
+          opacity: 0;
           position: absolute;
           top: 0px;
           right: 0;
@@ -292,6 +344,7 @@ li.stream-field {
             font-size: 10px;
             color: #BE2828; }
         li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(3) {
+          opacity: 0;
           position: absolute;
           top: 55px;
           right: 0;
@@ -306,6 +359,7 @@ li.stream-field {
             font-size: 10px;
             color: #CFCFCF; }
         li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(4) {
+          opacity: 0;
           position: absolute;
           top: 110px;
           right: 0;
@@ -319,10 +373,17 @@ li.stream-field {
             color: #CFCFCF; }
         li.stream-field .fieldname-captioned_image ul.fields > li .error-message {
           text-align: center; }
+    li.stream-field .fieldname-captioned_image:hover ul.fields > li {
+      opacity: 1; }
+      li.stream-field .fieldname-captioned_image:hover ul.fields > li:nth-child(1) {
+        width: 50%; }
+        li.stream-field .fieldname-captioned_image:hover ul.fields > li:nth-child(1) .preview-image {
+          height: 116px !important;
+          margin-bottom: 0 !important; }
+        li.stream-field .fieldname-captioned_image:hover ul.fields > li:nth-child(1) .actions {
+          opacity: 1 !important; }
   li.stream-field .fieldname-authored_block_quote {
-    background-color: #000000;
-    margin: 0 25% 0 0;
-    border-left: 5px solid #fdb913; }
+    margin: 0 0 0 25%; }
     li.stream-field .fieldname-authored_block_quote:before {
       content: "quote";
       position: absolute;
@@ -333,7 +394,8 @@ li.stream-field {
       font-size: 10px;
       font-style: italic;
       border-bottom-left-radius: 4px;
-      border-bottom-right-radius: 4px; }
+      border-bottom-right-radius: 4px;
+      opacity: 0; }
     li.stream-field .fieldname-authored_block_quote ul.fields > li {
       padding: 0;
       /* Quote Panel */
@@ -341,31 +403,60 @@ li.stream-field {
       li.stream-field .fieldname-authored_block_quote ul.fields > li label {
         display: none; }
       li.stream-field .fieldname-authored_block_quote ul.fields > li:first-child .input .richtext {
-        background-color: inherit;
-        border: none; }
+        background-color: #262626;
+        border: none;
+        border-left: 3px solid #ffc755;
+        margin: 1em 0; }
       li.stream-field .fieldname-authored_block_quote ul.fields > li:nth-child(2) input {
         background-color: inherit;
         border: none;
         border-radius: 0;
         color: #ccbc96;
         text-align: right;
-        font-style: italic; }
+        font-style: italic;
+        padding-top: 0; }
+  li.stream-field .fieldname-clearfix {
+    padding: 1em 15px;
+    text-align: center;
+    background: repeating-linear-gradient(-45deg, #262626, #262626 2px, transparent 2px, transparent 6px); }
+    li.stream-field .fieldname-clearfix h3 {
+      margin: 0 0 4px 0;
+      color: #f3a305;
+      font-weight: bold; }
+    li.stream-field .fieldname-clearfix h4 {
+      margin: 0;
+      font-style: italic;
+      color: #EEEEEE; }
   li.stream-field .fieldname-paragraph {
-    max-width: 650px; }
+    max-width: 650px;
+    min-height: 41px; }
+    li.stream-field .fieldname-paragraph:before {
+      content: "paragraph";
+      position: absolute;
+      right: 4px;
+      padding: 1px 4px;
+      background-color: #be6363;
+      color: white;
+      font-size: 10px;
+      font-style: italic;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      opacity: 0; }
     li.stream-field .fieldname-paragraph .field-content {
       background-color: inherit;
       overflow: visible; }
-      li.stream-field .fieldname-paragraph .field-content:before {
-        content: "paragraph";
-        position: absolute;
-        right: 4px;
-        padding: 1px 4px;
-        background-color: #be6363;
-        color: white;
-        font-size: 10px;
-        font-style: italic;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px; }
+  li.stream-field .fieldname-raw_html:before {
+    content: "raw html";
+    position: absolute;
+    right: 4px;
+    padding: 1px 4px;
+    background-color: #4764aa;
+    color: white;
+    font-size: 10px;
+    font-style: italic;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    opacity: 0; }
   li.stream-field .fieldname-raw_html .field-content {
     background-color: inherit; }
     li.stream-field .fieldname-raw_html .field-content textarea {
@@ -384,17 +475,6 @@ li.stream-field {
       border-radius: 20px;
       color: transparent;
       background-color: transparent; }
-    li.stream-field .fieldname-raw_html .field-content:before {
-      content: "raw html";
-      position: absolute;
-      right: 4px;
-      padding: 1px 4px;
-      background-color: #4764aa;
-      color: white;
-      font-size: 10px;
-      font-style: italic;
-      border-bottom-left-radius: 4px;
-      border-bottom-right-radius: 4px; }
   li.stream-field .fieldname-raw_html.focused .field-content:after {
     background-color: #c32d25;
     color: white; }

@@ -18,8 +18,9 @@ li.stream-field {
     box-sizing: border-box;
     ul.fields {
       position: relative;
-      min-height: 174px;
+      min-height: 180px;
       &>li {
+        transition: 0.2s ease all;
         label {
           color: $stream-field-member-text-color;
           width: 100%;
@@ -42,12 +43,11 @@ li.stream-field {
           padding: 4px;
           option {
             background-color: $stream-field-background-color;
-            ;
           }
         }
         /* Image Chooser Panel */
         &:nth-child(1) {
-          width: 50%;
+          width: 100%;
           label {
             display: none;
           }
@@ -62,14 +62,18 @@ li.stream-field {
               .preview-image {
                 float: none;
                 margin: auto;
-                max-width: 120px;
+                height: 144px;
+                max-width: none;
+                margin-bottom: -30px;
+                transition: 0.2s ease all;
                 img {
-                  max-width: 120px;
-                  max-height: 120px;
-                  width: 100%;
+                  max-width: 100%;
+                  max-height: none;
+                  height: 100%;
                 }
               }
               .actions {
+                opacity: 0;
                 li {
                   display: inline-block;
                   float: none;
@@ -88,6 +92,7 @@ li.stream-field {
         }
         /* Alignment Selection Panel */
         &:nth-child(2) {
+          opacity: 0;
           position: absolute;
           top: 0px;
           right: 0;
@@ -102,6 +107,7 @@ li.stream-field {
         }
         /* Dimensions Panel */
         &:nth-child(3) {
+          opacity: 0;
           position: absolute;
           top: 55px;
           right: 0;
@@ -116,6 +122,7 @@ li.stream-field {
         }
         /* Caption Text Panel */
         &:nth-child(4) {
+          opacity: 0;
           position: absolute;
           top: 110px;
           right: 0;
@@ -129,6 +136,23 @@ li.stream-field {
         }
       }
     }
+    &:hover {
+      ul.fields {
+        &>li {
+          opacity: 1;
+          &:nth-child(1) {
+            width: 50%;
+            .preview-image {
+              height: 116px !important;
+              margin-bottom: 0 !important;
+            }
+            .actions {
+              opacity: 1 !important;
+            }
+          }
+        }
+      }
+    }
   }
   /**************************************************
     Authored Block Quote
@@ -137,9 +161,7 @@ li.stream-field {
     &:before {
       @include panel-tag('quote', #29762d);
     }
-    background-color: $stream-field-member-quote-background-color;
-    margin: 0 25% 0 0;
-    border-left: 5px solid #fdb913;
+    margin: 0 0 0 25%;
     ul.fields {
       &>li {
         padding: 0;
@@ -149,8 +171,10 @@ li.stream-field {
         /* Quote Panel */
         &:first-child {
           .input .richtext {
-            background-color: inherit;
+            background-color: lighten($stream-field-background-color, 5%);
             border: none;
+            border-left: 3px solid #ffc755;
+            margin: 1em 0;
           }
         }
         /* Author Panel */
@@ -162,25 +186,50 @@ li.stream-field {
             color: $stream-field-member-quote-text-color;
             text-align: right;
             font-style: italic;
+            padding-top: 0;
           }
         }
       }
     }
   }
   /**************************************************
+    Clearfix 
+  ***************************************************/
+  .fieldname-clearfix {
+    padding: 1em 15px;
+    text-align: center;
+    background: repeating-linear-gradient(-45deg, $stream-field-border-color, $stream-field-border-color 2px, transparent 2px, transparent 6px);
+    h3 {
+      margin: 0 0 4px 0;
+      color: darken($stream-field-text-accent, 5%);
+      font-weight: bold;
+    }
+    h4 {
+      margin: 0;
+      font-style: italic;
+      color: $stream-field-text-color;
+    }
+  }
+  /**************************************************
     Customise (Field) Blocks
   ***************************************************/
+  /* Paragraph -- Rich Text Block */
   .fieldname-paragraph {
     max-width: $stream-field-member-max-width;
+    min-height: 41px; // height of 1 paragraph + margins
+    &:before {
+      @include panel-tag('paragraph', #be6363);
+    }
     .field-content {
       background-color: inherit;
       overflow: visible;
-      &:before {
-        @include panel-tag('paragraph', #be6363);
-      }
     }
   }
+  /* Raw HTML */
   .fieldname-raw_html {
+    &:before {
+      @include panel-tag('raw html', #4764aa);
+    }
     .field-content {
       background-color: inherit;
       textarea {
@@ -200,9 +249,6 @@ li.stream-field {
         border-radius: 20px;
         color: transparent;
         background-color: transparent;
-      }
-      &:before {
-        @include panel-tag('raw html', #4764aa);
       }
     }
     &.focused {

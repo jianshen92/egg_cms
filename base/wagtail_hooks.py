@@ -91,8 +91,7 @@ def global_admin_css():
 @hooks.register('insert_editor_js')
 def editor_js():
     js_files = [
-        'js/editor/hallo_custombuttons.js',
-        'js/editor/verify_youtube_episodes.js',
+        'js/editor.js',
     ]
     js_includes = format_html_join(
         '\n',

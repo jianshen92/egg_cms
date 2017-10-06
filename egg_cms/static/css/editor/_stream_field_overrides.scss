@@ -2,6 +2,10 @@
     Stream Field (general overrides) 
   ***************************************************/
 
+#body-prependmenu {
+  opacity: 1 !important;
+}
+
 li.stream-field {
   fieldset {
     color: $stream-field-text-color;
@@ -12,21 +16,30 @@ li.stream-field {
     width: 100%;
   }
   .sequence-member-inner {
-    background-color: $stream-field-member-background-color;
+    //background-color: $stream-field-member-background-color;
     padding: 0 !important;
     max-width: $stream-field-member-max-width;
     margin: auto;
     transition: all 0.2s ease;
+    border-top: 1px solid $stream-field-border-color;
+    border-bottom: 1px solid $stream-field-border-color;
+    margin-bottom: -1px;
   }
   li.sequence-member {
     border: none;
     transition: all 0.2s ease !important;
     &:hover {
       background-color: lighten($stream-field-background-color, 5%);
+      .sequence-member-inner {
+        // display the panel-tag
+        div:first-child:before {
+          opacity: 1 !important;
+        }
+      }
     }
-  } // Always show the (+) icons
-  // Why the fuck would I ever want to hide these?
-  // It's so fucking glitchy
+  } // 
+  // The (+) icons to add new blocks
+  // These are so fucking glitchy tbh
   .stream-menu {
     background-color: $stream-field-background-color !important;
   }
@@ -38,27 +51,34 @@ li.stream-field {
   }
   .stream-menu,
   .stream-menu-closed {
-    opacity: 1 !important;
+    opacity: 0;
     visibility: visible !important;
+    transition: none;
     .toggle {
-      position: static;
+      z-index: 1000;
+      position: absolute;
       width: 100%;
       max-width: $stream-field-member-max-width;
       padding: 4px 0;
       font-size: 16px;
       color: $stream-field-member-text-color !important;
-      background-color: inherit;
-      text-align: center;
-      transition: all 0.2s ease 0.15s !important;
+      background-color: transparent !important;
+      text-align: center; //all 0.2s ease 0.15s !important;
       border-radius: 0;
+      &:before {
+        background-color: $stream-field-background-color;
+        padding: 2px;
+        margin-left: -9px;
+        top: -2px;
+        border-radius: 50%;
+      }
     }
     .button {
       color: inherit !important;
     }
     &:hover {
+      opacity: 1;
       .toggle {
-        padding: 8px 0;
-        background-color: inherit !important;
         color: #ce9016 !important;
       }
     }
@@ -95,6 +115,7 @@ li.stream-field {
     padding: 0 15px !important;
     border-radius: 0 !important;
     overflow: visible;
+    min-height: 1em;
     p {
       margin: 10px 0;
     }
@@ -107,8 +128,7 @@ li.stream-field {
       letter-spacing: -2px;
     }
     h2 {
-      color: inherit;
-      background-color: rgba(250, 174, 24, .81);
+      color: inherit; //background-color: rgba(250, 174, 24, .81);
       padding: 10px 20% 10px 24px;
       margin: 20px -24px 15px;
     }
@@ -141,5 +161,37 @@ li.stream-field {
       margin-left: -15px;
       margin-right: -15px;
     }
+    div {
+      // sometimes newlines won't auto select to <p>
+      // but when the document is saved, it auto sanitizes
+      // any <div> to <p>. So instead of 'erroring' to
+      // the user, just make it appear like the same.
+      margin: 10px 0;
+    }
+  }
+}
+
+.hallotoolbar {
+  position: fixed !important;
+  top: unset !important;
+  bottom: 50px !important; // height of Save Draft footer
+  left: 0 !important;
+  right: 0 !important;
+  margin: auto auto auto 230px !important; // width of sidebar + footer left margin
+  width: 80% !important;
+  box-sizing: border-box;
+  padding: 2em;
+  background-color: rgba(177, 132, 55, 0.66);
+  text-align: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+@media screen and (max-width: 50em) {
+  .hallotoolbar {
+    margin: auto !important;
+    width: 90% !important;
+    padding: 1em !important;
+    bottom: 130px !important;
   }
 }

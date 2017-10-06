@@ -1,10 +1,12 @@
 // Stream Field
 $stream-field-text-color: #EEEEEE;
 $stream-field-background-color: #191919;
+$stream-field-border-color: lighten($stream-field-background-color, 5%); //#333333;
+$stream-field-text-accent: #faae18;
 //--> Member
 $stream-field-member-max-width: 650px;
 $stream-field-member-text-color: #EEEEEE;
-$stream-field-member-background-color: #101010;
+$stream-field-member-background-color: #191919;
 //--> Member --> Quote
 $stream-field-member-quote-text-color: #ccbc96;
-$stream-field-member-quote-background-color: #000000;
+$stream-field-member-quote-background-color: #191919;
