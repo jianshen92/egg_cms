@@ -1,12 +1,15 @@
 from __future__ import absolute_import, unicode_literals
 
-from wagtail.wagtailcore.blocks import ChoiceBlock, StructBlock, CharBlock, RichTextBlock, TextBlock, IntegerBlock
+from django.utils.safestring import mark_safe
+
+from wagtail.wagtailcore.blocks import ChoiceBlock, StructBlock, CharBlock, RichTextBlock, TextBlock, IntegerBlock, StaticBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 
 __all__ = ['AlignmentChoiceBlock',
            'CaptionedImageBlock',
-           'AuthoredBlockQuoteBlock']
+           'AuthoredBlockQuoteBlock',
+           'ClearfixBlock']
 
 
 class AlignmentChoiceBlock(ChoiceBlock):
@@ -41,6 +44,21 @@ class AuthoredBlockQuoteBlock(StructBlock):
                        label="Author (optional)")
 
     class Meta:
-        icon = 'image'
+        icon = 'openquote'
         template = 'base/authored_block_quote_block.html'
         form_classname = 'fieldname-authored_block_quote'
+
+
+class ClearfixBlock(StaticBlock):
+
+    class Meta:
+        icon = 'collapse-down'
+        template = "base/clearfix_block.html"
+        form_classname = 'fieldname-clearfix'
+        label = 'Clearfix'
+        admin_text = mark_safe(
+            '<div class="fieldname-clearfix">' +
+            '<h3>Clearfix</h3>' +
+            '<h4>This is used to force paragraphs below word-wrapped images.</h4>' +
+            '</div>'
+        )

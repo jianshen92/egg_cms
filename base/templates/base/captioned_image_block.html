@@ -1,15 +1,16 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-
-<div class="alignment {{value.alignment}}">
-  <div class="image-container">
-    {% image value.image original %}
-      
-    {% if value.caption != '' %}
-      <div class="caption">
-        <p>{{ value.caption }}</p>
-      </div>
-    {% endif %}
+<div class="width-container {{ value.alignment }}">
+  <div class="alignment">
+    <div class="image-container">
+      {% image value.image original %}
+        
+      {% if value.caption != '' %}
+        <div class="caption">
+          <p>{{ value.caption }}</p>
+        </div>
+      {% endif %}
+    </div>
   </div>
 </div>
