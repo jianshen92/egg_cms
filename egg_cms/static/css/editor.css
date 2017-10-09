@@ -163,9 +163,13 @@ li.stream-field {
     padding: 0 15px !important;
     border-radius: 0 !important;
     overflow: visible;
-    min-height: 1em; }
+    min-height: 1em;
+    transition: 0.2s ease all; }
     li.stream-field .richtext p {
-      margin: 10px 0; }
+      margin: 0;
+      margin-left: -3px;
+      border-left: 3px solid transparent;
+      transition: 0.2s ease all; }
     li.stream-field .richtext h2,
     li.stream-field .richtext h3 {
       position: relative;
@@ -199,11 +203,19 @@ li.stream-field {
       margin-bottom: 10px; }
     li.stream-field .richtext hr {
       border-top: 3px solid rgba(255, 255, 255, 0.06);
-      border-bottom: 16px solid #191919;
-      margin-left: -15px;
-      margin-right: -15px; }
+      border-bottom: 3px solid transparent;
+      margin: 10px 0; }
     li.stream-field .richtext div {
       margin: 10px 0; }
+    li.stream-field .richtext img {
+      margin-top: 0;
+      vertical-align: middle; }
+    li.stream-field .richtext.inEditMode p {
+      border-left: 3px solid #c18204;
+      padding-left: 6px;
+      margin-left: -9px; }
+    li.stream-field .richtext.inEditMode p:nth-child(2n) {
+      border-left: 3px solid #764f03; }
 
 .hallotoolbar {
   position: fixed !important;

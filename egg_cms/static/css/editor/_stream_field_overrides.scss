@@ -116,8 +116,12 @@ li.stream-field {
     border-radius: 0 !important;
     overflow: visible;
     min-height: 1em;
+    transition: 0.2s ease all;
     p {
-      margin: 10px 0;
+      margin: 0;
+      margin-left: -3px;
+      border-left: 3px solid transparent;
+      transition: 0.2s ease all;
     }
     h2,
     h3 {
@@ -156,10 +160,9 @@ li.stream-field {
       margin-bottom: 10px;
     }
     hr {
-      border-top: 3px solid hsla(0, 0%, 100%, .06);
-      border-bottom: 16px solid #191919;
-      margin-left: -15px;
-      margin-right: -15px;
+      border-top: 3px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 3px solid transparent;
+      margin: 10px 0;
     }
     div {
       // sometimes newlines won't auto select to <p>
@@ -167,6 +170,20 @@ li.stream-field {
       // any <div> to <p>. So instead of 'erroring' to
       // the user, just make it appear like the same.
       margin: 10px 0;
+    }
+    img {
+      margin-top: 0;
+      vertical-align: middle;
+    }
+    &.inEditMode {
+      p {
+        border-left: 3px solid darken($stream-field-text-accent, 15%);
+        padding-left: 6px;
+        margin-left: -9px;
+      }
+      p:nth-child(2n) {
+        border-left: 3px solid darken($stream-field-text-accent, 30%);
+      }
     }
   }
 }

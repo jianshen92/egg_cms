@@ -12,5 +12,4 @@ function updateHalloToolbarPos() {
   $(".hallotoolbar").each(function() {
     this.style.setProperty("bottom", `${h}px`, "important");
   });
-  console.log(h);
 }

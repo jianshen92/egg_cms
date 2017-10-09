@@ -35,14 +35,15 @@ tags (problematic at the moment)
     <div class="news-page">
 
       <div class="news-header margin-bot-16" style="background-image: url({{banner_url}})">
-        <div class="news-overlay">
-          <h2>{{genre}}</h2>
-          <h1>{{title}}</h1>
+        <div class="container">
+            <h2>{{genre}}</h2>
+            <h1>{{title}}</h1>
         </div>
+        <div class="news-overlay"></div>
       </div>
 
-      <div class="news-nav container no-padding">
-        <div class="col-xs-12 col-sm-7 col-sm-offset-1 col-md-offset-2">
+      <div class="news-nav margin-bot-16 no-padding">
+        <div class="width-container">
           <p>
             <a href="#">< All news</a>
             <span> / </span>
@@ -53,11 +54,11 @@ tags (problematic at the moment)
 
       <div class="news-body container no-padding">
 
-        <div class="news-content col-xs-12 col-sm-7 col-sm-offset-1 col-md-offset-2 margin-bot-16">
+        <div class="news-content margin-bot-16">
           {{ body_rendered | safe }}
         </div>
 
-        <div class="news-sidebar col-xs-12 col-sm-4 col-md-3 margin-bot-16">
+        <!-- <div class="news-sidebar col-xs-12 col-sm-4 col-md-3 margin-bot-16">
 
           {% include "./article_author_panel.html" %}
 
@@ -65,7 +66,7 @@ tags (problematic at the moment)
 
           {% include "./related_articles_panel.html" %}
 
-        </div>
+        </div> -->
       </div>
 
       <div class="margin-bot-32 text-center">

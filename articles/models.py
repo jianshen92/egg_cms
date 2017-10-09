@@ -22,6 +22,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 from wagtail.wagtailcore.blocks import RichTextBlock, RawHTMLBlock, BlockQuoteBlock
+from wagtail.wagtailembeds.blocks import EmbedBlock
 
 from wagtail.api import APIField
 
@@ -90,6 +91,7 @@ class ArticlePage(Page):
             ('captioned_image', CaptionedImageBlock(label="Image")),
             ('authored_block_quote', AuthoredBlockQuoteBlock(
                 label="Block Quote")),
+            ('embed', EmbedBlock()),
             ('raw_html', RawHTMLBlock(label="Raw HTML")),
             ('clearfix', ClearfixBlock())
         ],
