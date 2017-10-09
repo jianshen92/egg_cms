@@ -2,7 +2,7 @@ appdirs==1.4.3
 beautifulsoup4==4.6.0
 certifi==2017.4.17
 chardet==3.0.3
-Django==1.11.1
+Django==1.11.4
 django-cors-headers==2.1.0
 django-modelcluster==3.1
 django-taggit==0.22.1
@@ -20,7 +20,7 @@ requests==2.17.3
 six==1.10.0
 Unidecode==0.4.20
 urllib3==1.21.1
-wagtail==1.11
+wagtail==1.12.2 
 wagtailfontawesome==1.0.6
 webencodings==0.5.1
 Willow==0.4
