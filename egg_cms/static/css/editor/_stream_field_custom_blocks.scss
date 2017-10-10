@@ -260,4 +260,42 @@ li.stream-field {
       }
     }
   }
+  .fieldname-embed {
+    &:before {
+      @include panel-tag('embed', #8040A5);
+    }
+    .field-content {
+      position: relative;
+      margin: 2em 15px;
+      width: calc(100% - 30px);
+      .input {
+        &:before {
+          content: none;
+        }
+      }
+      input {
+        color: $stream-field-member-text-color;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid #717171;
+        padding: 4px;
+      }
+      span {
+        color: #757575;
+        font-style: italic;
+        margin-top: 4px;
+        display: inline-block;
+      }
+      &:before {
+        content: 'Embed URL:';
+        font-size: 1.1em;
+        line-height: 1.3em;
+        font-weight: bold;
+      }
+      &:after {
+        @include input-line-tag('* required', #BE2828);
+      }
+    }
+  }
 }

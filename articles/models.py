@@ -87,7 +87,8 @@ class ArticlePage(Page):
 
     body = StreamField(
         [
-            ('paragraph', RichTextBlock()),
+            ('paragraph', RichTextBlock(features=[
+                'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'bold', 'italic', 'link', 'ol', 'ul', 'hr'])),
             ('captioned_image', CaptionedImageBlock(label="Image")),
             ('authored_block_quote', AuthoredBlockQuoteBlock(
                 label="Block Quote")),

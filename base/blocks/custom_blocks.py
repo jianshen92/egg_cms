@@ -39,7 +39,8 @@ class CaptionedImageBlock(StructBlock):
 
 
 class AuthoredBlockQuoteBlock(StructBlock):
-    quote = RichTextBlock(required=True)
+    quote = RichTextBlock(required=True, features=[
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'bold', 'italic', 'link', 'ol', 'ul', 'hr'])
     author = CharBlock(required=False, max_length=200,
                        label="Author (optional)")
 
