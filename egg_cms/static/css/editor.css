@@ -116,7 +116,7 @@ li.stream-field {
     li.stream-field .stream-menu-closed .toggle {
       z-index: 1000;
       position: absolute;
-      width: 100%;
+      width: 100px;
       max-width: 650px;
       padding: 4px 0;
       font-size: 16px;
@@ -508,6 +508,11 @@ li.stream-field {
     width: calc(100% - 30px); }
     li.stream-field .fieldname-embed .field-content .input:before {
       content: none; }
+    li.stream-field .fieldname-embed .field-content .input span {
+      color: #757575;
+      font-style: italic;
+      margin-top: 4px;
+      display: inline-block; }
     li.stream-field .fieldname-embed .field-content input {
       color: #EEEEEE;
       background-color: transparent;
@@ -515,11 +520,6 @@ li.stream-field {
       border-radius: 0;
       border-bottom: 1px solid #717171;
       padding: 4px; }
-    li.stream-field .fieldname-embed .field-content span {
-      color: #757575;
-      font-style: italic;
-      margin-top: 4px;
-      display: inline-block; }
     li.stream-field .fieldname-embed .field-content:before {
       content: 'Embed URL:';
       font-size: 1.1em;

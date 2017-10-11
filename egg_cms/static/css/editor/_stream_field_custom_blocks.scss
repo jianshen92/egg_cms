@@ -272,6 +272,12 @@ li.stream-field {
         &:before {
           content: none;
         }
+        span {
+          color: #757575;
+          font-style: italic;
+          margin-top: 4px;
+          display: inline-block;
+        }
       }
       input {
         color: $stream-field-member-text-color;
@@ -280,12 +286,6 @@ li.stream-field {
         border-radius: 0;
         border-bottom: 1px solid #717171;
         padding: 4px;
-      }
-      span {
-        color: #757575;
-        font-style: italic;
-        margin-top: 4px;
-        display: inline-block;
       }
       &:before {
         content: 'Embed URL:';

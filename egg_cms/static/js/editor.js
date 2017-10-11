@@ -22,16 +22,25 @@ $(document).ready(function () {
   // is fucking impossible
   //*****************************************************//
 
-  $(".fieldname-embed").find("span").html(EMBED_DEFAULT_HELP);
+  $(document).bind("DOMNodeInserted", function (event) {
+    if ($(event.target).find(".sequence-member-inner").length > 0) {
+      console.log(event.target);
+      updateBindings();
+    }
+  });
+});
+
+function updateBindings() {
+  $(".fieldname-embed").find(".input span").html(EMBED_DEFAULT_HELP);
 
   $(".fieldname-embed").on("mouseenter", function () {
-    $(this).find("span").html(EMBED_HOVER_HELP);
+    $(this).find(".input span").html(EMBED_HOVER_HELP);
   });
 
   $(".fieldname-embed").on("mouseleave", function () {
-    $(this).find("span").html(EMBED_DEFAULT_HELP);
+    $(this).find(".input span").html(EMBED_DEFAULT_HELP);
   });
-});
+}
 
 function updateHalloToolbarPos() {
   var h = $("footer").outerHeight();
