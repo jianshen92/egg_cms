@@ -65,8 +65,68 @@
 /**************************************************
     Char Field
   ***************************************************/
-li.char_field.title .field-content input {
-  padding: 0.5em 50px; }
+li.object {
+  margin-bottom: 1.5em;
+  padding: 0;
+  /* Styles for Author selector field */ }
+  li.object h2 {
+    position: relative;
+    background: none;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 0 0 0 3em; }
+    li.object h2 label {
+      padding: 0; }
+    li.object h2:before,
+    li.object h2 label:before {
+      content: unset; }
+  li.object > fieldset {
+    padding: 0 !important;
+    margin-left: 0 !important; }
+    li.object > fieldset > .fields > li {
+      margin: 0 3em;
+      padding: 0; }
+  li.object .multiple {
+    padding-top: 0; }
+    li.object .multiple > li {
+      margin-left: 3em;
+      padding: 0.5em;
+      background-color: #f2f2f2;
+      border-bottom: 2px solid rgba(181, 181, 181, 0.46); }
+  li.object .add {
+    margin-left: 3em !important;
+    padding: 0; }
+  li.object .object-help {
+    margin-top: 1em;
+    top: 0; }
+    li.object .object-help:before {
+      position: absolute; }
+
+.fields li > .field-content {
+  width: 75% !important;
+  min-width: 450px; }
+.fields li #id_title {
+  padding: 0 12px;
+  border: 1px solid grey; }
+.fields li #id_subtitle {
+  padding: 0.5em 12px;
+  border: 1px solid grey; }
+.fields li #id_article_type {
+  border: 1px solid grey;
+  border-radius: 0; }
+.fields li #id_genre {
+  border: 1px solid grey;
+  border-radius: 0; }
+.fields li .admin_image_chooser {
+  min-height: 70px;
+  background-color: #f2f2f2;
+  border-bottom: 2px solid rgba(181, 181, 181, 0.46);
+  margin-bottom: 0.5em;
+  padding: 0.5em; }
+.fields li ul.tagit {
+  padding: 0.2em 12px 0 12px;
+  border: 1px solid grey;
+  border-radius: 0; }
 
 /**************************************************
     Stream Field (general overrides) 
@@ -75,14 +135,17 @@ li.char_field.title .field-content input {
   opacity: 1 !important; }
 
 li.stream-field {
+  padding-bottom: 10em;
+  color: #EEEEEE;
+  background-color: #191919;
   /**************************************************
     Override rich text editor so elements look like
     front end panels. These need to be updated if 
     changes were made on front end. 
   ***************************************************/ }
   li.stream-field fieldset {
-    color: #EEEEEE;
-    background-color: #191919;
+    color: inherit;
+    background-color: inherit;
     padding-top: 6em; }
   li.stream-field .field-content {
     width: 100%; }
@@ -102,11 +165,11 @@ li.stream-field {
       li.stream-field li.sequence-member:hover .sequence-member-inner div:first-child:before {
         opacity: 1 !important; }
   li.stream-field .stream-menu {
-    background-color: #191919 !important; }
+    background-color: inherit !important; }
   li.stream-field .stream-menu-closed {
-    background-color: #191919 !important; }
+    background-color: inherit !important; }
     li.stream-field .stream-menu-closed .toggle {
-      background-color: #191919 !important; }
+      background-color: inherit !important; }
   li.stream-field .stream-menu,
   li.stream-field .stream-menu-closed {
     opacity: 0;
@@ -120,13 +183,13 @@ li.stream-field {
       max-width: 650px;
       padding: 4px 0;
       font-size: 16px;
-      color: #EEEEEE !important;
+      color: inherit !important;
       background-color: transparent !important;
       text-align: center;
       border-radius: 0; }
       li.stream-field .stream-menu .toggle:before,
       li.stream-field .stream-menu-closed .toggle:before {
-        background-color: #191919;
+        background-color: inherit;
         padding: 2px;
         margin-left: -9px;
         top: -2px;

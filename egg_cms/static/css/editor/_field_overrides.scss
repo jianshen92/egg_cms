@@ -2,12 +2,85 @@
     Char Field
   ***************************************************/
 
-li.char_field {
-  &.title {
-    .field-content {
-      input {
-        padding: 0.5em 50px;
-      }
+li.object {
+  margin-bottom: 1.5em;
+  padding: 0;
+  h2 {
+    position: relative;
+    background: none;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 0 0 0 3em;
+    label {
+      padding: 0;
     }
+    &:before,
+    label:before {
+      content: unset;
+    }
+  }
+  &>fieldset {
+    padding: 0 !important;
+    margin-left: 0 !important;
+    &>.fields>li {
+      margin: 0 3em;
+      padding: 0;
+    }
+  }
+  /* Styles for Author selector field */
+  .multiple {
+    padding-top: 0;
+    &>li {
+      margin-left: 3em;
+      padding: 0.5em;
+      background-color: #f2f2f2;
+      border-bottom: 2px solid rgba(181, 181, 181, 0.46);
+    }
+  }
+  .add {
+    margin-left: 3em !important;
+    padding: 0;
+  }
+  .object-help {
+    margin-top: 1em;
+    top: 0;
+    &:before {
+      position: absolute;
+    }
+  }
+}
+
+.fields li {
+  &>.field-content {
+    width: 75% !important;
+    min-width: 450px;
+  }
+  #id_title {
+    padding: 0 12px;
+    border: 1px solid grey;
+  }
+  #id_subtitle {
+    padding: 0.5em 12px;
+    border: 1px solid grey;
+  }
+  #id_article_type {
+    border: 1px solid grey;
+    border-radius: 0;
+  }
+  #id_genre {
+    border: 1px solid grey;
+    border-radius: 0;
+  }
+  .admin_image_chooser {
+    min-height: 70px;
+    background-color: #f2f2f2;
+    border-bottom: 2px solid rgba(181, 181, 181, 0.46);
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+  }
+  ul.tagit {
+    padding: 0.2em 12px 0 12px;
+    border: 1px solid grey;
+    border-radius: 0;
   }
 }

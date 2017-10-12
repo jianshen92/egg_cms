@@ -110,11 +110,11 @@ class ArticlePage(Page):
 
     tags = ClusterTaggableManager(through=ArticleTag, blank=True)
 
-    thumbnail_banner = models.ForeignKey(
+    thumbnail = models.ForeignKey(
         'wagtailimages.Image',
         blank=True, null=True,
         on_delete=models.SET_NULL,
-        related_name='article_thumbnail_banner'
+        related_name='article_thumbnail'
     )
 
     banner = models.ForeignKey(
@@ -140,8 +140,8 @@ class ArticlePage(Page):
         return author_details
 
     def thumbnail_url(self):
-        if(self.thumbnail_banner):
-            return get_wagtail_image_url(self.thumbnail_banner)
+        if(self.thumbnail):
+            return get_wagtail_image_url(self.thumbnail)
 
     def banner_url(self):
         if(self.banner):
@@ -174,23 +174,23 @@ class ArticlePage(Page):
     ### CMS and API Exposure ##############################
     # Content panels - What shows up on the CMS dashboard
     content_panels = Page.content_panels + [
+        FieldPanel('subtitle', classname="full"),
         FieldPanel('article_type'),
-        FieldPanel('subtitle'),
-        StreamFieldPanel('body'),
-        FieldPanel('publish_date'),
         FieldPanel('genre'),
         FieldPanel('tags'),
+        FieldPanel('publish_date'),
         InlinePanel(
             'article_author_relationship', label="Author",
             panels=None, min_num=0, max_num=1),
 
         MultiFieldPanel(
             [
-                ImageChooserPanel('thumbnail_banner'),
+                ImageChooserPanel('thumbnail'),
                 ImageChooserPanel('banner'),
             ],
             heading="Article Main Images",
         ),
+        StreamFieldPanel('body'),
     ]
 
     subpage_types = []
@@ -198,15 +198,15 @@ class ArticlePage(Page):
 
     # API fields - What will be returned from API call
     api_fields = [
-        APIField('article_type'),
         APIField('subtitle'),
-        APIField('body_rendered'),
-        APIField('publish_date'),
+        APIField('article_type'),
         APIField('genre'),
+        APIField('tags'),
+        APIField('publish_date'),
         APIField('author_details'),
         APIField('thumbnail_url'),
         APIField('banner_url'),
-        APIField('tags')
+        APIField('body_rendered'),
     ]
 
     # Context - used for 'Preview' template rendering

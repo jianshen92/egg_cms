@@ -7,9 +7,12 @@
 }
 
 li.stream-field {
+  padding-bottom: 10em;
+  color: $stream-field-text-color;
+  background-color: $stream-field-background-color;
   fieldset {
-    color: $stream-field-text-color;
-    background-color: $stream-field-background-color;
+    color: inherit;
+    background-color: inherit;
     padding-top: 6em;
   }
   .field-content {
@@ -41,12 +44,12 @@ li.stream-field {
   // The (+) icons to add new blocks
   // These are so fucking glitchy tbh
   .stream-menu {
-    background-color: $stream-field-background-color !important;
+    background-color: inherit !important;
   }
   .stream-menu-closed {
-    background-color: $stream-field-background-color !important;
+    background-color: inherit !important;
     .toggle {
-      background-color: $stream-field-member-background-color !important;
+      background-color: inherit !important;
     }
   }
   .stream-menu,
@@ -61,12 +64,12 @@ li.stream-field {
       max-width: $stream-field-member-max-width;
       padding: 4px 0;
       font-size: 16px;
-      color: $stream-field-member-text-color !important;
+      color: inherit !important;
       background-color: transparent !important;
       text-align: center; //all 0.2s ease 0.15s !important;
       border-radius: 0;
       &:before {
-        background-color: $stream-field-background-color;
+        background-color: inherit;
         padding: 2px;
         margin-left: -9px;
         top: -2px;
