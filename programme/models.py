@@ -6,20 +6,19 @@ from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore.models import Page, Orderable
-from wagtail.wagtailcore.fields import RichTextField, StreamField
+from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, EditHandler, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.blocks import RawHTMLBlock, BlockQuoteBlock, PageChooserBlock
+from wagtail.wagtailcore.blocks import RichTextBlock, RawHTMLBlock, BlockQuoteBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
-from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 from wagtail.api import APIField
 
 from modelcluster.fields import ParentalKey
 
-from base.utils import html_replace_embed, get_wagtail_image_url
+from base.blocks import CaptionedImageBlock, AuthoredBlockQuoteBlock, ClearfixBlock
+from base.utils import html_replace_img, get_wagtail_image_url
 
 
 class BaseReadOnlyPanel(EditHandler):
@@ -89,6 +88,7 @@ class ProgrammeIndexPage(Page):
 
 class ProgrammePage(Page):
 
+    ### Model Fields ######################################
     short_description = models.CharField(
         blank=True,
         null=True,
@@ -96,19 +96,16 @@ class ProgrammePage(Page):
         help_text="Short Description to be displayed at the top of the page"
     )
 
-    description = RichTextField(
-        help_text='Detailed Description for the programme.'
-    )
-
     body = StreamField(
         [
-            ('heading', blocks.CharBlock(className="full title")),
-            ('paragraph', blocks.RichTextBlock()),
-            ('image', ImageChooserBlock()),
+            ('paragraph', RichTextBlock(features=[
+                'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'bold', 'italic', 'link', 'ol', 'ul', 'hr'])),
+            ('captioned_image', CaptionedImageBlock(label="Image")),
+            ('authored_block_quote', AuthoredBlockQuoteBlock(
+                label="Block Quote")),
             ('embed', EmbedBlock()),
-            ('blockquote', BlockQuoteBlock()),
-            ('rawhtml', BlockQuoteBlock()),
-            ('pagechooser', PageChooserBlock()),
+            ('raw_html', RawHTMLBlock(label="Raw HTML")),
+            ('clearfix', ClearfixBlock())
         ],
         null=True
     )
@@ -153,31 +150,30 @@ class ProgrammePage(Page):
         related_name='programme_thumbnail'
     )
 
-    # Get Youtube Episodes
+    ### Methods ###########################################
     def episodes(self):
-        episodes = [n.episode_ID for n in self.youtube_episode.all()]
+        return [n.episode_ID for n in self.youtube_episode.all()]
 
-        return episodes
-
-    # Get Thumbnail Url from FK
     def thumbnail_url(self):
         if(self.thumbnail):
             return get_wagtail_image_url(self.thumbnail)
 
-    # Get Banner Url from FK
     def banner_url(self):
         if(self.banner):
             return get_wagtail_image_url(self.banner)
 
-    # Replace Embedded Tag on Rich Text
-    def description_replace_embed(self):
-        text = html_replace_embed(self.description)
+    # Render Stream object to sensible HTML data, then replace
+    # <img> tags with the correct src location
+    def body_rendered(self):
+        text = self.body.render_as_block()
+        text = html_replace_img(text)
         return text
 
+    ### CMS and API Exposure ##############################
+    # Content panels - What shows up on the CMS dashboard
     content_panels = Page.content_panels + [
-
         FieldPanel('short_description'),
-        FieldPanel('description'),
+        StreamFieldPanel('body'),
         MultiFieldPanel(
             [
                 FieldPanel('genre'),
@@ -188,16 +184,14 @@ class ProgrammePage(Page):
             heading="Programme Info",
         ),
         InlinePanel('youtube_episode', label="Youtube Episodes"),
-        StreamFieldPanel('body'),
         ImageChooserPanel('banner'),
         ImageChooserPanel('thumbnail'),
     ]
 
+    # API fields - What will be returned from API call
     api_fields = [
         APIField('short_description'),
-        APIField('body'),
-        APIField('description'),
-        APIField('description_replace_embed'),
+        APIField('body_rendered'),
         APIField('genre'),
         APIField('host'),
         APIField('air_time'),
