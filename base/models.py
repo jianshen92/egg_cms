@@ -145,7 +145,7 @@ class Author(ClusterableModel):
 
     first_name = models.CharField("First name", max_length=254)
     last_name = models.CharField("Last name", max_length=254, blank=True)
-    nick_name = models.CharField("Nickname", max_length=254, blank=True)
+    nick_name = models.CharField("Nick name", max_length=254, blank=True)
 
     image = models.ForeignKey(
         'wagtailimages.Image',
@@ -156,8 +156,8 @@ class Author(ClusterableModel):
     )
 
     panels = [
-        FieldPanel('first_name', classname="col6"),
-        FieldPanel('last_name', classname="col6"),
+        FieldPanel('first_name'),
+        FieldPanel('last_name'),
         FieldPanel('nick_name'),
         ImageChooserPanel('image')
     ]
@@ -169,7 +169,11 @@ class Author(ClusterableModel):
     ]
 
     def __str__(self):
-        return '{}'.format(self.nick_name)
+        first_name = format(self.first_name)
+        nick_name = ('"%s"' % format(self.nick_name)) if self.nick_name else ''
+        last_name = format(self.last_name)
+
+        return '%s %s %s' % (first_name, nick_name, last_name)
 
     @property
     def profile_image_url(self):
