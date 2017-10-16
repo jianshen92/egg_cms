@@ -230,9 +230,7 @@ li.stream-field {
     transition: 0.2s ease all; }
     li.stream-field .richtext p {
       margin: 0;
-      margin-left: -3px;
-      border-left: 3px solid transparent;
-      transition: 0.2s ease all; }
+      margin-bottom: 1em; }
     li.stream-field .richtext h2,
     li.stream-field .richtext h3 {
       position: relative;
@@ -242,8 +240,8 @@ li.stream-field {
       letter-spacing: -2px; }
     li.stream-field .richtext h2 {
       color: inherit;
-      padding: 10px 20% 10px 24px;
-      margin: 20px -24px 15px; }
+      padding: 0 20% 0 0;
+      margin: 1em 0 0.5em 0; }
     li.stream-field .richtext h3 {
       padding-right: 15%;
       margin-top: 20px;
@@ -273,12 +271,39 @@ li.stream-field {
     li.stream-field .richtext img {
       margin-top: 0;
       vertical-align: middle; }
-    li.stream-field .richtext.inEditMode p {
-      border-left: 3px solid #c18204;
+    li.stream-field .richtext p,
+    li.stream-field .richtext h1,
+    li.stream-field .richtext h2,
+    li.stream-field .richtext h3,
+    li.stream-field .richtext h4,
+    li.stream-field .richtext h5,
+    li.stream-field .richtext h6 {
+      transition: 0.2s ease all;
+      border-left: 3px solid transparent;
+      margin-left: -3px; }
+    li.stream-field .richtext.inEditMode p,
+    li.stream-field .richtext.inEditMode h1,
+    li.stream-field .richtext.inEditMode h2,
+    li.stream-field .richtext.inEditMode h3,
+    li.stream-field .richtext.inEditMode h4,
+    li.stream-field .richtext.inEditMode h5,
+    li.stream-field .richtext.inEditMode h6 {
       padding-left: 6px;
       margin-left: -9px; }
-    li.stream-field .richtext.inEditMode p:nth-child(2n) {
-      border-left: 3px solid #764f03; }
+    li.stream-field .richtext.inEditMode p {
+      border-left: 3px solid #c18204; }
+    li.stream-field .richtext.inEditMode h1 {
+      border-left: 3px solid #4242F0; }
+    li.stream-field .richtext.inEditMode h2 {
+      border-left: 3px solid #6262E9; }
+    li.stream-field .richtext.inEditMode h3 {
+      border-left: 3px solid #7676EC; }
+    li.stream-field .richtext.inEditMode h4 {
+      border-left: 3px solid #9F9FEC; }
+    li.stream-field .richtext.inEditMode h5 {
+      border-left: 3px solid #60608F; }
+    li.stream-field .richtext.inEditMode h6 {
+      border-left: 3px solid #4D4D5C; }
 
 .hallotoolbar {
   position: fixed !important;

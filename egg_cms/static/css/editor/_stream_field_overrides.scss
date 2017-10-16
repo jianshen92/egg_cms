@@ -122,9 +122,7 @@ li.stream-field {
     transition: 0.2s ease all;
     p {
       margin: 0;
-      margin-left: -3px;
-      border-left: 3px solid transparent;
-      transition: 0.2s ease all;
+      margin-bottom: 1em;
     }
     h2,
     h3 {
@@ -136,8 +134,8 @@ li.stream-field {
     }
     h2 {
       color: inherit; //background-color: rgba(250, 174, 24, .81);
-      padding: 10px 20% 10px 24px;
-      margin: 20px -24px 15px;
+      padding: 0 20% 0 0;
+      margin: 1em 0 0.5em 0;
     }
     h3 {
       padding-right: 15%;
@@ -177,15 +175,53 @@ li.stream-field {
     img {
       margin-top: 0;
       vertical-align: middle;
+    } //
+    // Left border colors for rich text editing
+    // (to distinguish text elements)
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      transition: 0.2s ease all;
+      border-left: 3px solid transparent;
+      margin-left: -3px;
+    }
+    &.inEditMode {
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        padding-left: 6px;
+        margin-left: -9px;
+      }
     }
     &.inEditMode {
       p {
         border-left: 3px solid darken($stream-field-text-accent, 15%);
-        padding-left: 6px;
-        margin-left: -9px;
       }
-      p:nth-child(2n) {
-        border-left: 3px solid darken($stream-field-text-accent, 30%);
+      h1 {
+        border-left: 3px solid #4242F0;
+      }
+      h2 {
+        border-left: 3px solid #6262E9;
+      }
+      h3 {
+        border-left: 3px solid #7676EC;
+      }
+      h4 {
+        border-left: 3px solid #9F9FEC;
+      }
+      h5 {
+        border-left: 3px solid #60608F;
+      }
+      h6 {
+        border-left: 3px solid #4D4D5C;
       }
     }
   }
