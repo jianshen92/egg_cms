@@ -79,7 +79,18 @@ def html_replace_img(obj):
 
 
 def get_wagtail_image_url(image_obj):
-    id = image_obj.id
-    image_object = Image.objects.get(pk=id)
 
-    return '%s%s' % (settings.SITE_URL, image_object.file.url)
+    def get_image_rendition(dimensions):
+        return '%s%s' % (settings.SITE_URL, image_object.get_rendition(dimensions).url)
+
+    image_id = image_obj.id
+    image_object = Image.objects.get(pk=image_id)
+
+    sizes = {
+        'original': get_image_rendition('original'),
+        'large': get_image_rendition('width-800'),
+        'medium': get_image_rendition('width-400'),
+        'small': get_image_rendition('width-200')
+    }
+
+    return sizes
