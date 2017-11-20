@@ -263,9 +263,9 @@ li.stream-field {
       margin-top: 10px;
       margin-bottom: 10px; }
     li.stream-field .richtext hr {
-      border-top: 3px solid rgba(255, 255, 255, 0.06);
+      border-top: 3px solid rgba(255, 255, 255, 0.8);
       border-bottom: 3px solid transparent;
-      margin: 10px 0; }
+      margin: 10px -15px; }
     li.stream-field .richtext div {
       margin: 10px 0; }
     li.stream-field .richtext img {
