@@ -1,10 +1,16 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-<div class="width-container {{ value.alignment }}">
+<div class="width-container {{ value.width }} {{ value.alignment }}">
   <div class="alignment">
     <div class="image-container">
-      {% image value.image original %}
+      {% if value.hyperlink != '' %}
+        <a href="{{ value.hyperlink }}" target="_blank" title="{{ value.hyperlink }}">
+          {% image value.image original %}
+        </a>
+      {% else %}
+        {% image value.image original %}
+      {% endif %}
         
       {% if value.caption != '' %}
         <div class="caption">

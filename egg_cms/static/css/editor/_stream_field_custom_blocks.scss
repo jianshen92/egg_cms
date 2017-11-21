@@ -18,7 +18,7 @@ li.stream-field {
     box-sizing: border-box;
     ul.fields {
       position: relative;
-      min-height: 180px;
+      min-height: 240px;
       &>li {
         transition: 0.2s ease all;
         label {
@@ -62,7 +62,7 @@ li.stream-field {
               .preview-image {
                 float: none;
                 margin: auto;
-                height: 144px;
+                height: 200px;
                 max-width: none;
                 margin-bottom: -30px;
                 transition: 0.2s ease all;
@@ -105,7 +105,7 @@ li.stream-field {
             @include input-line-tag('* required', #BE2828);
           }
         }
-        /* Dimensions Panel */
+        /* Width Selection Panel */
         &:nth-child(3) {
           opacity: 0;
           position: absolute;
@@ -117,16 +117,33 @@ li.stream-field {
             width: 100%;
           }
           &:after {
-            @include input-line-tag('optional', #CFCFCF);
+            @include input-line-tag('* required', #BE2828);
           }
         }
-        /* Caption Text Panel */
+        /* Hyperlink Panel */
         &:nth-child(4) {
           opacity: 0;
           position: absolute;
           top: 110px;
           right: 0;
           width: 50%;
+          &:after {
+            @include input-line-tag('optional', #CFCFCF);
+          }
+          .input:before {
+            /* Move the cute little hyperlink icon */
+            left: unset;
+            right: 0;
+            top: 0;
+          }
+        }
+        /* Caption Text Panel */
+        &:nth-child(5) {
+          opacity: 0;
+          position: absolute;
+          top: 165px;
+          right: 0;
+          width: 100%;
           &:after {
             @include input-line-tag('optional', #CFCFCF);
           }

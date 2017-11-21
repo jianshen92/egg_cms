@@ -312,9 +312,9 @@ li.stream-field {
   left: 0 !important;
   right: 0 !important;
   margin: auto auto auto 230px !important;
-  width: 80% !important;
+  width: calc(100% - 180px - 100px) !important;
   box-sizing: border-box;
-  padding: 2em;
+  padding: 0.5em;
   background-color: rgba(177, 132, 55, 0.66);
   text-align: center;
   border-top-left-radius: 20px;
@@ -365,12 +365,13 @@ li.stream-field {
       opacity: 0; }
     li.stream-field .fieldname-captioned_image ul.fields {
       position: relative;
-      min-height: 180px; }
+      min-height: 240px; }
       li.stream-field .fieldname-captioned_image ul.fields > li {
         transition: 0.2s ease all;
         /* Image Chooser Panel */
         /* Alignment Selection Panel */
-        /* Dimensions Panel */
+        /* Width Selection Panel */
+        /* Hyperlink Panel */
         /* Caption Text Panel */ }
         li.stream-field .fieldname-captioned_image ul.fields > li label {
           color: #EEEEEE;
@@ -409,7 +410,7 @@ li.stream-field {
               li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) .image-chooser .chosen .preview-image {
                 float: none;
                 margin: auto;
-                height: 144px;
+                height: 200px;
                 max-width: none;
                 margin-bottom: -30px;
                 transition: 0.2s ease all; }
@@ -452,12 +453,12 @@ li.stream-field {
           li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(3) .fieldname-max_width {
             width: 100%; }
           li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(3):after {
-            content: "optional";
+            content: "* required";
             position: absolute;
             right: 0;
             bottom: 2px;
             font-size: 10px;
-            color: #CFCFCF; }
+            color: #BE2828; }
         li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(4) {
           opacity: 0;
           position: absolute;
@@ -465,6 +466,24 @@ li.stream-field {
           right: 0;
           width: 50%; }
           li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(4):after {
+            content: "optional";
+            position: absolute;
+            right: 0;
+            bottom: 2px;
+            font-size: 10px;
+            color: #CFCFCF; }
+          li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(4) .input:before {
+            /* Move the cute little hyperlink icon */
+            left: unset;
+            right: 0;
+            top: 0; }
+        li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(5) {
+          opacity: 0;
+          position: absolute;
+          top: 165px;
+          right: 0;
+          width: 100%; }
+          li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(5):after {
             content: "optional";
             position: absolute;
             right: 0;

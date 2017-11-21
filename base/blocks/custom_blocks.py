@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore.blocks import ChoiceBlock, StructBlock, CharBlock, RichTextBlock, TextBlock, IntegerBlock, StaticBlock
+from wagtail.wagtailcore.blocks import ChoiceBlock, StructBlock, CharBlock, RichTextBlock, TextBlock, IntegerBlock, StaticBlock, URLBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 
@@ -17,8 +17,8 @@ class AlignmentChoiceBlock(ChoiceBlock):
     # for the given div
     choices = [
         ('centered', 'Centered'),
-        ('stretched', 'Stretched (within panel margins)'),
-        ('full-width', 'Full width (covering panel margins)'),
+        # ('stretched', 'Stretched (within panel margins)'),
+        # ('full-width', 'Full width (covering panel margins)'),
         ('left-aligned', 'Left aligned'),
         ('left-aligned-float', 'Left aligned + word wrap'),
         ('right-aligned', 'Right aligned'),
@@ -26,10 +26,22 @@ class AlignmentChoiceBlock(ChoiceBlock):
     ]
 
 
+class WidthChoiceBlock(ChoiceBlock):
+    choices = [
+        ('original', 'Original width'),
+        ('width-100', '100% stretched'),
+        ('width-33', '33% stretched'),
+        ('width-50', '50% stretched'),
+        ('width-150', '150% stretched'),
+        ('width-full-page', 'Full page stretch'),
+    ]
+
+
 class CaptionedImageBlock(StructBlock):
     image = ImageChooserBlock(required=True)
     alignment = AlignmentChoiceBlock(required=True)
-    max_width = IntegerBlock(required=False)
+    width = WidthChoiceBlock(required=True)
+    hyperlink = URLBlock(required=False)
     caption = CharBlock(required=False, max_length=200)
 
     class Meta:

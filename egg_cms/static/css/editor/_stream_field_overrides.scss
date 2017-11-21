@@ -234,9 +234,9 @@ li.stream-field {
   left: 0 !important;
   right: 0 !important;
   margin: auto auto auto 230px !important; // width of sidebar + footer left margin
-  width: 80% !important;
+  width: calc(100% - 180px - 100px) !important;
   box-sizing: border-box;
-  padding: 2em;
+  padding: 0.5em;
   background-color: rgba(177, 132, 55, 0.66);
   text-align: center;
   border-top-left-radius: 20px;
