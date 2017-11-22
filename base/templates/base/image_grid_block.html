@@ -1,0 +1,24 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+<div class="width-container image-grid {{ value.width }}">
+  <div class="alignment">
+    {% for item in value.images %}
+      <div class="image-container">
+        {% if item.hyperlink != '' %}
+          <a href="{{ item.hyperlink }}" target="_blank" title="{{ item.hyperlink }}">
+              {% image item.image original %}
+          </a>
+        {% else %}
+          {% image item.image original %}
+        {% endif %}
+
+        {% if item.caption != '' %}
+          <div class="caption">
+            <p>{{ item.caption }} <i class="fa fa-external-link" aria-hidden="true"></i></p>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>

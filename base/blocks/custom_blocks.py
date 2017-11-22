@@ -2,12 +2,13 @@ from __future__ import absolute_import, unicode_literals
 
 from django.utils.safestring import mark_safe
 
-from wagtail.wagtailcore.blocks import ChoiceBlock, StructBlock, CharBlock, RichTextBlock, TextBlock, IntegerBlock, StaticBlock, URLBlock
+from wagtail.wagtailcore.blocks import ChoiceBlock, StructBlock, CharBlock, RichTextBlock, TextBlock, IntegerBlock, StaticBlock, URLBlock, ListBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 
 __all__ = ['AlignmentChoiceBlock',
            'CaptionedImageBlock',
+           'ImageGrid',
            'AuthoredBlockQuoteBlock',
            'ClearfixBlock']
 
@@ -17,8 +18,6 @@ class AlignmentChoiceBlock(ChoiceBlock):
     # for the given div
     choices = [
         ('centered', 'Centered'),
-        # ('stretched', 'Stretched (within panel margins)'),
-        # ('full-width', 'Full width (covering panel margins)'),
         ('left-aligned', 'Left aligned'),
         ('left-aligned-float', 'Left aligned + word wrap'),
         ('right-aligned', 'Right aligned'),
@@ -39,8 +38,8 @@ class WidthChoiceBlock(ChoiceBlock):
 
 class CaptionedImageBlock(StructBlock):
     image = ImageChooserBlock(required=True)
-    alignment = AlignmentChoiceBlock(required=True)
-    width = WidthChoiceBlock(required=True)
+    alignment = AlignmentChoiceBlock(required=True, default="centered")
+    width = WidthChoiceBlock(required=True, default="width-100")
     hyperlink = URLBlock(required=False)
     caption = CharBlock(required=False, max_length=200)
 
@@ -48,6 +47,29 @@ class CaptionedImageBlock(StructBlock):
         icon = 'image'
         template = 'base/captioned_image_block.html'
         form_classname = 'fieldname-captioned_image'
+
+
+class ImageGridItem(StructBlock):
+    image = ImageChooserBlock(required=True)
+    hyperlink = URLBlock(required=False)
+    caption = CharBlock(required=False, max_length=200)
+
+    class Meta:
+        form_classname = "fieldname-image_grid_item"
+
+
+class ImageGrid(StructBlock):
+    images = ListBlock(ImageGridItem())
+    # width = WidthChoiceBlock(required=True, default="width-100")
+    width = ChoiceBlock(choices=[
+        ('width-100', '100% stretched'),
+        ('width-150', '150% stretched'),
+        ('width-50', '50% stretched')
+    ], default='width-100', label='Grid width')
+
+    class Meta:
+        template = 'base/image_grid_block.html'
+        form_classname = "fieldname-image_grid"
 
 
 class AuthoredBlockQuoteBlock(StructBlock):

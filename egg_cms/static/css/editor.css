@@ -335,6 +335,9 @@ li.stream-field {
     Captioned Image 
   ***************************************************/
   /**************************************************
+    Image Grid 
+  ***************************************************/
+  /**************************************************
     Authored Block Quote
   ***************************************************/
   /**************************************************
@@ -345,6 +348,28 @@ li.stream-field {
   ***************************************************/
   /* Paragraph -- Rich Text Block */
   /* Raw HTML */ }
+  li.stream-field label {
+    color: #EEEEEE;
+    width: 100%;
+    padding: 0; }
+  li.stream-field input,
+  li.stream-field textarea,
+  li.stream-field select {
+    color: #EEEEEE;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #717171;
+    padding: 4px !important; }
+    li.stream-field input option,
+    li.stream-field textarea option,
+    li.stream-field select option {
+      background-color: #191919; }
+  li.stream-field select + span:after {
+    font-size: 18px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background-color: transparent !important; }
   li.stream-field .fieldname-captioned_image {
     background-color: inherit;
     max-width: 650px;
@@ -373,28 +398,6 @@ li.stream-field {
         /* Width Selection Panel */
         /* Hyperlink Panel */
         /* Caption Text Panel */ }
-        li.stream-field .fieldname-captioned_image ul.fields > li label {
-          color: #EEEEEE;
-          width: 100%;
-          padding: 0; }
-        li.stream-field .fieldname-captioned_image ul.fields > li span:after {
-          font-size: 18px;
-          border: none;
-          border-radius: 0;
-          background-color: transparent; }
-        li.stream-field .fieldname-captioned_image ul.fields > li input,
-        li.stream-field .fieldname-captioned_image ul.fields > li textarea,
-        li.stream-field .fieldname-captioned_image ul.fields > li select {
-          color: #EEEEEE;
-          background-color: transparent;
-          border: none;
-          border-radius: 0;
-          border-bottom: 1px solid #717171;
-          padding: 4px; }
-          li.stream-field .fieldname-captioned_image ul.fields > li input option,
-          li.stream-field .fieldname-captioned_image ul.fields > li textarea option,
-          li.stream-field .fieldname-captioned_image ul.fields > li select option {
-            background-color: #191919; }
         li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) {
           width: 100%; }
           li.stream-field .fieldname-captioned_image ul.fields > li:nth-child(1) label {
@@ -501,6 +504,149 @@ li.stream-field {
           margin-bottom: 0 !important; }
         li.stream-field .fieldname-captioned_image:hover ul.fields > li:nth-child(1) .actions {
           opacity: 1 !important; }
+  li.stream-field .fieldname-image_grid:before {
+    content: "image grid";
+    position: absolute;
+    right: 4px;
+    padding: 1px 4px;
+    background-color: #47aa95;
+    color: white;
+    font-size: 10px;
+    font-style: italic;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    opacity: 0; }
+  li.stream-field .fieldname-image_grid ul.fields li label {
+    display: none; }
+  li.stream-field .fieldname-image_grid ul.fields,
+  li.stream-field .fieldname-image_grid .sequence-container-inner {
+    width: 100%; }
+  li.stream-field .fieldname-image_grid > ul.fields > li {
+    padding: 0;
+    /* Image List Block */
+    /* Alignment Choice Block */ }
+    li.stream-field .fieldname-image_grid > ul.fields > li:nth-child(1) {
+      transition: 0.2s ease all; }
+      li.stream-field .fieldname-image_grid > ul.fields > li:nth-child(1) .icon-order-down:before {
+        transform: rotateZ(-90deg); }
+      li.stream-field .fieldname-image_grid > ul.fields > li:nth-child(1) .icon-order-up:before {
+        transform: rotateZ(-90deg); }
+      li.stream-field .fieldname-image_grid > ul.fields > li:nth-child(1) .sequence-container-inner {
+        width: 100%;
+        /* Account for panel-tag */
+        margin-top: 10px; }
+        li.stream-field .fieldname-image_grid > ul.fields > li:nth-child(1) .sequence-container-inner > ul.sequence {
+          display: flex;
+          align-items: center;
+          justify-content: center; }
+          li.stream-field .fieldname-image_grid > ul.fields > li:nth-child(1) .sequence-container-inner > ul.sequence > li {
+            width: 50%; }
+          li.stream-field .fieldname-image_grid > ul.fields > li:nth-child(1) .sequence-container-inner > ul.sequence .sequence-member-inner {
+            border-top: none;
+            border-bottom: none; }
+        li.stream-field .fieldname-image_grid > ul.fields > li:nth-child(1) .sequence-container-inner > button {
+          position: absolute;
+          top: 50%;
+          bottom: 50%;
+          right: -100px;
+          padding-left: 0;
+          width: 35px;
+          background-color: transparent; }
+          li.stream-field .fieldname-image_grid > ul.fields > li:nth-child(1) .sequence-container-inner > button:before {
+            background-color: #262626;
+            border-radius: 50%; }
+    li.stream-field .fieldname-image_grid > ul.fields > li:nth-child(2) {
+      opacity: 0.5;
+      position: absolute;
+      right: -150px;
+      bottom: 0.5em;
+      width: 150px;
+      transition: 0.2s ease all; }
+      li.stream-field .fieldname-image_grid > ul.fields > li:nth-child(2) label {
+        display: block; }
+  li.stream-field .fieldname-image_grid:hover > ul.fields > li:nth-child(1) {
+    opacity: 1; }
+  li.stream-field .fieldname-image_grid:hover > ul.fields > li:nth-child(2) {
+    opacity: 1; }
+  li.stream-field .fieldname-image_grid:hover .fieldname-image_grid_item ul.fields > li {
+    transition: 0.2s ease all;
+    opacity: 1; }
+    li.stream-field .fieldname-image_grid:hover .fieldname-image_grid_item ul.fields > li:nth-child(1) .actions {
+      transition: 0.2s ease all;
+      opacity: 1; }
+    li.stream-field .fieldname-image_grid:hover .fieldname-image_grid_item ul.fields > li:nth-child(2) {
+      transition: 0.2s ease all;
+      opacity: 1; }
+      li.stream-field .fieldname-image_grid:hover .fieldname-image_grid_item ul.fields > li:nth-child(2):after {
+        content: "optional";
+        position: absolute;
+        right: 0;
+        bottom: 2px;
+        font-size: 10px;
+        color: #CFCFCF; }
+    li.stream-field .fieldname-image_grid:hover .fieldname-image_grid_item ul.fields > li:nth-child(3) {
+      transition: 0.2s ease all;
+      opacity: 1; }
+      li.stream-field .fieldname-image_grid:hover .fieldname-image_grid_item ul.fields > li:nth-child(3):after {
+        content: "optional";
+        position: absolute;
+        right: 0;
+        bottom: 2px;
+        font-size: 10px;
+        color: #CFCFCF; }
+  li.stream-field .fieldname-image_grid_item {
+    margin: 0.5em; }
+    li.stream-field .fieldname-image_grid_item > ul.fields {
+      position: relative; }
+      li.stream-field .fieldname-image_grid_item > ul.fields > li {
+        padding: 0;
+        /* Image Chooser Panel */
+        /* Hyperlink Panel */
+        /* Caption Panel */ }
+        li.stream-field .fieldname-image_grid_item > ul.fields > li:nth-child(1) .field-content {
+          padding: 0;
+          border: none; }
+        li.stream-field .fieldname-image_grid_item > ul.fields > li:nth-child(1) .image-chooser .chosen {
+          padding-left: unset;
+          line-height: 0; }
+        li.stream-field .fieldname-image_grid_item > ul.fields > li:nth-child(1) .image-chooser .preview-image {
+          margin: auto;
+          float: unset;
+          max-width: unset; }
+          li.stream-field .fieldname-image_grid_item > ul.fields > li:nth-child(1) .image-chooser .preview-image img {
+            width: 100%;
+            max-width: unset;
+            max-height: unset; }
+        li.stream-field .fieldname-image_grid_item > ul.fields > li:nth-child(1) .image-chooser .actions {
+          opacity: 0;
+          text-align: center;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0; }
+          li.stream-field .fieldname-image_grid_item > ul.fields > li:nth-child(1) .image-chooser .actions > li {
+            float: unset; }
+        li.stream-field .fieldname-image_grid_item > ul.fields > li:nth-child(2) {
+          opacity: 0; }
+          li.stream-field .fieldname-image_grid_item > ul.fields > li:nth-child(2) .field-content .input:before {
+            /* Hide dumb little hyperlink icon */
+            content: ''; }
+          li.stream-field .fieldname-image_grid_item > ul.fields > li:nth-child(2) .field-content .input input {
+            color: #eeeeee;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            border-bottom: 1px solid #717171;
+            padding: 4px; }
+        li.stream-field .fieldname-image_grid_item > ul.fields > li:nth-child(3) {
+          opacity: 0; }
+          li.stream-field .fieldname-image_grid_item > ul.fields > li:nth-child(3) .field-content input {
+            color: #eeeeee;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            border-bottom: 1px solid #717171;
+            padding: 4px; }
   li.stream-field .fieldname-authored_block_quote {
     margin: 0 0 0 25%; }
     li.stream-field .fieldname-authored_block_quote:before {

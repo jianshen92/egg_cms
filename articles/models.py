@@ -21,12 +21,12 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, Inli
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
-from wagtail.wagtailcore.blocks import RichTextBlock, RawHTMLBlock, BlockQuoteBlock
+from wagtail.wagtailcore.blocks import RichTextBlock, RawHTMLBlock, BlockQuoteBlock, ListBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 
 from wagtail.api import APIField
 
-from base.blocks import CaptionedImageBlock, AuthoredBlockQuoteBlock, ClearfixBlock
+from base.blocks import CaptionedImageBlock, AuthoredBlockQuoteBlock, ClearfixBlock, ImageGrid
 from base.utils import html_replace_img, get_wagtail_image_url
 
 
@@ -94,7 +94,8 @@ class ArticlePage(Page):
                 label="Block Quote")),
             ('embed', EmbedBlock()),
             ('raw_html', RawHTMLBlock(label="Raw HTML")),
-            ('clearfix', ClearfixBlock())
+            ('clearfix', ClearfixBlock()),
+            ('image_row', ImageGrid())
         ],
         null=True,
     )
