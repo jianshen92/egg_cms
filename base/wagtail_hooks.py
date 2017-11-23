@@ -104,3 +104,17 @@ def editor_js():
         </script>
         """
     )
+
+
+@hooks.register('construct_explorer_page_queryset')
+def apply_default_order_to_news_section(parent_page, pages, request):
+
+    if parent_page.slug == 'news' and 'ordering' not in request.GET:
+        # this is the news section, and the user has not chosen a specific ordering
+        pages = pages.order_by('-first_published_at')
+
+        # note that if the field you want to order on is specific to NewsPage,
+        # you'll need to hack things a bit more to retrieve that:
+        # pages = NewsPage.objects.child_of(parent_page).order_by('post_date')
+
+    return pages
