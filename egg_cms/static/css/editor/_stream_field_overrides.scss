@@ -233,6 +233,7 @@ li.stream-field {
   bottom: 50px !important; // height of Save Draft footer
   left: 0 !important;
   right: 0 !important;
+  z-index: 1001 !important;
   margin: auto auto auto 230px !important; // width of sidebar + footer left margin
   width: calc(100% - 180px - 100px) !important;
   box-sizing: border-box;
@@ -245,9 +246,45 @@ li.stream-field {
 
 @media screen and (max-width: 50em) {
   .hallotoolbar {
+    // Make hallo bar scrollable instead of rows, to save space on mobile
     margin: auto !important;
-    width: 90% !important;
-    padding: 1em !important;
-    bottom: 130px !important;
+    width: 100% !important;
+    padding: 0.5em !important;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    overflow: scroll;
+    span {
+      display: table-cell;
+    }
+    &>span {
+      border-right: 8px solid transparent;
+    }
+  }
+  #page-edit-form footer {
+    // Modify the disgusting mobile view footer so it takes up less space
+    width: 100%;
+    margin: auto;
+    z-index: 1001;
+    .actions {
+      width: 50%;
+    }
+    .preview {
+      width: calc(50% - 1em);
+      button {
+        margin: 0;
+      }
+    }
+    .meta {
+      width: 100%;
+      float: left;
+      text-align: left;
+      padding: 4px 4px 0 4px;
+      span.avatar {
+        display: none;
+      }
+      a {
+        display: none;
+      }
+    }
   }
 }
