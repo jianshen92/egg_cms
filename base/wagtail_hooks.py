@@ -65,7 +65,7 @@ def whitelister_element_rules():
 @hooks.register('insert_editor_css')
 def editor_css():
     css_files = [
-        'css/editor.css',
+        'css/editor-1.0.css',
     ]
 
     return format_html_join(
@@ -78,7 +78,7 @@ def editor_css():
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
     css_files = [
-        'css/admin.css'
+        'css/admin-1.0.css'
     ]
 
     return format_html_join(
