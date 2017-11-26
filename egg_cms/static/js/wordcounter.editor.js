@@ -54,5 +54,9 @@ function CountWords(object, types = ["p", "h1", "h2", "h3", "h4", "h5", "h6"]) {
 }
 
 function Sum(array) {
-  return array.reduce((x, y) => x + y);
+  if (array.length > 0) {
+    return array.reduce((x, y) => x + y);
+  } else {
+    return "0";
+  }
 }

@@ -203,7 +203,11 @@ function CountWords(object) {
 }
 
 function Sum(array) {
-  return array.reduce(function (x, y) {
-    return x + y;
-  });
+  if (array.length > 0) {
+    return array.reduce(function (x, y) {
+      return x + y;
+    });
+  } else {
+    return "0";
+  }
 }
