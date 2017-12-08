@@ -65,7 +65,7 @@ def whitelister_element_rules():
 @hooks.register('insert_editor_css')
 def editor_css():
     css_files = [
-        'css/editor-1.0.css',
+        'css/editor-1.1.css',
     ]
 
     return format_html_join(
