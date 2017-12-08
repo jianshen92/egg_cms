@@ -2,6 +2,13 @@
     Stream Field (general overrides) 
   ***************************************************/
 
+$h1-h2-size: 2.2em;
+$h3-h4-size: 1.8em;
+$h5-h6-size: 1.4em;
+$egg-yellow: #faae18;
+$egg-yellow: #faae18;
+$link-color: #ffd889;
+$link-hover-color: #faae18;
 #body-prependmenu {
   opacity: 1 !important;
 }
@@ -121,49 +128,56 @@ li.stream-field {
     min-height: 1em;
     transition: 0.2s ease all;
     p {
-      margin: 0;
+      line-height: 1.6em;
+      letter-spacing: 0.4px;
+      color: inherit;
       margin-bottom: 1em;
     }
+    h1,
     h2,
-    h3 {
-      position: relative;
-      font-size: 34px;
+    h3,
+    h4,
+    h5,
+    h6 {
       font-weight: bold;
-      line-height: 1em;
-      letter-spacing: -2px;
-    }
-    h2 {
-      color: inherit; //background-color: rgba(250, 174, 24, .81);
-      padding: 0 20% 0 0;
-      margin: 1em 0 0.5em 0;
-    }
-    h3 {
-      padding-right: 15%;
-      margin-top: 20px;
-      margin-bottom: 10px;
-    }
-    h4 {
       position: relative;
-      font-size: 26px;
-      font-weight: bold;
-      line-height: 1em;
       letter-spacing: -1px;
-      padding-right: 15%;
-      color: #ffc755;
-      margin-top: 10px;
+      margin-top: 1em;
       margin-bottom: 10px;
+      color: white;
+      padding: 0;
     }
-    h5 {
-      font-size: 12px;
-      line-height: 1.5em;
-      letter-spacing: 0.2px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+    h1,
+    h2 {
+      font-size: $h1-h2-size;
+      padding-right: 15%;
+    }
+    h3,
+    h4 {
+      font-size: $h3-h4-size;
+      padding-right: 10%;
+    }
+    h5,
+    h6 {
+      font-size: $h5-h6-size;
+    }
+    h2,
+    h4,
+    h6 {
+      color: $egg-yellow;
     }
     hr {
-      border-top: 3px solid rgba(255, 255, 255, 0.8);
+      border-top: 3px solid rgba(255, 255, 255, 0.5);
       border-bottom: 3px solid transparent;
-      margin: 10px -15px;
+      margin: 10px -8px;
+    }
+    a {
+      text-decoration: none;
+      color: $link-color;
+      &:hover {
+        text-decoration: underline;
+        color: $link-hover-color;
+      }
     }
     div {
       // sometimes newlines won't auto select to <p>
