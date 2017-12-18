@@ -436,32 +436,18 @@
 .feed.grid .grid-items .grid-panel .img-container:before {
   content: "";
   display: block;
-  padding-top: 60%
-}
-
-@media only screen and (max-width:767px) {
-  .feed.grid .grid-items .grid-panel .img-container:before {
-    padding-top: 50%
-  }
+  padding-top: 50%
 }
 
 .feed.grid .grid-items .grid-panel .img-container img {
   position: absolute;
   top: 0;
   left: 0;
-  width: 120%;
-  margin-left: -10%;
+  width: 100%;
   -webkit-filter: contrast(80%);
   filter: contrast(80%);
   -webkit-transition: all .3s ease;
   transition: all .3s ease
-}
-
-@media only screen and (max-width:767px) {
-  .feed.grid .grid-items .grid-panel .img-container img {
-    margin-top: -10%;
-    margin-bottom: -10%
-  }
 }
 
 .feed.grid .grid-items .grid-panel .grid-info {
@@ -850,6 +836,22 @@
   letter-spacing: 1px
 }
 
+.channels-feed .all-channels {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end
+}
+
 .channels-feed .channel {
   text-align: center
 }
@@ -857,6 +859,12 @@
 .channels-feed .channel img {
   width: 100%;
   max-width: 200px
+}
+
+@media only screen and (max-width:767px) {
+  .channels-feed .channel .cool-btn {
+    padding: 4px 8px
+  }
 }
 
 .contact-feed .socialmedia {
@@ -1719,32 +1727,18 @@
 .feed.grid .grid-items .grid-panel .img-container:before {
   content: "";
   display: block;
-  padding-top: 60%
-}
-
-@media only screen and (max-width:767px) {
-  .feed.grid .grid-items .grid-panel .img-container:before {
-    padding-top: 50%
-  }
+  padding-top: 50%
 }
 
 .feed.grid .grid-items .grid-panel .img-container img {
   position: absolute;
   top: 0;
   left: 0;
-  width: 120%;
-  margin-left: -10%;
+  width: 100%;
   -webkit-filter: contrast(80%);
   filter: contrast(80%);
   -webkit-transition: all .3s ease;
   transition: all .3s ease
-}
-
-@media only screen and (max-width:767px) {
-  .feed.grid .grid-items .grid-panel .img-container img {
-    margin-top: -10%;
-    margin-bottom: -10%
-  }
 }
 
 .feed.grid .grid-items .grid-panel .grid-info {
@@ -2400,9 +2394,9 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start
 }
 
 .news-page .news-content .block-image_row .image-grid .alignment .image-container {
